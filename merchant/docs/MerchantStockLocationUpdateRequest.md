@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Stock** | Pointer to **int32** | The stock of the product. Should not be negative. | [optional] 
-**StockLocationId** | Pointer to **NullableInt32** | The stock location id of updated stok.  If not provided stock from default stock location will be updated. | [optional] 
+**StockLocationId** | Pointer to **NullableInt32** | The stock location id of the updated stock. If not provided, the stock from the default stock location will be updated. | [optional] 
 
 ## Methods
 

@@ -4,6 +4,8 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Id** | Pointer to **int32** | The unique identifier used by ChannelEngine. | [optional] 
+**ChannelOrderLineNo** | Pointer to **NullableString** | The order line reference used by the channel. | [optional] 
 **Status** | Pointer to [**OrderStatusView**](OrderStatusView.md) |  | [optional] 
 **IsFulfillmentByMarketplace** | Pointer to **bool** | Is the order fulfilled by the marketplace (amazon: FBA, bol: LVB, etc.)?. | [optional] 
 **Gtin** | Pointer to **NullableString** | Either the GTIN (EAN, ISBN, UPC etc) provided by the channel, or the the GTIN belonging to the MerchantProductNo in ChannelEngine. | [optional] 
@@ -34,7 +36,11 @@ Name | Type | Description | Notes
 **FeeFixed** | Pointer to **float32** | A fixed fee that is charged by the Channel for this orderline.  This fee rate is based on the currency of the Channel  This field is optional, send 0 if not applicable. | [optional] 
 **FeeRate** | Pointer to **float32** | A percentage fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable. | [optional] 
 **Condition** | Pointer to [**Condition**](Condition.md) |  | [optional] 
+**ExactDeliveryDate** | Pointer to **NullableTime** | Exact delivery date from channels, empty if channels not support this value | [optional] 
 **ExpectedDeliveryDate** | Pointer to **NullableTime** | Expected delivery date from channels, empty if channels not support this value | [optional] 
+**LatestDeliveryDate** | Pointer to **NullableTime** | Latest delivery date from channels, empty if channels not support this value | [optional] 
+**ExpectedShipmentDate** | Pointer to **NullableTime** | Expected shipment date from channels, empty if channels not support this value | [optional] 
+**LatestShipmentDate** | Pointer to **NullableTime** | Latest shipment date from channels, empty if channels not support this value | [optional] 
 
 ## Methods
 
@@ -55,6 +61,66 @@ NewMerchantOrderLineResponseWithDefaults instantiates a new MerchantOrderLineRes
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
+### GetId
+
+`func (o *MerchantOrderLineResponse) GetId() int32`
+
+GetId returns the Id field if non-nil, zero value otherwise.
+
+### GetIdOk
+
+`func (o *MerchantOrderLineResponse) GetIdOk() (*int32, bool)`
+
+GetIdOk returns a tuple with the Id field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetId
+
+`func (o *MerchantOrderLineResponse) SetId(v int32)`
+
+SetId sets Id field to given value.
+
+### HasId
+
+`func (o *MerchantOrderLineResponse) HasId() bool`
+
+HasId returns a boolean if a field has been set.
+
+### GetChannelOrderLineNo
+
+`func (o *MerchantOrderLineResponse) GetChannelOrderLineNo() string`
+
+GetChannelOrderLineNo returns the ChannelOrderLineNo field if non-nil, zero value otherwise.
+
+### GetChannelOrderLineNoOk
+
+`func (o *MerchantOrderLineResponse) GetChannelOrderLineNoOk() (*string, bool)`
+
+GetChannelOrderLineNoOk returns a tuple with the ChannelOrderLineNo field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetChannelOrderLineNo
+
+`func (o *MerchantOrderLineResponse) SetChannelOrderLineNo(v string)`
+
+SetChannelOrderLineNo sets ChannelOrderLineNo field to given value.
+
+### HasChannelOrderLineNo
+
+`func (o *MerchantOrderLineResponse) HasChannelOrderLineNo() bool`
+
+HasChannelOrderLineNo returns a boolean if a field has been set.
+
+### SetChannelOrderLineNoNil
+
+`func (o *MerchantOrderLineResponse) SetChannelOrderLineNoNil(b bool)`
+
+ SetChannelOrderLineNoNil sets the value for ChannelOrderLineNo to be an explicit nil
+
+### UnsetChannelOrderLineNo
+`func (o *MerchantOrderLineResponse) UnsetChannelOrderLineNo()`
+
+UnsetChannelOrderLineNo ensures that no value is present for ChannelOrderLineNo, not even an explicit nil
 ### GetStatus
 
 `func (o *MerchantOrderLineResponse) GetStatus() OrderStatusView`
@@ -970,6 +1036,41 @@ SetCondition sets Condition field to given value.
 
 HasCondition returns a boolean if a field has been set.
 
+### GetExactDeliveryDate
+
+`func (o *MerchantOrderLineResponse) GetExactDeliveryDate() time.Time`
+
+GetExactDeliveryDate returns the ExactDeliveryDate field if non-nil, zero value otherwise.
+
+### GetExactDeliveryDateOk
+
+`func (o *MerchantOrderLineResponse) GetExactDeliveryDateOk() (*time.Time, bool)`
+
+GetExactDeliveryDateOk returns a tuple with the ExactDeliveryDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExactDeliveryDate
+
+`func (o *MerchantOrderLineResponse) SetExactDeliveryDate(v time.Time)`
+
+SetExactDeliveryDate sets ExactDeliveryDate field to given value.
+
+### HasExactDeliveryDate
+
+`func (o *MerchantOrderLineResponse) HasExactDeliveryDate() bool`
+
+HasExactDeliveryDate returns a boolean if a field has been set.
+
+### SetExactDeliveryDateNil
+
+`func (o *MerchantOrderLineResponse) SetExactDeliveryDateNil(b bool)`
+
+ SetExactDeliveryDateNil sets the value for ExactDeliveryDate to be an explicit nil
+
+### UnsetExactDeliveryDate
+`func (o *MerchantOrderLineResponse) UnsetExactDeliveryDate()`
+
+UnsetExactDeliveryDate ensures that no value is present for ExactDeliveryDate, not even an explicit nil
 ### GetExpectedDeliveryDate
 
 `func (o *MerchantOrderLineResponse) GetExpectedDeliveryDate() time.Time`
@@ -1005,6 +1106,111 @@ HasExpectedDeliveryDate returns a boolean if a field has been set.
 `func (o *MerchantOrderLineResponse) UnsetExpectedDeliveryDate()`
 
 UnsetExpectedDeliveryDate ensures that no value is present for ExpectedDeliveryDate, not even an explicit nil
+### GetLatestDeliveryDate
+
+`func (o *MerchantOrderLineResponse) GetLatestDeliveryDate() time.Time`
+
+GetLatestDeliveryDate returns the LatestDeliveryDate field if non-nil, zero value otherwise.
+
+### GetLatestDeliveryDateOk
+
+`func (o *MerchantOrderLineResponse) GetLatestDeliveryDateOk() (*time.Time, bool)`
+
+GetLatestDeliveryDateOk returns a tuple with the LatestDeliveryDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatestDeliveryDate
+
+`func (o *MerchantOrderLineResponse) SetLatestDeliveryDate(v time.Time)`
+
+SetLatestDeliveryDate sets LatestDeliveryDate field to given value.
+
+### HasLatestDeliveryDate
+
+`func (o *MerchantOrderLineResponse) HasLatestDeliveryDate() bool`
+
+HasLatestDeliveryDate returns a boolean if a field has been set.
+
+### SetLatestDeliveryDateNil
+
+`func (o *MerchantOrderLineResponse) SetLatestDeliveryDateNil(b bool)`
+
+ SetLatestDeliveryDateNil sets the value for LatestDeliveryDate to be an explicit nil
+
+### UnsetLatestDeliveryDate
+`func (o *MerchantOrderLineResponse) UnsetLatestDeliveryDate()`
+
+UnsetLatestDeliveryDate ensures that no value is present for LatestDeliveryDate, not even an explicit nil
+### GetExpectedShipmentDate
+
+`func (o *MerchantOrderLineResponse) GetExpectedShipmentDate() time.Time`
+
+GetExpectedShipmentDate returns the ExpectedShipmentDate field if non-nil, zero value otherwise.
+
+### GetExpectedShipmentDateOk
+
+`func (o *MerchantOrderLineResponse) GetExpectedShipmentDateOk() (*time.Time, bool)`
+
+GetExpectedShipmentDateOk returns a tuple with the ExpectedShipmentDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpectedShipmentDate
+
+`func (o *MerchantOrderLineResponse) SetExpectedShipmentDate(v time.Time)`
+
+SetExpectedShipmentDate sets ExpectedShipmentDate field to given value.
+
+### HasExpectedShipmentDate
+
+`func (o *MerchantOrderLineResponse) HasExpectedShipmentDate() bool`
+
+HasExpectedShipmentDate returns a boolean if a field has been set.
+
+### SetExpectedShipmentDateNil
+
+`func (o *MerchantOrderLineResponse) SetExpectedShipmentDateNil(b bool)`
+
+ SetExpectedShipmentDateNil sets the value for ExpectedShipmentDate to be an explicit nil
+
+### UnsetExpectedShipmentDate
+`func (o *MerchantOrderLineResponse) UnsetExpectedShipmentDate()`
+
+UnsetExpectedShipmentDate ensures that no value is present for ExpectedShipmentDate, not even an explicit nil
+### GetLatestShipmentDate
+
+`func (o *MerchantOrderLineResponse) GetLatestShipmentDate() time.Time`
+
+GetLatestShipmentDate returns the LatestShipmentDate field if non-nil, zero value otherwise.
+
+### GetLatestShipmentDateOk
+
+`func (o *MerchantOrderLineResponse) GetLatestShipmentDateOk() (*time.Time, bool)`
+
+GetLatestShipmentDateOk returns a tuple with the LatestShipmentDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatestShipmentDate
+
+`func (o *MerchantOrderLineResponse) SetLatestShipmentDate(v time.Time)`
+
+SetLatestShipmentDate sets LatestShipmentDate field to given value.
+
+### HasLatestShipmentDate
+
+`func (o *MerchantOrderLineResponse) HasLatestShipmentDate() bool`
+
+HasLatestShipmentDate returns a boolean if a field has been set.
+
+### SetLatestShipmentDateNil
+
+`func (o *MerchantOrderLineResponse) SetLatestShipmentDateNil(b bool)`
+
+ SetLatestShipmentDateNil sets the value for LatestShipmentDate to be an explicit nil
+
+### UnsetLatestShipmentDate
+`func (o *MerchantOrderLineResponse) UnsetLatestShipmentDate()`
+
+UnsetLatestShipmentDate ensures that no value is present for LatestShipmentDate, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

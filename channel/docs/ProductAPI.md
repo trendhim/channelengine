@@ -26,24 +26,24 @@ Acknowledge product data changes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    channelProcessedChangesRequest := *openapiclient.NewChannelProcessedChangesRequest() // ChannelProcessedChangesRequest | The merchant references of the products which have been<br /> successfully created, updated or deleted (after a call to 'GetDataChanges'). (optional)
+	channelProcessedChangesRequest := *openapiclient.NewChannelProcessedChangesRequest() // ChannelProcessedChangesRequest | The merchant references of the products which have been<br /> successfully created, updated or deleted (after a call to 'GetDataChanges'). (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAPI.ProductAcknowledgeDataChanges(context.Background()).ChannelProcessedChangesRequest(channelProcessedChangesRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductAcknowledgeDataChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAcknowledgeDataChanges`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductAcknowledgeDataChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAPI.ProductAcknowledgeDataChanges(context.Background()).ChannelProcessedChangesRequest(channelProcessedChangesRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductAcknowledgeDataChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAcknowledgeDataChanges`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductAcknowledgeDataChanges`: %v\n", resp)
 }
 ```
 
@@ -92,25 +92,25 @@ Acknowledge product offer changes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    keyIsMpn := true // bool | If set to true, changes has to be a list of merchant references instead of channel references. (optional) (default to false)
-    requestBody := []string{"Property_example"} // []string | The channel references of the updated products. (optional)
+	keyIsMpn := true // bool | If set to true, changes has to be a list of merchant references instead of channel references. (optional) (default to false)
+	requestBody := []string{"Property_example"} // []string | The channel references of the updated products. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAPI.ProductAcknowledgeOfferChanges(context.Background()).KeyIsMpn(keyIsMpn).RequestBody(requestBody).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductAcknowledgeOfferChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAcknowledgeOfferChanges`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductAcknowledgeOfferChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAPI.ProductAcknowledgeOfferChanges(context.Background()).KeyIsMpn(keyIsMpn).RequestBody(requestBody).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductAcknowledgeOfferChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAcknowledgeOfferChanges`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductAcknowledgeOfferChanges`: %v\n", resp)
 }
 ```
 
@@ -160,27 +160,27 @@ Gets product data changes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    maxCount := int32(56) // int32 | Optional - limit the amount of products returned for each field<br /> (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
-    stripHtml := true // bool | Optional - strips html by default on all fields (optional) (default to true)
-    page := int32(56) // int32 | Optional - for default is first page returned (optional) (default to 1)
-    pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products (optional)
+	maxCount := int32(56) // int32 | Optional - limit the amount of products returned for each field<br /> (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
+	stripHtml := true // bool | Optional - strips html by default on all fields (optional) (default to true)
+	page := int32(56) // int32 | Optional - for default is first page returned (optional) (default to 1)
+	pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAPI.ProductGetDataChanges(context.Background()).MaxCount(maxCount).StripHtml(stripHtml).Page(page).PageSize(pageSize).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetDataChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductGetDataChanges`: CollectionChangesOfChannelProductChangesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetDataChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAPI.ProductGetDataChanges(context.Background()).MaxCount(maxCount).StripHtml(stripHtml).Page(page).PageSize(pageSize).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetDataChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductGetDataChanges`: CollectionChangesOfChannelProductChangesResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetDataChanges`: %v\n", resp)
 }
 ```
 
@@ -230,28 +230,28 @@ Gets product data changes with an optional product type filter. If you select pr
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    productType := openapiclient.DataChangesProductType("SINGLE") // DataChangesProductType | Optional - Type of products (optional)
-    maxCount := int32(56) // int32 | Optional - limit the amount of products returned for each field<br /> (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
-    stripHtml := true // bool | Optional - strips html by default on all fields (optional) (default to true)
-    page := int32(56) // int32 | Optional - for default is first page returned (optional) (default to 1)
-    pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products (optional)
+	productType := openapiclient.DataChangesProductType("SINGLE") // DataChangesProductType | Optional - Type of products (optional)
+	maxCount := int32(56) // int32 | Optional - limit the amount of products returned for each field<br /> (ToBeCreated, ToBeUpdated, ToBeRemoved) to this number. (optional)
+	stripHtml := true // bool | Optional - strips html by default on all fields (optional) (default to true)
+	page := int32(56) // int32 | Optional - for default is first page returned (optional) (default to 1)
+	pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAPI.ProductGetDataChangesFull(context.Background()).ProductType(productType).MaxCount(maxCount).StripHtml(stripHtml).Page(page).PageSize(pageSize).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetDataChangesFull``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductGetDataChangesFull`: CollectionChangesOfChannelProductChangesResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetDataChangesFull`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAPI.ProductGetDataChangesFull(context.Background()).ProductType(productType).MaxCount(maxCount).StripHtml(stripHtml).Page(page).PageSize(pageSize).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetDataChangesFull``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductGetDataChangesFull`: CollectionChangesOfChannelProductChangesResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetDataChangesFull`: %v\n", resp)
 }
 ```
 
@@ -304,25 +304,25 @@ Gets product offer changes
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    page := int32(56) // int32 | Optional - for default is first page returned (optional) (default to 1)
-    pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products (optional)
+	page := int32(56) // int32 | Optional - for default is first page returned. Not recomended could return the same offers in different pages. (optional) (default to 1)
+	pageSize := int32(56) // int32 | Optional - amount of products returned, if not provided return all products. Not recomended could return the same offers in different pages. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAPI.ProductGetOfferChanges(context.Background()).Page(page).PageSize(pageSize).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetOfferChanges``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductGetOfferChanges`: CollectionOfChannelOfferResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetOfferChanges`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAPI.ProductGetOfferChanges(context.Background()).Page(page).PageSize(pageSize).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAPI.ProductGetOfferChanges``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductGetOfferChanges`: CollectionOfChannelOfferResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAPI.ProductGetOfferChanges`: %v\n", resp)
 }
 ```
 
@@ -337,8 +337,8 @@ Other parameters are passed through a pointer to a apiProductGetOfferChangesRequ
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **int32** | Optional - for default is first page returned | [default to 1]
- **pageSize** | **int32** | Optional - amount of products returned, if not provided return all products | 
+ **page** | **int32** | Optional - for default is first page returned. Not recomended could return the same offers in different pages. | [default to 1]
+ **pageSize** | **int32** | Optional - amount of products returned, if not provided return all products. Not recomended could return the same offers in different pages. | 
 
 ### Return type
 

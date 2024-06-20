@@ -27,24 +27,24 @@ Creates shipments
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantShipmentRequest := *openapiclient.NewMerchantShipmentRequest("MerchantShipmentNo_example", "MerchantOrderNo_example", []openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}) // MerchantShipmentRequest |  (optional)
+	merchantShipmentRequest := *openapiclient.NewMerchantShipmentRequest("MerchantShipmentNo_example", "MerchantOrderNo_example", []openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}) // MerchantShipmentRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentCreate(context.Background()).MerchantShipmentRequest(merchantShipmentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentCreate(context.Background()).MerchantShipmentRequest(merchantShipmentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentCreate`: %v\n", resp)
 }
 ```
 
@@ -93,24 +93,24 @@ Creates a shipment and initiates shipping label generation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantChannelLabelShipmentRequest := *openapiclient.NewMerchantChannelLabelShipmentRequest(*openapiclient.NewMerchantShipmentPackageDimensionsRequest(), *openapiclient.NewMerchantShipmentPackageWeightRequest(), "ChannelMethodCode_example", "MerchantShipmentNo_example", "MerchantOrderNo_example", []openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}) // MerchantChannelLabelShipmentRequest | The shipment to create (optional)
+	merchantChannelLabelShipmentRequest := *openapiclient.NewMerchantChannelLabelShipmentRequest(*openapiclient.NewMerchantShipmentPackageDimensionsRequest(), *openapiclient.NewMerchantShipmentPackageWeightRequest(), "ChannelMethodCode_example", "MerchantShipmentNo_example", "MerchantOrderNo_example", []openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}) // MerchantChannelLabelShipmentRequest | The shipment to create (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentCreateForChannelMethod(context.Background()).MerchantChannelLabelShipmentRequest(merchantChannelLabelShipmentRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentCreateForChannelMethod``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentCreateForChannelMethod`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentCreateForChannelMethod`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentCreateForChannelMethod(context.Background()).MerchantChannelLabelShipmentRequest(merchantChannelLabelShipmentRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentCreateForChannelMethod``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentCreateForChannelMethod`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentCreateForChannelMethod`: %v\n", resp)
 }
 ```
 
@@ -159,25 +159,25 @@ Gets carriers providing shipping labels
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantOrderNo := "merchantOrderNo_example" // string | The merchant's order reference.
-    merchantShipmentLabelCarrierRequest := *openapiclient.NewMerchantShipmentLabelCarrierRequest([]openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}, *openapiclient.NewMerchantShipmentPackageDimensionsRequest(), *openapiclient.NewMerchantShipmentPackageWeightRequest()) // MerchantShipmentLabelCarrierRequest | The parcel information (optional)
+	merchantOrderNo := "merchantOrderNo_example" // string | The merchant's order reference.
+	merchantShipmentLabelCarrierRequest := *openapiclient.NewMerchantShipmentLabelCarrierRequest([]openapiclient.MerchantShipmentLineRequest{*openapiclient.NewMerchantShipmentLineRequest("MerchantProductNo_example", int32(123))}, *openapiclient.NewMerchantShipmentPackageDimensionsRequest(), *openapiclient.NewMerchantShipmentPackageWeightRequest()) // MerchantShipmentLabelCarrierRequest | The parcel information (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentGetShipmentLabelCarriers(context.Background(), merchantOrderNo).MerchantShipmentLabelCarrierRequest(merchantShipmentLabelCarrierRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentGetShipmentLabelCarriers``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentGetShipmentLabelCarriers`: CollectionOfMerchantShipmentLabelCarrierResponse
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentGetShipmentLabelCarriers`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentGetShipmentLabelCarriers(context.Background(), merchantOrderNo).MerchantShipmentLabelCarrierRequest(merchantShipmentLabelCarrierRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentGetShipmentLabelCarriers``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentGetShipmentLabelCarriers`: CollectionOfMerchantShipmentLabelCarrierResponse
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentGetShipmentLabelCarriers`: %v\n", resp)
 }
 ```
 
@@ -231,38 +231,38 @@ Gets shipments by filter
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantShipmentNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) as used by the merchant. (optional)
-    merchantOrderNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) of order as used by the merchant. (optional)
-    method := "method_example" // string | Filter on the shipping method. (optional)
-    shippedFromCountryCodes := []string{"Inner_example"} // []string | 2-digit Country code (optional)
-    fromShipmentDate := time.Now() // time.Time | Filter on the shipment date, starting from this date. This date is inclusive. (optional)
-    toShipmentDate := time.Now() // time.Time | Filter on the shipment date, until this date. This date is exclusive. (optional)
-    fromCreateDate := time.Now() // time.Time | Filter on the create date of the shipment in ChannelEngine, starting from this date. This date is inclusive. (optional)
-    toCreateDate := time.Now() // time.Time | Filter on the create date of the shipment in ChannelEngine, until this date. This date is exclusive. (optional)
-    fromUpdateDate := time.Now() // time.Time | Filter on the update date of the shipment in ChannelEngine, starting from this date. This date is inclusive. (optional)
-    toUpdateDate := time.Now() // time.Time | Filter on the update date of the shipment in ChannelEngine, until this date. This date is exclusive. (optional)
-    fulfillmentType := openapiclient.ShipmentFulfillmentType("ALL") // ShipmentFulfillmentType | Filter on the fulfillment type of the shipment. (optional)
-    channelShipmentNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) as used by the channel. (optional)
-    channelOrderNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) of order as used by the channel. (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	merchantShipmentNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) as used by the merchant. (optional)
+	merchantOrderNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) of order as used by the merchant. (optional)
+	method := "method_example" // string | Filter on the shipping method. (optional)
+	shippedFromCountryCodes := []string{"Inner_example"} // []string | 2-digit Country code (optional)
+	fromShipmentDate := time.Now() // time.Time | Filter on the shipment date, starting from this date. This date is inclusive. (optional)
+	toShipmentDate := time.Now() // time.Time | Filter on the shipment date, until this date. This date is exclusive. (optional)
+	fromCreateDate := time.Now() // time.Time | Filter on the create date of the shipment in ChannelEngine, starting from this date. This date is inclusive. (optional)
+	toCreateDate := time.Now() // time.Time | Filter on the create date of the shipment in ChannelEngine, until this date. This date is exclusive. (optional)
+	fromUpdateDate := time.Now() // time.Time | Filter on the update date of the shipment in ChannelEngine, starting from this date. This date is inclusive. (optional)
+	toUpdateDate := time.Now() // time.Time | Filter on the update date of the shipment in ChannelEngine, until this date. This date is exclusive. (optional)
+	fulfillmentType := openapiclient.ShipmentFulfillmentType("ALL") // ShipmentFulfillmentType | Filter on the fulfillment type of the shipment. (optional)
+	channelShipmentNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) as used by the channel. (optional)
+	channelOrderNos := []string{"Inner_example"} // []string | Filter on the unique references (ids) of order as used by the channel. (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentIndex(context.Background()).MerchantShipmentNos(merchantShipmentNos).MerchantOrderNos(merchantOrderNos).Method(method).ShippedFromCountryCodes(shippedFromCountryCodes).FromShipmentDate(fromShipmentDate).ToShipmentDate(toShipmentDate).FromCreateDate(fromCreateDate).ToCreateDate(toCreateDate).FromUpdateDate(fromUpdateDate).ToUpdateDate(toUpdateDate).FulfillmentType(fulfillmentType).ChannelShipmentNos(channelShipmentNos).ChannelOrderNos(channelOrderNos).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentIndex``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentIndex`: CollectionOfMerchantShipmentResponse
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentIndex`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentIndex(context.Background()).MerchantShipmentNos(merchantShipmentNos).MerchantOrderNos(merchantOrderNos).Method(method).ShippedFromCountryCodes(shippedFromCountryCodes).FromShipmentDate(fromShipmentDate).ToShipmentDate(toShipmentDate).FromCreateDate(fromCreateDate).ToCreateDate(toCreateDate).FromUpdateDate(fromUpdateDate).ToUpdateDate(toUpdateDate).FulfillmentType(fulfillmentType).ChannelShipmentNos(channelShipmentNos).ChannelOrderNos(channelOrderNos).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentIndex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentIndex`: CollectionOfMerchantShipmentResponse
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentIndex`: %v\n", resp)
 }
 ```
 
@@ -324,24 +324,24 @@ Gets a shipping label
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantShipmentNo := "merchantShipmentNo_example" // string | The unique shipment reference as used by the merchant.
+	merchantShipmentNo := "merchantShipmentNo_example" // string | The unique shipment reference as used by the merchant.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentShippingLabel(context.Background(), merchantShipmentNo).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentShippingLabel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentShippingLabel`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentShippingLabel`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentShippingLabel(context.Background(), merchantShipmentNo).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentShippingLabel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentShippingLabel`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentShippingLabel`: %v\n", resp)
 }
 ```
 
@@ -394,25 +394,25 @@ Updates a shipment
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantShipmentNo := "merchantShipmentNo_example" // string | The merchant's shipment reference.
-    merchantShipmentTrackingRequest := *openapiclient.NewMerchantShipmentTrackingRequest("Method_example", "TrackTraceNo_example") // MerchantShipmentTrackingRequest | The updated tracking information. (optional)
+	merchantShipmentNo := "merchantShipmentNo_example" // string | The merchant's shipment reference.
+	merchantShipmentTrackingRequest := *openapiclient.NewMerchantShipmentTrackingRequest("Method_example", "TrackTraceNo_example") // MerchantShipmentTrackingRequest | The updated tracking information. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ShipmentAPI.ShipmentUpdate(context.Background(), merchantShipmentNo).MerchantShipmentTrackingRequest(merchantShipmentTrackingRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ShipmentUpdate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ShipmentAPI.ShipmentUpdate(context.Background(), merchantShipmentNo).MerchantShipmentTrackingRequest(merchantShipmentTrackingRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ShipmentAPI.ShipmentUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ShipmentUpdate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ShipmentAPI.ShipmentUpdate`: %v\n", resp)
 }
 ```
 

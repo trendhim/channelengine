@@ -8,6 +8,7 @@ Name | Type | Description | Notes
 **Identifier** | Pointer to **NullableString** |  | [optional] 
 **Reason** | Pointer to **NullableString** |  | [optional] 
 **ReasonCode** | Pointer to [**CancelReason**](CancelReason.md) |  | [optional] 
+**IsForcedCancellation** | Pointer to **bool** |  | [optional] 
 **Lines** | Pointer to [**[]ChannelCancellationLine**](ChannelCancellationLine.md) |  | [optional] 
 
 ## Methods
@@ -158,6 +159,31 @@ SetReasonCode sets ReasonCode field to given value.
 `func (o *ChannelCancellation) HasReasonCode() bool`
 
 HasReasonCode returns a boolean if a field has been set.
+
+### GetIsForcedCancellation
+
+`func (o *ChannelCancellation) GetIsForcedCancellation() bool`
+
+GetIsForcedCancellation returns the IsForcedCancellation field if non-nil, zero value otherwise.
+
+### GetIsForcedCancellationOk
+
+`func (o *ChannelCancellation) GetIsForcedCancellationOk() (*bool, bool)`
+
+GetIsForcedCancellationOk returns a tuple with the IsForcedCancellation field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsForcedCancellation
+
+`func (o *ChannelCancellation) SetIsForcedCancellation(v bool)`
+
+SetIsForcedCancellation sets IsForcedCancellation field to given value.
+
+### HasIsForcedCancellation
+
+`func (o *ChannelCancellation) HasIsForcedCancellation() bool`
+
+HasIsForcedCancellation returns a boolean if a field has been set.
 
 ### GetLines
 

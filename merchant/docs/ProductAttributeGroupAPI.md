@@ -28,25 +28,25 @@ Adds custom attributes to a group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    groupName := "groupName_example" // string | The group name of the product attribute group you wish to add product extra data.
-    addProductExtraDataRequests := *openapiclient.NewAddProductExtraDataRequests() // AddProductExtraDataRequests | Product extra data keys to be added. (optional)
+	groupName := "groupName_example" // string | The group name of the product attribute group you wish to add product extra data.
+	addProductExtraDataRequests := *openapiclient.NewAddProductExtraDataRequests() // AddProductExtraDataRequests | Product extra data keys to be added. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData(context.Background(), groupName).AddProductExtraDataRequests(addProductExtraDataRequests).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupAddProductExtraData`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData(context.Background(), groupName).AddProductExtraDataRequests(addProductExtraDataRequests).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupAddProductExtraData`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupAddProductExtraData`: %v\n", resp)
 }
 ```
 
@@ -100,24 +100,24 @@ Creates a custom attribute group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    productAttributeGroupRequest := []openapiclient.ProductAttributeGroupRequest{*openapiclient.NewProductAttributeGroupRequest("GroupName_example", []string{"ProductExtraDataKeys_example"})} // []ProductAttributeGroupRequest | Collection of product attribute groups with linked product extra data keys.
+	productAttributeGroupRequest := []openapiclient.ProductAttributeGroupRequest{*openapiclient.NewProductAttributeGroupRequest("GroupName_example", []string{"ProductExtraDataKeys_example"})} // []ProductAttributeGroupRequest | Collection of product attribute groups with linked product extra data keys.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupCreate(context.Background()).ProductAttributeGroupRequest(productAttributeGroupRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupCreate(context.Background()).ProductAttributeGroupRequest(productAttributeGroupRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupCreate`: %v\n", resp)
 }
 ```
 
@@ -166,24 +166,24 @@ Deletes a custom attribute group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    groupName := "groupName_example" // string | The group name of the product attribute group you wish to delete.
+	groupName := "groupName_example" // string | The group name of the product attribute group you wish to delete.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupDelete(context.Background(), groupName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupDelete`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupDelete(context.Background(), groupName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupDelete`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupDelete`: %v\n", resp)
 }
 ```
 
@@ -236,25 +236,25 @@ Gets custom attribute groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    groupNames := []string{"Inner_example"} // []string |  (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	groupNames := []string{"Inner_example"} // []string |  (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter(context.Background()).GroupNames(groupNames).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupGetByFilter`: CollectionOfMerchantProductAttributeGroupWithProductExtraDataResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter(context.Background()).GroupNames(groupNames).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupGetByFilter`: CollectionOfMerchantProductAttributeGroupWithProductExtraDataResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupGetByFilter`: %v\n", resp)
 }
 ```
 
@@ -304,25 +304,25 @@ Gets custom attribute groups and linked marketplaces
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    groupNames := []string{"Inner_example"} // []string |  (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	groupNames := []string{"Inner_example"} // []string |  (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter(context.Background()).GroupNames(groupNames).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupGetWithChannelsByFilter`: CollectionOfMerchantProductAttributeGroupWithLinkedChannelsResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter(context.Background()).GroupNames(groupNames).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupGetWithChannelsByFilter`: CollectionOfMerchantProductAttributeGroupWithLinkedChannelsResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupGetWithChannelsByFilter`: %v\n", resp)
 }
 ```
 
@@ -372,25 +372,25 @@ Deletes custom attributes from a group
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    groupName := "groupName_example" // string | The group name of the product attribute group you wish to remove product extra data.
-    removeProductExtraDataRequests := *openapiclient.NewRemoveProductExtraDataRequests() // RemoveProductExtraDataRequests | Product extra data keys to be removed. (optional)
+	groupName := "groupName_example" // string | The group name of the product attribute group you wish to remove product extra data.
+	removeProductExtraDataRequests := *openapiclient.NewRemoveProductExtraDataRequests() // RemoveProductExtraDataRequests | Product extra data keys to be removed. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData(context.Background(), groupName).RemoveProductExtraDataRequests(removeProductExtraDataRequests).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupRemoveProductExtraData`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData(context.Background(), groupName).RemoveProductExtraDataRequests(removeProductExtraDataRequests).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupRemoveProductExtraData`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupRemoveProductExtraData`: %v\n", resp)
 }
 ```
 
@@ -444,24 +444,24 @@ Renames custom attribute groups
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    renameProductAttributeGroupRequests := []openapiclient.RenameProductAttributeGroupRequests{*openapiclient.NewRenameProductAttributeGroupRequests()} // []RenameProductAttributeGroupRequests | List of old and new product attribute group names. (optional)
+	renameProductAttributeGroupRequests := []openapiclient.RenameProductAttributeGroupRequests{*openapiclient.NewRenameProductAttributeGroupRequests()} // []RenameProductAttributeGroupRequests | List of old and new product attribute group names. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup(context.Background()).RenameProductAttributeGroupRequests(renameProductAttributeGroupRequests).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductAttributeGroupRenameProductAttributeGroup`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup(context.Background()).RenameProductAttributeGroupRequests(renameProductAttributeGroupRequests).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductAttributeGroupRenameProductAttributeGroup`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductAttributeGroupAPI.ProductAttributeGroupRenameProductAttributeGroup`: %v\n", resp)
 }
 ```
 

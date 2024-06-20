@@ -11,6 +11,8 @@ Name | Type | Description | Notes
 **IsBusinessOrder** | Pointer to **NullableBool** | Optional. Is a business order (default value is false).  If not provided the VAT Number will be checked. If a VAT Number is found, IsBusinessOrder will be set to true.  No VAT will be calculated when set to true. | [optional] 
 **KeyIsMerchantProductNo** | Pointer to **bool** | Optional. Is the MPN used as key for the product (default value is false). | [optional] 
 **Lines** | [**[]ChannelOrderLineRequest**](ChannelOrderLineRequest.md) | The order lines. | 
+**ShippingCostsInclVat** | **float32** | The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | 
+**OrderFee** | Pointer to **float32** | The fee on order itself (besides the fees on the order lines)  (in the currency in which the order was paid for, see CurrencyCode). | [optional] 
 **Phone** | Pointer to **NullableString** | The customer&#39;s telephone number. | [optional] 
 **Email** | **string** | The customer&#39;s email. | 
 **LanguageCode** | Pointer to **NullableString** | The language of the order. Has to be a 2-letter ISO language code. | [optional] 
@@ -18,7 +20,6 @@ Name | Type | Description | Notes
 **VatNo** | Pointer to **NullableString** | Optional. A company&#39;s VAT number. | [optional] 
 **PaymentMethod** | Pointer to **NullableString** | The payment method used on the order. | [optional] 
 **PaymentReferenceNo** | Pointer to **NullableString** | Reference or transaction id for the payment | [optional] 
-**ShippingCostsInclVat** | **float32** | The shipping fee including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | 
 **CurrencyCode** | **string** | The currency code for the amounts of the order. | 
 **OrderDate** | **time.Time** | The date the order was created at the channel. | 
 **ChannelCustomerNo** | Pointer to **NullableString** | The unique customer reference used by the channel. | [optional] 
@@ -28,7 +29,7 @@ Name | Type | Description | Notes
 
 ### NewChannelOrderRequest
 
-`func NewChannelOrderRequest(billingAddress ChannelAddressRequest, shippingAddress ChannelAddressRequest, channelOrderNo string, lines []ChannelOrderLineRequest, email string, shippingCostsInclVat float32, currencyCode string, orderDate time.Time, ) *ChannelOrderRequest`
+`func NewChannelOrderRequest(billingAddress ChannelAddressRequest, shippingAddress ChannelAddressRequest, channelOrderNo string, lines []ChannelOrderLineRequest, shippingCostsInclVat float32, email string, currencyCode string, orderDate time.Time, ) *ChannelOrderRequest`
 
 NewChannelOrderRequest instantiates a new ChannelOrderRequest object
 This constructor will assign default values to properties that have it defined,
@@ -217,6 +218,51 @@ and a boolean to check if the value has been set.
 
 SetLines sets Lines field to given value.
 
+
+### GetShippingCostsInclVat
+
+`func (o *ChannelOrderRequest) GetShippingCostsInclVat() float32`
+
+GetShippingCostsInclVat returns the ShippingCostsInclVat field if non-nil, zero value otherwise.
+
+### GetShippingCostsInclVatOk
+
+`func (o *ChannelOrderRequest) GetShippingCostsInclVatOk() (*float32, bool)`
+
+GetShippingCostsInclVatOk returns a tuple with the ShippingCostsInclVat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShippingCostsInclVat
+
+`func (o *ChannelOrderRequest) SetShippingCostsInclVat(v float32)`
+
+SetShippingCostsInclVat sets ShippingCostsInclVat field to given value.
+
+
+### GetOrderFee
+
+`func (o *ChannelOrderRequest) GetOrderFee() float32`
+
+GetOrderFee returns the OrderFee field if non-nil, zero value otherwise.
+
+### GetOrderFeeOk
+
+`func (o *ChannelOrderRequest) GetOrderFeeOk() (*float32, bool)`
+
+GetOrderFeeOk returns a tuple with the OrderFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrderFee
+
+`func (o *ChannelOrderRequest) SetOrderFee(v float32)`
+
+SetOrderFee sets OrderFee field to given value.
+
+### HasOrderFee
+
+`func (o *ChannelOrderRequest) HasOrderFee() bool`
+
+HasOrderFee returns a boolean if a field has been set.
 
 ### GetPhone
 
@@ -448,26 +494,6 @@ HasPaymentReferenceNo returns a boolean if a field has been set.
 `func (o *ChannelOrderRequest) UnsetPaymentReferenceNo()`
 
 UnsetPaymentReferenceNo ensures that no value is present for PaymentReferenceNo, not even an explicit nil
-### GetShippingCostsInclVat
-
-`func (o *ChannelOrderRequest) GetShippingCostsInclVat() float32`
-
-GetShippingCostsInclVat returns the ShippingCostsInclVat field if non-nil, zero value otherwise.
-
-### GetShippingCostsInclVatOk
-
-`func (o *ChannelOrderRequest) GetShippingCostsInclVatOk() (*float32, bool)`
-
-GetShippingCostsInclVatOk returns a tuple with the ShippingCostsInclVat field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetShippingCostsInclVat
-
-`func (o *ChannelOrderRequest) SetShippingCostsInclVat(v float32)`
-
-SetShippingCostsInclVat sets ShippingCostsInclVat field to given value.
-
-
 ### GetCurrencyCode
 
 `func (o *ChannelOrderRequest) GetCurrencyCode() string`

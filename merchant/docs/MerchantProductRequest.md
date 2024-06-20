@@ -35,6 +35,7 @@ Name | Type | Description | Notes
 **ExtraImageUrl7** | Pointer to **NullableString** | Url to an additional image of product (7). | [optional] 
 **ExtraImageUrl8** | Pointer to **NullableString** | Url to an additional image of product (8). | [optional] 
 **ExtraImageUrl9** | Pointer to **NullableString** | Url to an additional image of product (9). | [optional] 
+**IsFrozen** | Pointer to **bool** | Specifies whether Product is disabled on all channels. | [optional] 
 **CategoryTrail** | Pointer to **NullableString** | The category to which this product belongs.  Please supply this field in the following format:  &#39;maincategory &gt; category &gt; subcategory&#39;  For example:  &#39;vehicles &gt; bikes &gt; mountainbike&#39;. | [optional] 
 
 ## Methods
@@ -1096,6 +1097,31 @@ HasExtraImageUrl9 returns a boolean if a field has been set.
 `func (o *MerchantProductRequest) UnsetExtraImageUrl9()`
 
 UnsetExtraImageUrl9 ensures that no value is present for ExtraImageUrl9, not even an explicit nil
+### GetIsFrozen
+
+`func (o *MerchantProductRequest) GetIsFrozen() bool`
+
+GetIsFrozen returns the IsFrozen field if non-nil, zero value otherwise.
+
+### GetIsFrozenOk
+
+`func (o *MerchantProductRequest) GetIsFrozenOk() (*bool, bool)`
+
+GetIsFrozenOk returns a tuple with the IsFrozen field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetIsFrozen
+
+`func (o *MerchantProductRequest) SetIsFrozen(v bool)`
+
+SetIsFrozen sets IsFrozen field to given value.
+
+### HasIsFrozen
+
+`func (o *MerchantProductRequest) HasIsFrozen() bool`
+
+HasIsFrozen returns a boolean if a field has been set.
+
 ### GetCategoryTrail
 
 `func (o *MerchantProductRequest) GetCategoryTrail() string`

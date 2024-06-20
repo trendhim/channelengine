@@ -6,8 +6,11 @@ set -o pipefail
 
 cd "$(git rev-parse --show-toplevel)"
 
+rm -rf ./{channel,merchant}/
+
 openapi-generator generate \
   --input-spec https://demo.channelengine.net/api/swagger/channel/swagger.json \
+  --skip-validate-spec \
   --generator-name go \
   --output ./channel \
   --git-user-id trendhim \
@@ -16,6 +19,7 @@ openapi-generator generate \
 
 openapi-generator generate \
   --input-spec https://demo.channelengine.net/api/swagger/merchant/swagger.json \
+  --skip-validate-spec \
   --generator-name go \
   --output ./merchant \
   --git-user-id trendhim \

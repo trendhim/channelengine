@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **LineIdentifierType** | Pointer to [**ChannelCreateCancellationsOrderLineIdentifierType**](ChannelCreateCancellationsOrderLineIdentifierType.md) |  | [optional] 
 **IdentifierType** | Pointer to [**ChannelCreateCancellationsOrderIdentifierType**](ChannelCreateCancellationsOrderIdentifierType.md) |  | [optional] 
-**Models** | Pointer to [**[]ChannelCancellation**](ChannelCancellation.md) |  | [optional] 
+**Models** | Pointer to [**[]ChannelCancellation**](ChannelCancellation.md) | The value (of the selected type) to filter on | [optional] 
 
 ## Methods
 

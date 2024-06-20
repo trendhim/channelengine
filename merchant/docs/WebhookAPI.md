@@ -25,24 +25,24 @@ Creates a webhook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantWebhookRequest := *openapiclient.NewMerchantWebhookRequest("Name_example", "Url_example", []openapiclient.WebhookEventType{openapiclient.WebhookEventType("ORDERS_CREATE")}) // MerchantWebhookRequest |  (optional)
+	merchantWebhookRequest := *openapiclient.NewMerchantWebhookRequest("Name_example", "Url_example", []openapiclient.WebhookEventType{openapiclient.WebhookEventType("ORDERS_CREATE")}) // MerchantWebhookRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebhookAPI.WebhooksCreate(context.Background()).MerchantWebhookRequest(merchantWebhookRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `WebhooksCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebhookAPI.WebhooksCreate(context.Background()).MerchantWebhookRequest(merchantWebhookRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `WebhooksCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksCreate`: %v\n", resp)
 }
 ```
 
@@ -91,24 +91,24 @@ Deletes a webhook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    webhookName := "webhookName_example" // string | The unique name of a webhook you want to delete.
+	webhookName := "webhookName_example" // string | The unique name of a webhook you want to delete.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebhookAPI.WebhooksDelete(context.Background(), webhookName).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksDelete``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `WebhooksDelete`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksDelete`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebhookAPI.WebhooksDelete(context.Background(), webhookName).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksDelete``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `WebhooksDelete`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksDelete`: %v\n", resp)
 }
 ```
 
@@ -161,23 +161,23 @@ Gets webhooks
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebhookAPI.WebhooksGetAll(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksGetAll``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `WebhooksGetAll`: CollectionOfMerchantWebhookResponse
-    fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksGetAll`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebhookAPI.WebhooksGetAll(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksGetAll``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `WebhooksGetAll`: CollectionOfMerchantWebhookResponse
+	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksGetAll`: %v\n", resp)
 }
 ```
 
@@ -222,24 +222,24 @@ Updates a webhook
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantWebhookRequest := *openapiclient.NewMerchantWebhookRequest("Name_example", "Url_example", []openapiclient.WebhookEventType{openapiclient.WebhookEventType("ORDERS_CREATE")}) // MerchantWebhookRequest |  (optional)
+	merchantWebhookRequest := *openapiclient.NewMerchantWebhookRequest("Name_example", "Url_example", []openapiclient.WebhookEventType{openapiclient.WebhookEventType("ORDERS_CREATE")}) // MerchantWebhookRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.WebhookAPI.WebhooksUpdate(context.Background()).MerchantWebhookRequest(merchantWebhookRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `WebhooksUpdate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.WebhookAPI.WebhooksUpdate(context.Background()).MerchantWebhookRequest(merchantWebhookRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `WebhookAPI.WebhooksUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `WebhooksUpdate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `WebhookAPI.WebhooksUpdate`: %v\n", resp)
 }
 ```
 

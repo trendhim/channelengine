@@ -23,24 +23,24 @@ Creates a stock location
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantStockLocationCreateRequest := *openapiclient.NewMerchantStockLocationCreateRequest("Name_example") // MerchantStockLocationCreateRequest |  (optional)
+	merchantStockLocationCreateRequest := *openapiclient.NewMerchantStockLocationCreateRequest("Name_example") // MerchantStockLocationCreateRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StockLocationAPI.StockLocationCreate(context.Background()).MerchantStockLocationCreateRequest(merchantStockLocationCreateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StockLocationAPI.StockLocationCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `StockLocationCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `StockLocationAPI.StockLocationCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StockLocationAPI.StockLocationCreate(context.Background()).MerchantStockLocationCreateRequest(merchantStockLocationCreateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StockLocationAPI.StockLocationCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `StockLocationCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `StockLocationAPI.StockLocationCreate`: %v\n", resp)
 }
 ```
 
@@ -89,23 +89,23 @@ Gets stock locations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.StockLocationAPI.StockLocationIndex(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `StockLocationAPI.StockLocationIndex``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `StockLocationIndex`: CollectionOfMerchantStockLocationWithCountryIsoResponse
-    fmt.Fprintf(os.Stdout, "Response from `StockLocationAPI.StockLocationIndex`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.StockLocationAPI.StockLocationIndex(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `StockLocationAPI.StockLocationIndex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `StockLocationIndex`: CollectionOfMerchantStockLocationWithCountryIsoResponse
+	fmt.Fprintf(os.Stdout, "Response from `StockLocationAPI.StockLocationIndex`: %v\n", resp)
 }
 ```
 

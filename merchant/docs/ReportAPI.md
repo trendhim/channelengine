@@ -24,24 +24,24 @@ Creates a settlement report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantCreateSettlementsReportRequest := *openapiclient.NewMerchantCreateSettlementsReportRequest([]int32{int32(123)}, openapiclient.ReportType("SUMMARY")) // MerchantCreateSettlementsReportRequest | To provide settlementIds and type of report SUMMARY or DETAILED.
+	merchantCreateSettlementsReportRequest := *openapiclient.NewMerchantCreateSettlementsReportRequest([]int32{int32(123)}, openapiclient.ReportType("SUMMARY")) // MerchantCreateSettlementsReportRequest | To provide settlementIds and type of report SUMMARY or DETAILED.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportAPI.ReportCreateSettlementsReport(context.Background()).MerchantCreateSettlementsReportRequest(merchantCreateSettlementsReportRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportCreateSettlementsReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReportCreateSettlementsReport`: MerchantCreateReportResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportCreateSettlementsReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReportAPI.ReportCreateSettlementsReport(context.Background()).MerchantCreateSettlementsReportRequest(merchantCreateSettlementsReportRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportCreateSettlementsReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReportCreateSettlementsReport`: MerchantCreateReportResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportCreateSettlementsReport`: %v\n", resp)
 }
 ```
 
@@ -90,24 +90,24 @@ Gets a settlement report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    reportId := "reportId_example" // string | 
+	reportId := "reportId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportAPI.ReportGetReport(context.Background(), reportId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportGetReport``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReportGetReport`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportGetReport`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReportAPI.ReportGetReport(context.Background(), reportId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportGetReport``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReportGetReport`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportGetReport`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Gets the status of a settlement report
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    reportId := "reportId_example" // string | 
+	reportId := "reportId_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReportAPI.ReportGetStatus(context.Background(), reportId).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportGetStatus``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReportGetStatus`: MerchantGetReportStatusResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportGetStatus`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReportAPI.ReportGetStatus(context.Background(), reportId).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReportAPI.ReportGetStatus``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReportGetStatus`: MerchantGetReportStatusResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReportAPI.ReportGetStatus`: %v\n", resp)
 }
 ```
 

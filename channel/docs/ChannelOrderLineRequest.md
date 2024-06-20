@@ -12,7 +12,11 @@ Name | Type | Description | Notes
 **FeeFixed** | Pointer to **float32** | A fixed fee that is charged by the Channel for this orderline.  This fee rate is based on the currency of the Channel  This field is optional, send 0 if not applicable. | [optional] 
 **FeeRate** | Pointer to **float32** | A percentage fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable. | [optional] 
 **Condition** | Pointer to [**Condition**](Condition.md) |  | [optional] 
+**ExactDeliveryDate** | Pointer to **NullableTime** | Exact delivery date from channels, empty if channels not support this value | [optional] 
 **ExpectedDeliveryDate** | Pointer to **NullableTime** | Expected delivery date from channels, empty if channels not support this value | [optional] 
+**LatestDeliveryDate** | Pointer to **NullableTime** | Latest delivery date from channels, empty if channels not support this value | [optional] 
+**ExpectedShipmentDate** | Pointer to **NullableTime** | Expected shipment date from channels, empty if channels not support this value | [optional] 
+**LatestShipmentDate** | Pointer to **NullableTime** | Latest shipment date from channels, empty if channels not support this value | [optional] 
 
 ## Methods
 
@@ -228,6 +232,41 @@ SetCondition sets Condition field to given value.
 
 HasCondition returns a boolean if a field has been set.
 
+### GetExactDeliveryDate
+
+`func (o *ChannelOrderLineRequest) GetExactDeliveryDate() time.Time`
+
+GetExactDeliveryDate returns the ExactDeliveryDate field if non-nil, zero value otherwise.
+
+### GetExactDeliveryDateOk
+
+`func (o *ChannelOrderLineRequest) GetExactDeliveryDateOk() (*time.Time, bool)`
+
+GetExactDeliveryDateOk returns a tuple with the ExactDeliveryDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExactDeliveryDate
+
+`func (o *ChannelOrderLineRequest) SetExactDeliveryDate(v time.Time)`
+
+SetExactDeliveryDate sets ExactDeliveryDate field to given value.
+
+### HasExactDeliveryDate
+
+`func (o *ChannelOrderLineRequest) HasExactDeliveryDate() bool`
+
+HasExactDeliveryDate returns a boolean if a field has been set.
+
+### SetExactDeliveryDateNil
+
+`func (o *ChannelOrderLineRequest) SetExactDeliveryDateNil(b bool)`
+
+ SetExactDeliveryDateNil sets the value for ExactDeliveryDate to be an explicit nil
+
+### UnsetExactDeliveryDate
+`func (o *ChannelOrderLineRequest) UnsetExactDeliveryDate()`
+
+UnsetExactDeliveryDate ensures that no value is present for ExactDeliveryDate, not even an explicit nil
 ### GetExpectedDeliveryDate
 
 `func (o *ChannelOrderLineRequest) GetExpectedDeliveryDate() time.Time`
@@ -263,6 +302,111 @@ HasExpectedDeliveryDate returns a boolean if a field has been set.
 `func (o *ChannelOrderLineRequest) UnsetExpectedDeliveryDate()`
 
 UnsetExpectedDeliveryDate ensures that no value is present for ExpectedDeliveryDate, not even an explicit nil
+### GetLatestDeliveryDate
+
+`func (o *ChannelOrderLineRequest) GetLatestDeliveryDate() time.Time`
+
+GetLatestDeliveryDate returns the LatestDeliveryDate field if non-nil, zero value otherwise.
+
+### GetLatestDeliveryDateOk
+
+`func (o *ChannelOrderLineRequest) GetLatestDeliveryDateOk() (*time.Time, bool)`
+
+GetLatestDeliveryDateOk returns a tuple with the LatestDeliveryDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatestDeliveryDate
+
+`func (o *ChannelOrderLineRequest) SetLatestDeliveryDate(v time.Time)`
+
+SetLatestDeliveryDate sets LatestDeliveryDate field to given value.
+
+### HasLatestDeliveryDate
+
+`func (o *ChannelOrderLineRequest) HasLatestDeliveryDate() bool`
+
+HasLatestDeliveryDate returns a boolean if a field has been set.
+
+### SetLatestDeliveryDateNil
+
+`func (o *ChannelOrderLineRequest) SetLatestDeliveryDateNil(b bool)`
+
+ SetLatestDeliveryDateNil sets the value for LatestDeliveryDate to be an explicit nil
+
+### UnsetLatestDeliveryDate
+`func (o *ChannelOrderLineRequest) UnsetLatestDeliveryDate()`
+
+UnsetLatestDeliveryDate ensures that no value is present for LatestDeliveryDate, not even an explicit nil
+### GetExpectedShipmentDate
+
+`func (o *ChannelOrderLineRequest) GetExpectedShipmentDate() time.Time`
+
+GetExpectedShipmentDate returns the ExpectedShipmentDate field if non-nil, zero value otherwise.
+
+### GetExpectedShipmentDateOk
+
+`func (o *ChannelOrderLineRequest) GetExpectedShipmentDateOk() (*time.Time, bool)`
+
+GetExpectedShipmentDateOk returns a tuple with the ExpectedShipmentDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExpectedShipmentDate
+
+`func (o *ChannelOrderLineRequest) SetExpectedShipmentDate(v time.Time)`
+
+SetExpectedShipmentDate sets ExpectedShipmentDate field to given value.
+
+### HasExpectedShipmentDate
+
+`func (o *ChannelOrderLineRequest) HasExpectedShipmentDate() bool`
+
+HasExpectedShipmentDate returns a boolean if a field has been set.
+
+### SetExpectedShipmentDateNil
+
+`func (o *ChannelOrderLineRequest) SetExpectedShipmentDateNil(b bool)`
+
+ SetExpectedShipmentDateNil sets the value for ExpectedShipmentDate to be an explicit nil
+
+### UnsetExpectedShipmentDate
+`func (o *ChannelOrderLineRequest) UnsetExpectedShipmentDate()`
+
+UnsetExpectedShipmentDate ensures that no value is present for ExpectedShipmentDate, not even an explicit nil
+### GetLatestShipmentDate
+
+`func (o *ChannelOrderLineRequest) GetLatestShipmentDate() time.Time`
+
+GetLatestShipmentDate returns the LatestShipmentDate field if non-nil, zero value otherwise.
+
+### GetLatestShipmentDateOk
+
+`func (o *ChannelOrderLineRequest) GetLatestShipmentDateOk() (*time.Time, bool)`
+
+GetLatestShipmentDateOk returns a tuple with the LatestShipmentDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetLatestShipmentDate
+
+`func (o *ChannelOrderLineRequest) SetLatestShipmentDate(v time.Time)`
+
+SetLatestShipmentDate sets LatestShipmentDate field to given value.
+
+### HasLatestShipmentDate
+
+`func (o *ChannelOrderLineRequest) HasLatestShipmentDate() bool`
+
+HasLatestShipmentDate returns a boolean if a field has been set.
+
+### SetLatestShipmentDateNil
+
+`func (o *ChannelOrderLineRequest) SetLatestShipmentDateNil(b bool)`
+
+ SetLatestShipmentDateNil sets the value for LatestShipmentDate to be an explicit nil
+
+### UnsetLatestShipmentDate
+`func (o *ChannelOrderLineRequest) UnsetLatestShipmentDate()`
+
+UnsetLatestShipmentDate ensures that no value is present for LatestShipmentDate, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

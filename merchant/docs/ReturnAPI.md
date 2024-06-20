@@ -28,24 +28,24 @@ Acknowledges a return
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantReturnAcknowledgeRequest := *openapiclient.NewMerchantReturnAcknowledgeRequest("MerchantReturnNo_example") // MerchantReturnAcknowledgeRequest |  (optional)
+	merchantReturnAcknowledgeRequest := *openapiclient.NewMerchantReturnAcknowledgeRequest("MerchantReturnNo_example") // MerchantReturnAcknowledgeRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnAcknowledge(context.Background()).MerchantReturnAcknowledgeRequest(merchantReturnAcknowledgeRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnAcknowledge``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnAcknowledge`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnAcknowledge`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnAcknowledge(context.Background()).MerchantReturnAcknowledgeRequest(merchantReturnAcknowledgeRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnAcknowledge``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnAcknowledge`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnAcknowledge`: %v\n", resp)
 }
 ```
 
@@ -94,24 +94,24 @@ Creates merchant return
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantReturnRequest := *openapiclient.NewMerchantReturnRequest("MerchantOrderNo_example", "MerchantReturnNo_example", []openapiclient.MerchantReturnLineRequest{*openapiclient.NewMerchantReturnLineRequest("MerchantProductNo_example", int32(123))}) // MerchantReturnRequest |  (optional)
+	merchantReturnRequest := *openapiclient.NewMerchantReturnRequest("MerchantOrderNo_example", "MerchantReturnNo_example", []openapiclient.MerchantReturnLineRequest{*openapiclient.NewMerchantReturnLineRequest("MerchantProductNo_example", int32(123))}) // MerchantReturnRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnDeclareForMerchant(context.Background()).MerchantReturnRequest(merchantReturnRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnDeclareForMerchant``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnDeclareForMerchant`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnDeclareForMerchant`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnDeclareForMerchant(context.Background()).MerchantReturnRequest(merchantReturnRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnDeclareForMerchant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnDeclareForMerchant`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnDeclareForMerchant`: %v\n", resp)
 }
 ```
 
@@ -160,24 +160,24 @@ Gets a return
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantOrderNo := "merchantOrderNo_example" // string | 
+	merchantOrderNo := "merchantOrderNo_example" // string | 
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnGetByMerchantOrderNo(context.Background(), merchantOrderNo).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetByMerchantOrderNo``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnGetByMerchantOrderNo`: CollectionOfMerchantSingleOrderReturnResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetByMerchantOrderNo`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnGetByMerchantOrderNo(context.Background(), merchantOrderNo).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetByMerchantOrderNo``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnGetByMerchantOrderNo`: CollectionOfMerchantSingleOrderReturnResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetByMerchantOrderNo`: %v\n", resp)
 }
 ```
 
@@ -230,34 +230,34 @@ Gets marketplace returns
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
-    merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
-    channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
-    fulfillmentType := openapiclient.FulfillmentType("ALL") // FulfillmentType | Filter on the fulfillment type of the order. (optional)
-    statuses := []openapiclient.ReturnStatus{openapiclient.ReturnStatus("IN_PROGRESS")} // []ReturnStatus | Return status(es) to filter on. (optional)
-    reasons := []openapiclient.ReturnReason{openapiclient.ReturnReason("PRODUCT_DEFECT")} // []ReturnReason | Return reason(s) to filter on. (optional)
-    fromDate := time.Now() // time.Time | Filter on the creation date, starting from this date. This date is inclusive. (optional)
-    toDate := time.Now() // time.Time | Filter on the creation date, until this date. This date is exclusive. (optional)
-    isAcknowledged := true // bool | Filters based on acknowledgements (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
+	merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
+	channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
+	fulfillmentType := openapiclient.FulfillmentType("ALL") // FulfillmentType | Filter on the fulfillment type of the order. (optional)
+	statuses := []openapiclient.ReturnStatus{openapiclient.ReturnStatus("IN_PROGRESS")} // []ReturnStatus | Return status(es) to filter on. (optional)
+	reasons := []openapiclient.ReturnReason{openapiclient.ReturnReason("PRODUCT_DEFECT")} // []ReturnReason | Return reason(s) to filter on. (optional)
+	fromDate := time.Now() // time.Time | Filter on the creation date, starting from this date. This date is inclusive. (optional)
+	toDate := time.Now() // time.Time | Filter on the creation date, until this date. This date is exclusive. (optional)
+	isAcknowledged := true // bool | Filters based on acknowledgements (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnGetDeclaredByChannel(context.Background()).ChannelIds(channelIds).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).FulfillmentType(fulfillmentType).Statuses(statuses).Reasons(reasons).FromDate(fromDate).ToDate(toDate).IsAcknowledged(isAcknowledged).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetDeclaredByChannel``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnGetDeclaredByChannel`: CollectionOfMerchantReturnResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetDeclaredByChannel`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnGetDeclaredByChannel(context.Background()).ChannelIds(channelIds).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).FulfillmentType(fulfillmentType).Statuses(statuses).Reasons(reasons).FromDate(fromDate).ToDate(toDate).IsAcknowledged(isAcknowledged).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetDeclaredByChannel``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnGetDeclaredByChannel`: CollectionOfMerchantReturnResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetDeclaredByChannel`: %v\n", resp)
 }
 ```
 
@@ -315,35 +315,35 @@ Gets returns by filter
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    creatorType := openapiclient.CreatorFilter("ONLY_FROM_MERCHANT") // CreatorFilter | Filter on the return's creator. Default is MIXED. (optional)
-    channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
-    merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
-    channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
-    fulfillmentType := openapiclient.FulfillmentType("ALL") // FulfillmentType | Filter on the fulfillment type of the order. (optional)
-    statuses := []openapiclient.ReturnStatus{openapiclient.ReturnStatus("IN_PROGRESS")} // []ReturnStatus | Return status(es) to filter on. (optional)
-    reasons := []openapiclient.ReturnReason{openapiclient.ReturnReason("PRODUCT_DEFECT")} // []ReturnReason | Return reason(s) to filter on. (optional)
-    fromDate := time.Now() // time.Time | Filter on the creation date, starting from this date. This date is inclusive. (optional)
-    toDate := time.Now() // time.Time | Filter on the creation date, until this date. This date is exclusive. (optional)
-    isAcknowledged := true // bool | Filters based on acknowledgements (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	creatorType := openapiclient.CreatorFilter("ONLY_FROM_MERCHANT") // CreatorFilter | Filter on the return's creator. Default is MIXED. (optional)
+	channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
+	merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
+	channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
+	fulfillmentType := openapiclient.FulfillmentType("ALL") // FulfillmentType | Filter on the fulfillment type of the order. (optional)
+	statuses := []openapiclient.ReturnStatus{openapiclient.ReturnStatus("IN_PROGRESS")} // []ReturnStatus | Return status(es) to filter on. (optional)
+	reasons := []openapiclient.ReturnReason{openapiclient.ReturnReason("PRODUCT_DEFECT")} // []ReturnReason | Return reason(s) to filter on. (optional)
+	fromDate := time.Now() // time.Time | Filter on the creation date, starting from this date. This date is inclusive. (optional)
+	toDate := time.Now() // time.Time | Filter on the creation date, until this date. This date is exclusive. (optional)
+	isAcknowledged := true // bool | Filters based on acknowledgements (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnGetReturns(context.Background()).CreatorType(creatorType).ChannelIds(channelIds).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).FulfillmentType(fulfillmentType).Statuses(statuses).Reasons(reasons).FromDate(fromDate).ToDate(toDate).IsAcknowledged(isAcknowledged).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetReturns``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnGetReturns`: CollectionOfMerchantReturnResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetReturns`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnGetReturns(context.Background()).CreatorType(creatorType).ChannelIds(channelIds).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).FulfillmentType(fulfillmentType).Statuses(statuses).Reasons(reasons).FromDate(fromDate).ToDate(toDate).IsAcknowledged(isAcknowledged).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetReturns``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnGetReturns`: CollectionOfMerchantReturnResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetReturns`: %v\n", resp)
 }
 ```
 
@@ -402,25 +402,25 @@ Gets unhandled returns
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	channelIds := []int32{int32(123)} // []int32 | Filter on Channel IDs (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnGetUnhandled(context.Background()).ChannelIds(channelIds).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetUnhandled``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnGetUnhandled`: CollectionOfMerchantReturnResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetUnhandled`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnGetUnhandled(context.Background()).ChannelIds(channelIds).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnGetUnhandled``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnGetUnhandled`: CollectionOfMerchantReturnResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnGetUnhandled`: %v\n", resp)
 }
 ```
 
@@ -470,24 +470,24 @@ Marks returns as received
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantReturnUpdateRequest := *openapiclient.NewMerchantReturnUpdateRequest(int32(123), []openapiclient.MerchantReturnLineUpdateRequest{*openapiclient.NewMerchantReturnLineUpdateRequest("MerchantProductNo_example", int32(123), int32(123))}) // MerchantReturnUpdateRequest |  (optional)
+	merchantReturnUpdateRequest := *openapiclient.NewMerchantReturnUpdateRequest(int32(123), []openapiclient.MerchantReturnLineUpdateRequest{*openapiclient.NewMerchantReturnLineUpdateRequest("MerchantProductNo_example", int32(123), int32(123))}) // MerchantReturnUpdateRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ReturnAPI.ReturnUpdateForMerchant(context.Background()).MerchantReturnUpdateRequest(merchantReturnUpdateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnUpdateForMerchant``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ReturnUpdateForMerchant`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnUpdateForMerchant`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ReturnAPI.ReturnUpdateForMerchant(context.Background()).MerchantReturnUpdateRequest(merchantReturnUpdateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ReturnAPI.ReturnUpdateForMerchant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ReturnUpdateForMerchant`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `ReturnAPI.ReturnUpdateForMerchant`: %v\n", resp)
 }
 ```
 

@@ -24,25 +24,25 @@ Creates order
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    channelOrderRequest := *openapiclient.NewChannelOrderRequest(*openapiclient.NewChannelAddressRequest(), *openapiclient.NewChannelAddressRequest(), "ChannelOrderNo_example", []openapiclient.ChannelOrderLineRequest{*openapiclient.NewChannelOrderLineRequest("ChannelProductNo_example", int32(123), float32(123))}, "Email_example", float32(123), "CurrencyCode_example", time.Now()) // ChannelOrderRequest |  (optional)
+	channelOrderRequest := *openapiclient.NewChannelOrderRequest(*openapiclient.NewChannelAddressRequest(), *openapiclient.NewChannelAddressRequest(), "ChannelOrderNo_example", []openapiclient.ChannelOrderLineRequest{*openapiclient.NewChannelOrderLineRequest("ChannelProductNo_example", int32(123), float32(123))}, float32(123), "Email_example", "CurrencyCode_example", time.Now()) // ChannelOrderRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrderAPI.OrderCreate(context.Background()).ChannelOrderRequest(channelOrderRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OrderCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrderAPI.OrderCreate(context.Background()).ChannelOrderRequest(channelOrderRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OrderCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderCreate`: %v\n", resp)
 }
 ```
 
@@ -91,25 +91,25 @@ Generates an order invoice
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    merchantOrderNo := "merchantOrderNo_example" // string | The unique order reference as used by the merchant.
-    useCustomerCulture := true // bool | Generate the invoice in the billing address' country's language. (optional) (default to false)
+	merchantOrderNo := "merchantOrderNo_example" // string | The unique order reference as used by the merchant.
+	useCustomerCulture := true // bool | Generate the invoice in the billing address' country's language. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrderAPI.OrderInvoice(context.Background(), merchantOrderNo).UseCustomerCulture(useCustomerCulture).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderInvoice``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OrderInvoice`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderInvoice`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrderAPI.OrderInvoice(context.Background(), merchantOrderNo).UseCustomerCulture(useCustomerCulture).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OrderInvoice`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderInvoice`: %v\n", resp)
 }
 ```
 
@@ -163,25 +163,25 @@ Generates a packing slip
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    merchantOrderNo := "merchantOrderNo_example" // string | The unique order reference as used by the merchant.
-    useCustomerCulture := true // bool | Generate the invoice in the billing address' country's language. (optional) (default to false)
+	merchantOrderNo := "merchantOrderNo_example" // string | The unique order reference as used by the merchant.
+	useCustomerCulture := true // bool | Generate the invoice in the billing address' country's language. (optional) (default to false)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OrderAPI.OrderPackingSlip(context.Background(), merchantOrderNo).UseCustomerCulture(useCustomerCulture).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderPackingSlip``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OrderPackingSlip`: *os.File
-    fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderPackingSlip`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OrderAPI.OrderPackingSlip(context.Background(), merchantOrderNo).UseCustomerCulture(useCustomerCulture).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OrderAPI.OrderPackingSlip``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OrderPackingSlip`: *os.File
+	fmt.Fprintf(os.Stdout, "Response from `OrderAPI.OrderPackingSlip`: %v\n", resp)
 }
 ```
 

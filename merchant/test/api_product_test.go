@@ -84,6 +84,18 @@ func Test_merchant_ProductAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test ProductAPIService ProductFreeze", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.ProductAPI.ProductFreeze(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test ProductAPIService ProductGetByFilter", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test

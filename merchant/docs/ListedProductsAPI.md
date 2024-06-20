@@ -22,26 +22,26 @@ Gets products listed by channel
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    channelId := int32(56) // int32 | The id of a channel
-    merchantProductNos := []string{"Inner_example"} // []string | The unique product references used by the Merchant (SKUs) (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	channelId := int32(56) // int32 | The id of a channel
+	merchantProductNos := []string{"Inner_example"} // []string | The unique product references used by the Merchant (SKUs) (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ListedProductsAPI.ListedProductGetByFilter(context.Background(), channelId).MerchantProductNos(merchantProductNos).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ListedProductsAPI.ListedProductGetByFilter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ListedProductGetByFilter`: CollectionOfChannelListedProductResponse
-    fmt.Fprintf(os.Stdout, "Response from `ListedProductsAPI.ListedProductGetByFilter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ListedProductsAPI.ListedProductGetByFilter(context.Background(), channelId).MerchantProductNos(merchantProductNos).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ListedProductsAPI.ListedProductGetByFilter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ListedProductGetByFilter`: CollectionOfChannelListedProductResponse
+	fmt.Fprintf(os.Stdout, "Response from `ListedProductsAPI.ListedProductGetByFilter`: %v\n", resp)
 }
 ```
 

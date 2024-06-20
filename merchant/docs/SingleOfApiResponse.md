@@ -1,249 +1,285 @@
-# SingleOfStockUpdateResponse
+# SingleOfApiResponse
 
 ## Properties
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Content** | Pointer to [**StockUpdateResponse**](StockUpdateResponse.md) |  | [optional] 
+**Content** | Pointer to [**ApiResponse**](ApiResponse.md) |  | [optional] 
 **StatusCode** | Pointer to **int32** |  | [optional] 
 **RequestId** | Pointer to **NullableString** |  | [optional] 
 **LogId** | Pointer to **NullableString** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
 **Message** | Pointer to **NullableString** |  | [optional] 
+**ExceptionType** | Pointer to **NullableString** |  | [optional] 
 **ValidationErrors** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
 
-### NewSingleOfStockUpdateResponse
+### NewSingleOfApiResponse
 
-`func NewSingleOfStockUpdateResponse() *SingleOfStockUpdateResponse`
+`func NewSingleOfApiResponse() *SingleOfApiResponse`
 
-NewSingleOfStockUpdateResponse instantiates a new SingleOfStockUpdateResponse object
+NewSingleOfApiResponse instantiates a new SingleOfApiResponse object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewSingleOfStockUpdateResponseWithDefaults
+### NewSingleOfApiResponseWithDefaults
 
-`func NewSingleOfStockUpdateResponseWithDefaults() *SingleOfStockUpdateResponse`
+`func NewSingleOfApiResponseWithDefaults() *SingleOfApiResponse`
 
-NewSingleOfStockUpdateResponseWithDefaults instantiates a new SingleOfStockUpdateResponse object
+NewSingleOfApiResponseWithDefaults instantiates a new SingleOfApiResponse object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetContent
 
-`func (o *SingleOfStockUpdateResponse) GetContent() StockUpdateResponse`
+`func (o *SingleOfApiResponse) GetContent() ApiResponse`
 
 GetContent returns the Content field if non-nil, zero value otherwise.
 
 ### GetContentOk
 
-`func (o *SingleOfStockUpdateResponse) GetContentOk() (*StockUpdateResponse, bool)`
+`func (o *SingleOfApiResponse) GetContentOk() (*ApiResponse, bool)`
 
 GetContentOk returns a tuple with the Content field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetContent
 
-`func (o *SingleOfStockUpdateResponse) SetContent(v StockUpdateResponse)`
+`func (o *SingleOfApiResponse) SetContent(v ApiResponse)`
 
 SetContent sets Content field to given value.
 
 ### HasContent
 
-`func (o *SingleOfStockUpdateResponse) HasContent() bool`
+`func (o *SingleOfApiResponse) HasContent() bool`
 
 HasContent returns a boolean if a field has been set.
 
 ### GetStatusCode
 
-`func (o *SingleOfStockUpdateResponse) GetStatusCode() int32`
+`func (o *SingleOfApiResponse) GetStatusCode() int32`
 
 GetStatusCode returns the StatusCode field if non-nil, zero value otherwise.
 
 ### GetStatusCodeOk
 
-`func (o *SingleOfStockUpdateResponse) GetStatusCodeOk() (*int32, bool)`
+`func (o *SingleOfApiResponse) GetStatusCodeOk() (*int32, bool)`
 
 GetStatusCodeOk returns a tuple with the StatusCode field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetStatusCode
 
-`func (o *SingleOfStockUpdateResponse) SetStatusCode(v int32)`
+`func (o *SingleOfApiResponse) SetStatusCode(v int32)`
 
 SetStatusCode sets StatusCode field to given value.
 
 ### HasStatusCode
 
-`func (o *SingleOfStockUpdateResponse) HasStatusCode() bool`
+`func (o *SingleOfApiResponse) HasStatusCode() bool`
 
 HasStatusCode returns a boolean if a field has been set.
 
 ### GetRequestId
 
-`func (o *SingleOfStockUpdateResponse) GetRequestId() string`
+`func (o *SingleOfApiResponse) GetRequestId() string`
 
 GetRequestId returns the RequestId field if non-nil, zero value otherwise.
 
 ### GetRequestIdOk
 
-`func (o *SingleOfStockUpdateResponse) GetRequestIdOk() (*string, bool)`
+`func (o *SingleOfApiResponse) GetRequestIdOk() (*string, bool)`
 
 GetRequestIdOk returns a tuple with the RequestId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetRequestId
 
-`func (o *SingleOfStockUpdateResponse) SetRequestId(v string)`
+`func (o *SingleOfApiResponse) SetRequestId(v string)`
 
 SetRequestId sets RequestId field to given value.
 
 ### HasRequestId
 
-`func (o *SingleOfStockUpdateResponse) HasRequestId() bool`
+`func (o *SingleOfApiResponse) HasRequestId() bool`
 
 HasRequestId returns a boolean if a field has been set.
 
 ### SetRequestIdNil
 
-`func (o *SingleOfStockUpdateResponse) SetRequestIdNil(b bool)`
+`func (o *SingleOfApiResponse) SetRequestIdNil(b bool)`
 
  SetRequestIdNil sets the value for RequestId to be an explicit nil
 
 ### UnsetRequestId
-`func (o *SingleOfStockUpdateResponse) UnsetRequestId()`
+`func (o *SingleOfApiResponse) UnsetRequestId()`
 
 UnsetRequestId ensures that no value is present for RequestId, not even an explicit nil
 ### GetLogId
 
-`func (o *SingleOfStockUpdateResponse) GetLogId() string`
+`func (o *SingleOfApiResponse) GetLogId() string`
 
 GetLogId returns the LogId field if non-nil, zero value otherwise.
 
 ### GetLogIdOk
 
-`func (o *SingleOfStockUpdateResponse) GetLogIdOk() (*string, bool)`
+`func (o *SingleOfApiResponse) GetLogIdOk() (*string, bool)`
 
 GetLogIdOk returns a tuple with the LogId field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogId
 
-`func (o *SingleOfStockUpdateResponse) SetLogId(v string)`
+`func (o *SingleOfApiResponse) SetLogId(v string)`
 
 SetLogId sets LogId field to given value.
 
 ### HasLogId
 
-`func (o *SingleOfStockUpdateResponse) HasLogId() bool`
+`func (o *SingleOfApiResponse) HasLogId() bool`
 
 HasLogId returns a boolean if a field has been set.
 
 ### SetLogIdNil
 
-`func (o *SingleOfStockUpdateResponse) SetLogIdNil(b bool)`
+`func (o *SingleOfApiResponse) SetLogIdNil(b bool)`
 
  SetLogIdNil sets the value for LogId to be an explicit nil
 
 ### UnsetLogId
-`func (o *SingleOfStockUpdateResponse) UnsetLogId()`
+`func (o *SingleOfApiResponse) UnsetLogId()`
 
 UnsetLogId ensures that no value is present for LogId, not even an explicit nil
 ### GetSuccess
 
-`func (o *SingleOfStockUpdateResponse) GetSuccess() bool`
+`func (o *SingleOfApiResponse) GetSuccess() bool`
 
 GetSuccess returns the Success field if non-nil, zero value otherwise.
 
 ### GetSuccessOk
 
-`func (o *SingleOfStockUpdateResponse) GetSuccessOk() (*bool, bool)`
+`func (o *SingleOfApiResponse) GetSuccessOk() (*bool, bool)`
 
 GetSuccessOk returns a tuple with the Success field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSuccess
 
-`func (o *SingleOfStockUpdateResponse) SetSuccess(v bool)`
+`func (o *SingleOfApiResponse) SetSuccess(v bool)`
 
 SetSuccess sets Success field to given value.
 
 ### HasSuccess
 
-`func (o *SingleOfStockUpdateResponse) HasSuccess() bool`
+`func (o *SingleOfApiResponse) HasSuccess() bool`
 
 HasSuccess returns a boolean if a field has been set.
 
 ### GetMessage
 
-`func (o *SingleOfStockUpdateResponse) GetMessage() string`
+`func (o *SingleOfApiResponse) GetMessage() string`
 
 GetMessage returns the Message field if non-nil, zero value otherwise.
 
 ### GetMessageOk
 
-`func (o *SingleOfStockUpdateResponse) GetMessageOk() (*string, bool)`
+`func (o *SingleOfApiResponse) GetMessageOk() (*string, bool)`
 
 GetMessageOk returns a tuple with the Message field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetMessage
 
-`func (o *SingleOfStockUpdateResponse) SetMessage(v string)`
+`func (o *SingleOfApiResponse) SetMessage(v string)`
 
 SetMessage sets Message field to given value.
 
 ### HasMessage
 
-`func (o *SingleOfStockUpdateResponse) HasMessage() bool`
+`func (o *SingleOfApiResponse) HasMessage() bool`
 
 HasMessage returns a boolean if a field has been set.
 
 ### SetMessageNil
 
-`func (o *SingleOfStockUpdateResponse) SetMessageNil(b bool)`
+`func (o *SingleOfApiResponse) SetMessageNil(b bool)`
 
  SetMessageNil sets the value for Message to be an explicit nil
 
 ### UnsetMessage
-`func (o *SingleOfStockUpdateResponse) UnsetMessage()`
+`func (o *SingleOfApiResponse) UnsetMessage()`
 
 UnsetMessage ensures that no value is present for Message, not even an explicit nil
+### GetExceptionType
+
+`func (o *SingleOfApiResponse) GetExceptionType() string`
+
+GetExceptionType returns the ExceptionType field if non-nil, zero value otherwise.
+
+### GetExceptionTypeOk
+
+`func (o *SingleOfApiResponse) GetExceptionTypeOk() (*string, bool)`
+
+GetExceptionTypeOk returns a tuple with the ExceptionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExceptionType
+
+`func (o *SingleOfApiResponse) SetExceptionType(v string)`
+
+SetExceptionType sets ExceptionType field to given value.
+
+### HasExceptionType
+
+`func (o *SingleOfApiResponse) HasExceptionType() bool`
+
+HasExceptionType returns a boolean if a field has been set.
+
+### SetExceptionTypeNil
+
+`func (o *SingleOfApiResponse) SetExceptionTypeNil(b bool)`
+
+ SetExceptionTypeNil sets the value for ExceptionType to be an explicit nil
+
+### UnsetExceptionType
+`func (o *SingleOfApiResponse) UnsetExceptionType()`
+
+UnsetExceptionType ensures that no value is present for ExceptionType, not even an explicit nil
 ### GetValidationErrors
 
-`func (o *SingleOfStockUpdateResponse) GetValidationErrors() map[string][]string`
+`func (o *SingleOfApiResponse) GetValidationErrors() map[string][]string`
 
 GetValidationErrors returns the ValidationErrors field if non-nil, zero value otherwise.
 
 ### GetValidationErrorsOk
 
-`func (o *SingleOfStockUpdateResponse) GetValidationErrorsOk() (*map[string][]string, bool)`
+`func (o *SingleOfApiResponse) GetValidationErrorsOk() (*map[string][]string, bool)`
 
 GetValidationErrorsOk returns a tuple with the ValidationErrors field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetValidationErrors
 
-`func (o *SingleOfStockUpdateResponse) SetValidationErrors(v map[string][]string)`
+`func (o *SingleOfApiResponse) SetValidationErrors(v map[string][]string)`
 
 SetValidationErrors sets ValidationErrors field to given value.
 
 ### HasValidationErrors
 
-`func (o *SingleOfStockUpdateResponse) HasValidationErrors() bool`
+`func (o *SingleOfApiResponse) HasValidationErrors() bool`
 
 HasValidationErrors returns a boolean if a field has been set.
 
 ### SetValidationErrorsNil
 
-`func (o *SingleOfStockUpdateResponse) SetValidationErrorsNil(b bool)`
+`func (o *SingleOfApiResponse) SetValidationErrorsNil(b bool)`
 
  SetValidationErrorsNil sets the value for ValidationErrors to be an explicit nil
 
 ### UnsetValidationErrors
-`func (o *SingleOfStockUpdateResponse) UnsetValidationErrors()`
+`func (o *SingleOfApiResponse) UnsetValidationErrors()`
 
 UnsetValidationErrors ensures that no value is present for ValidationErrors, not even an explicit nil
 

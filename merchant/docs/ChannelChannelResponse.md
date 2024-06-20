@@ -7,6 +7,7 @@ Name | Type | Description | Notes
 **ChannelId** | Pointer to **NullableInt32** | The ID of the Channel. | [optional] 
 **IsEnabled** | Pointer to **bool** | A boolean value indicating whether the Channel is enabled. | [optional] 
 **ChannelName** | Pointer to **NullableString** | The name of the Channel. | [optional] 
+**Reference** | Pointer to **NullableString** |  | [optional] 
 
 ## Methods
 
@@ -122,6 +123,41 @@ HasChannelName returns a boolean if a field has been set.
 `func (o *ChannelChannelResponse) UnsetChannelName()`
 
 UnsetChannelName ensures that no value is present for ChannelName, not even an explicit nil
+### GetReference
+
+`func (o *ChannelChannelResponse) GetReference() string`
+
+GetReference returns the Reference field if non-nil, zero value otherwise.
+
+### GetReferenceOk
+
+`func (o *ChannelChannelResponse) GetReferenceOk() (*string, bool)`
+
+GetReferenceOk returns a tuple with the Reference field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetReference
+
+`func (o *ChannelChannelResponse) SetReference(v string)`
+
+SetReference sets Reference field to given value.
+
+### HasReference
+
+`func (o *ChannelChannelResponse) HasReference() bool`
+
+HasReference returns a boolean if a field has been set.
+
+### SetReferenceNil
+
+`func (o *ChannelChannelResponse) SetReferenceNil(b bool)`
+
+ SetReferenceNil sets the value for Reference to be an explicit nil
+
+### UnsetReference
+`func (o *ChannelChannelResponse) UnsetReference()`
+
+UnsetReference ensures that no value is present for Reference, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

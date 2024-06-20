@@ -23,24 +23,24 @@ Creates a cancelation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantCancellationRequest := *openapiclient.NewMerchantCancellationRequest("MerchantCancellationNo_example", "MerchantOrderNo_example", []openapiclient.MerchantCancellationLineRequest{*openapiclient.NewMerchantCancellationLineRequest("MerchantProductNo_example", int32(123))}) // MerchantCancellationRequest |  (optional)
+	merchantCancellationRequest := *openapiclient.NewMerchantCancellationRequest("MerchantCancellationNo_example", "MerchantOrderNo_example", []openapiclient.MerchantCancellationLineRequest{*openapiclient.NewMerchantCancellationLineRequest("MerchantProductNo_example", int32(123))}) // MerchantCancellationRequest |  (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CancellationAPI.CancellationCreate(context.Background()).MerchantCancellationRequest(merchantCancellationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CancellationCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CancellationAPI.CancellationCreate(context.Background()).MerchantCancellationRequest(merchantCancellationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancellationCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationCreate`: %v\n", resp)
 }
 ```
 
@@ -89,26 +89,26 @@ Gets cancelations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    createdSince := time.Now() // time.Time | Filter on the create date of the cancellation in ChannelEngine, starting from this date. This date is inclusive. (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	createdSince := time.Now() // time.Time | Filter on the create date of the cancellation in ChannelEngine, starting from this date. This date is inclusive. (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CancellationAPI.CancellationGetForMerchant(context.Background()).CreatedSince(createdSince).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationGetForMerchant``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CancellationGetForMerchant`: CollectionOfMerchantCancellationResponse
-    fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationGetForMerchant`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CancellationAPI.CancellationGetForMerchant(context.Background()).CreatedSince(createdSince).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationGetForMerchant``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancellationGetForMerchant`: CollectionOfMerchantCancellationResponse
+	fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationGetForMerchant`: %v\n", resp)
 }
 ```
 

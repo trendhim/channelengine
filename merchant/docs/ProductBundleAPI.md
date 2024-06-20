@@ -22,27 +22,27 @@ Gets product bundles
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    search := "search_example" // string | Search product(s) by Name, MerchantProductNo, Ean or Brand<br />This search is applied to the result after applying the other filters. (optional)
-    eanList := []string{"Inner_example"} // []string | Search products by submitting a list of EAN's. (optional)
-    merchantProductNoList := []string{"Inner_example"} // []string | Search products by submitting a list of MerchantProductNo's. (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	search := "search_example" // string | Search product(s) by Name, MerchantProductNo, Ean or Brand<br />This search is applied to the result after applying the other filters. (optional)
+	eanList := []string{"Inner_example"} // []string | Search products by submitting a list of EAN's. (optional)
+	merchantProductNoList := []string{"Inner_example"} // []string | Search products by submitting a list of MerchantProductNo's. (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ProductBundleAPI.ProductBundleGetByFilter(context.Background()).Search(search).EanList(eanList).MerchantProductNoList(merchantProductNoList).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ProductBundleAPI.ProductBundleGetByFilter``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ProductBundleGetByFilter`: CollectionOfMerchantProductBundleResponse
-    fmt.Fprintf(os.Stdout, "Response from `ProductBundleAPI.ProductBundleGetByFilter`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ProductBundleAPI.ProductBundleGetByFilter(context.Background()).Search(search).EanList(eanList).MerchantProductNoList(merchantProductNoList).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ProductBundleAPI.ProductBundleGetByFilter``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ProductBundleGetByFilter`: CollectionOfMerchantProductBundleResponse
+	fmt.Fprintf(os.Stdout, "Response from `ProductBundleAPI.ProductBundleGetByFilter`: %v\n", resp)
 }
 ```
 

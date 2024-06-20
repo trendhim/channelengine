@@ -22,33 +22,33 @@ Gets notifications
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    fromDate := time.Now() // time.Time | Filter on the notification date, starting from this date. This date is inclusive. (optional)
-    toDate := time.Now() // time.Time | Filter on the notification date, until this date. This date is exclusive. (optional)
-    types := []openapiclient.NotificationType{openapiclient.NotificationType("CHANNEL_ORDER_ANONYMIZED_BY_REQUEST")} // []NotificationType | Notification type(s) to filter on. (optional)
-    merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
-    channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
-    merchantReturnNos := []string{"Inner_example"} // []string | Filter on unique return reference used by the merchant. (optional)
-    channelReturnNos := []string{"Inner_example"} // []string | Filter on unique return reference used by the channel. (optional)
-    merchantShipmentNos := []string{"Inner_example"} // []string | Filter on unique shipment reference used by the merchant. (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	fromDate := time.Now() // time.Time | Filter on the notification date, starting from this date. This date is inclusive. (optional)
+	toDate := time.Now() // time.Time | Filter on the notification date, until this date. This date is exclusive. (optional)
+	types := []openapiclient.NotificationType{openapiclient.NotificationType("CHANNEL_ORDER_ANONYMIZED_BY_REQUEST")} // []NotificationType | Notification type(s) to filter on. (optional)
+	merchantOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the merchant. (optional)
+	channelOrderNos := []string{"Inner_example"} // []string | Filter on unique order reference used by the channel. (optional)
+	merchantReturnNos := []string{"Inner_example"} // []string | Filter on unique return reference used by the merchant. (optional)
+	channelReturnNos := []string{"Inner_example"} // []string | Filter on unique return reference used by the channel. (optional)
+	merchantShipmentNos := []string{"Inner_example"} // []string | Filter on unique shipment reference used by the merchant. (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.NotificationAPI.NotificationIndex(context.Background()).FromDate(fromDate).ToDate(toDate).Types(types).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).MerchantReturnNos(merchantReturnNos).ChannelReturnNos(channelReturnNos).MerchantShipmentNos(merchantShipmentNos).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.NotificationIndex``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `NotificationIndex`: CollectionOfMerchantNotificationResponse
-    fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.NotificationIndex`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.NotificationAPI.NotificationIndex(context.Background()).FromDate(fromDate).ToDate(toDate).Types(types).MerchantOrderNos(merchantOrderNos).ChannelOrderNos(channelOrderNos).MerchantReturnNos(merchantReturnNos).ChannelReturnNos(channelReturnNos).MerchantShipmentNos(merchantShipmentNos).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `NotificationAPI.NotificationIndex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `NotificationIndex`: CollectionOfMerchantNotificationResponse
+	fmt.Fprintf(os.Stdout, "Response from `NotificationAPI.NotificationIndex`: %v\n", resp)
 }
 ```
 

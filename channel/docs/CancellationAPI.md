@@ -24,24 +24,24 @@ Creates multiple cancellations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    bulkChannelCreateCancellationsRequest := *openapiclient.NewBulkChannelCreateCancellationsRequest() // BulkChannelCreateCancellationsRequest | Bulk request with specific order identifier, cancelation reason, and order line info for cancelation. (optional)
+	bulkChannelCreateCancellationsRequest := *openapiclient.NewBulkChannelCreateCancellationsRequest() // BulkChannelCreateCancellationsRequest | Bulk request with specific order identifier, cancelation reason, and order line info for cancelation. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CancellationAPI.CancellationChannelBulkCCreate(context.Background()).BulkChannelCreateCancellationsRequest(bulkChannelCreateCancellationsRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationChannelBulkCCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CancellationChannelBulkCCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationChannelBulkCCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CancellationAPI.CancellationChannelBulkCCreate(context.Background()).BulkChannelCreateCancellationsRequest(bulkChannelCreateCancellationsRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationChannelBulkCCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancellationChannelBulkCCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationChannelBulkCCreate`: %v\n", resp)
 }
 ```
 
@@ -90,25 +90,25 @@ Gets cancelations
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
+	"context"
+	"fmt"
+	"os"
     "time"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    createdSince := time.Now() // time.Time | The date from which you will get all created cancellations (optional)
+	createdSince := time.Now() // time.Time | The date from which you will get all created cancellations (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CancellationAPI.CancellationIndex(context.Background()).CreatedSince(createdSince).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationIndex``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CancellationIndex`: CollectionOfChannelCancellationResponse
-    fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationIndex`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CancellationAPI.CancellationIndex(context.Background()).CreatedSince(createdSince).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationIndex``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancellationIndex`: CollectionOfChannelCancellationResponse
+	fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationIndex`: %v\n", resp)
 }
 ```
 
@@ -157,24 +157,24 @@ Creates a cancelation
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/channel"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/channel"
 )
 
 func main() {
-    singleChannelCreateCancellationRequest := *openapiclient.NewSingleChannelCreateCancellationRequest() // SingleChannelCreateCancellationRequest | Single request with specific order identifier, cancelation reason, and order line info for cancelation. (optional)
+	singleChannelCreateCancellationRequest := *openapiclient.NewSingleChannelCreateCancellationRequest() // SingleChannelCreateCancellationRequest | Single request with specific order identifier, cancelation reason, and order line info for cancelation. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CancellationAPI.CancellationSingleChannelCreate(context.Background()).SingleChannelCreateCancellationRequest(singleChannelCreateCancellationRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationSingleChannelCreate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CancellationSingleChannelCreate`: ApiResponse
-    fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationSingleChannelCreate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CancellationAPI.CancellationSingleChannelCreate(context.Background()).SingleChannelCreateCancellationRequest(singleChannelCreateCancellationRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CancellationAPI.CancellationSingleChannelCreate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CancellationSingleChannelCreate`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `CancellationAPI.CancellationSingleChannelCreate`: %v\n", resp)
 }
 ```
 

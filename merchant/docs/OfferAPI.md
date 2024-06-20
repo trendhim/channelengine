@@ -24,27 +24,27 @@ Gets product stock across all warehouses
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    stockLocationIds := []int32{int32(123)} // []int32 | The ChannelEngine id of the stock location(s).
-    skus := []string{"Inner_example"} // []string | List of your products' sku's. (optional)
-    pageIndex := int32(56) // int32 | A page index to get the items (starts from 0) (optional)
-    pageSize := int32(56) // int32 | Number of items to return (default 100) (optional)
+	stockLocationIds := []int32{int32(123)} // []int32 | The ChannelEngine id of the stock location(s).
+	skus := []string{"Inner_example"} // []string | List of your products' sku's. (optional)
+	pageIndex := int32(56) // int32 | A page index to get the items (starts from 0) (optional)
+	pageSize := int32(56) // int32 | Number of items to return (default 100) (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OfferAPI.OfferGetStock(context.Background()).StockLocationIds(stockLocationIds).Skus(skus).PageIndex(pageIndex).PageSize(pageSize).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferGetStock``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OfferGetStock`: CollectionOfMerchantOfferGetStockResponse
-    fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferGetStock`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OfferAPI.OfferGetStock(context.Background()).StockLocationIds(stockLocationIds).Skus(skus).PageIndex(pageIndex).PageSize(pageSize).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferGetStock``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OfferGetStock`: CollectionOfMerchantOfferGetStockResponse
+	fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferGetStock`: %v\n", resp)
 }
 ```
 
@@ -96,24 +96,24 @@ Updates stock and price
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantStockPriceUpdateRequest := []openapiclient.MerchantStockPriceUpdateRequest{*openapiclient.NewMerchantStockPriceUpdateRequest("MerchantProductNo_example")} // []MerchantStockPriceUpdateRequest | References to the products that should be updated, and the new values<br />for the stock or price fields. It is possible to supply only one of the two fields<br />or both.
+	merchantStockPriceUpdateRequest := []openapiclient.MerchantStockPriceUpdateRequest{*openapiclient.NewMerchantStockPriceUpdateRequest("MerchantProductNo_example")} // []MerchantStockPriceUpdateRequest | References to the products that should be updated, and the new values<br />for the stock or price fields. It is possible to supply only one of the two fields<br />or both.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OfferAPI.OfferStockPriceUpdate(context.Background()).MerchantStockPriceUpdateRequest(merchantStockPriceUpdateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferStockPriceUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OfferStockPriceUpdate`: SingleOfDictionaryOfStringAndListOfString
-    fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferStockPriceUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OfferAPI.OfferStockPriceUpdate(context.Background()).MerchantStockPriceUpdateRequest(merchantStockPriceUpdateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferStockPriceUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OfferStockPriceUpdate`: SingleOfDictionaryOfStringAndListOfString
+	fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferStockPriceUpdate`: %v\n", resp)
 }
 ```
 
@@ -150,7 +150,7 @@ Name | Type | Description  | Notes
 
 ## OfferStockUpdate
 
-> SingleOfStockUpdateResponse OfferStockUpdate(ctx).MerchantOfferStockUpdateRequest(merchantOfferStockUpdateRequest).Execute()
+> SingleOfDictionaryOfStringAndListOfString OfferStockUpdate(ctx).MerchantOfferStockUpdateRequest(merchantOfferStockUpdateRequest).Execute()
 
 Updates stock
 
@@ -162,24 +162,24 @@ Updates stock
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    merchantOfferStockUpdateRequest := []openapiclient.MerchantOfferStockUpdateRequest{*openapiclient.NewMerchantOfferStockUpdateRequest("MerchantProductNo_example", []openapiclient.MerchantStockLocationUpdateRequest{*openapiclient.NewMerchantStockLocationUpdateRequest()})} // []MerchantOfferStockUpdateRequest | References to the new values for the stock fields.
+	merchantOfferStockUpdateRequest := []openapiclient.MerchantOfferStockUpdateRequest{*openapiclient.NewMerchantOfferStockUpdateRequest("MerchantProductNo_example", []openapiclient.MerchantStockLocationUpdateRequest{*openapiclient.NewMerchantStockLocationUpdateRequest()})} // []MerchantOfferStockUpdateRequest | References to the new values for the stock fields.
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.OfferAPI.OfferStockUpdate(context.Background()).MerchantOfferStockUpdateRequest(merchantOfferStockUpdateRequest).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferStockUpdate``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `OfferStockUpdate`: SingleOfStockUpdateResponse
-    fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferStockUpdate`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.OfferAPI.OfferStockUpdate(context.Background()).MerchantOfferStockUpdateRequest(merchantOfferStockUpdateRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `OfferAPI.OfferStockUpdate``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `OfferStockUpdate`: SingleOfDictionaryOfStringAndListOfString
+	fmt.Fprintf(os.Stdout, "Response from `OfferAPI.OfferStockUpdate`: %v\n", resp)
 }
 ```
 
@@ -198,7 +198,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SingleOfStockUpdateResponse**](SingleOfStockUpdateResponse.md)
+[**SingleOfDictionaryOfStringAndListOfString**](SingleOfDictionaryOfStringAndListOfString.md)
 
 ### Authorization
 

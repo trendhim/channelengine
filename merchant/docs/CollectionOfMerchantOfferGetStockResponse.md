@@ -5,14 +5,15 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Content** | Pointer to [**[]MerchantOfferGetStockResponse**](MerchantOfferGetStockResponse.md) |  | [optional] 
-**Count** | Pointer to **int32** |  | [optional] 
-**TotalCount** | Pointer to **int32** |  | [optional] 
-**ItemsPerPage** | Pointer to **int32** |  | [optional] 
+**Count** | Pointer to **int32** | The number of items in the current response. | [optional] 
+**TotalCount** | Pointer to **int32** | The total number of items. | [optional] 
+**ItemsPerPage** | Pointer to **int32** | The number of items per page. | [optional] 
 **StatusCode** | Pointer to **int32** |  | [optional] 
 **RequestId** | Pointer to **NullableString** |  | [optional] 
 **LogId** | Pointer to **NullableString** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
 **Message** | Pointer to **NullableString** |  | [optional] 
+**ExceptionType** | Pointer to **NullableString** |  | [optional] 
 **ValidationErrors** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
@@ -299,6 +300,41 @@ HasMessage returns a boolean if a field has been set.
 `func (o *CollectionOfMerchantOfferGetStockResponse) UnsetMessage()`
 
 UnsetMessage ensures that no value is present for Message, not even an explicit nil
+### GetExceptionType
+
+`func (o *CollectionOfMerchantOfferGetStockResponse) GetExceptionType() string`
+
+GetExceptionType returns the ExceptionType field if non-nil, zero value otherwise.
+
+### GetExceptionTypeOk
+
+`func (o *CollectionOfMerchantOfferGetStockResponse) GetExceptionTypeOk() (*string, bool)`
+
+GetExceptionTypeOk returns a tuple with the ExceptionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExceptionType
+
+`func (o *CollectionOfMerchantOfferGetStockResponse) SetExceptionType(v string)`
+
+SetExceptionType sets ExceptionType field to given value.
+
+### HasExceptionType
+
+`func (o *CollectionOfMerchantOfferGetStockResponse) HasExceptionType() bool`
+
+HasExceptionType returns a boolean if a field has been set.
+
+### SetExceptionTypeNil
+
+`func (o *CollectionOfMerchantOfferGetStockResponse) SetExceptionTypeNil(b bool)`
+
+ SetExceptionTypeNil sets the value for ExceptionType to be an explicit nil
+
+### UnsetExceptionType
+`func (o *CollectionOfMerchantOfferGetStockResponse) UnsetExceptionType()`
+
+UnsetExceptionType ensures that no value is present for ExceptionType, not even an explicit nil
 ### GetValidationErrors
 
 `func (o *CollectionOfMerchantOfferGetStockResponse) GetValidationErrors() map[string][]string`

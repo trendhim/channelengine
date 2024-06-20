@@ -34,4 +34,16 @@ func Test_merchant_SettlementAPIService(t *testing.T) {
 
 	})
 
+	t.Run("Test SettlementAPIService SettlementUploadSettlement", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.SettlementAPI.SettlementUploadSettlement(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 }

@@ -22,23 +22,23 @@ Gets channels
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.ChannelsAPI.ChannelPluginsGet(context.Background()).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.ChannelPluginsGet``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `ChannelPluginsGet`: CollectionOfChannelGlobalChannelResponse
-    fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.ChannelPluginsGet`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.ChannelsAPI.ChannelPluginsGet(context.Background()).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `ChannelsAPI.ChannelPluginsGet``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `ChannelPluginsGet`: CollectionOfChannelGlobalChannelResponse
+	fmt.Fprintf(os.Stdout, "Response from `ChannelsAPI.ChannelPluginsGet`: %v\n", resp)
 }
 ```
 

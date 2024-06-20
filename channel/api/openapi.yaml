@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for channels
   title: ChannelEngine Channel API
-  version: 2.13.0
+  version: 2.14.0
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -352,7 +352,8 @@ paths:
         frequently) up to date.
       operationId: ProductGetOfferChanges
       parameters:
-      - description: Optional - for default is first page returned
+      - description: Optional - for default is first page returned. Not recomended
+          could return the same offers in different pages.
         explode: true
         in: query
         name: page
@@ -363,7 +364,8 @@ paths:
           type: integer
         style: form
       - description: "Optional - amount of products returned, if not provided return\
-          \ all products"
+          \ all products. Not recomended could return the same offers in different\
+          \ pages."
         explode: true
         in: query
         name: pageSize
@@ -666,7 +668,7 @@ paths:
       description: ' Downloads the shipping label for the shipment.<br /> <br /> **NB:**
         it may take some time between the creation of the shipment and the availability
         of the label.<br />A "404 not found" error might indicate that the label is
-        not available yet.'
+        not available yet.<br />A "410 gone" the shipping label is not available anymore.'
       operationId: ShipmentShippingLabel
       parameters:
       - description: The unique shipment reference as used by the merchant.
@@ -691,6 +693,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
           description: Not Found
+        "410":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Client Error
       summary: Gets a shipping label
       tags:
       - Shipment
@@ -699,6 +707,7 @@ components:
     ApiResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         RequestId: RequestId
         Message: Message
         ValidationErrors:
@@ -723,6 +732,9 @@ components:
         Message:
           nullable: true
           type: string
+        ExceptionType:
+          nullable: true
+          type: string
         ValidationErrors:
           additionalProperties:
             items:
@@ -736,8 +748,9 @@ components:
       additionalProperties: false
       example:
         Models:
-        - Identifier: Identifier
-          ReasonCode: null
+        - IsForcedCancellation: true
+          Identifier: Identifier
+          ReasonCode: NOT_IN_STOCK
           ChannelCancellationNo: ChannelCancellationNo
           Reason: Reason
           Lines:
@@ -745,8 +758,9 @@ components:
             OrderLineIdentifier: OrderLineIdentifier
           - Quantity: 0
             OrderLineIdentifier: OrderLineIdentifier
-        - Identifier: Identifier
-          ReasonCode: null
+        - IsForcedCancellation: true
+          Identifier: Identifier
+          ReasonCode: NOT_IN_STOCK
           ChannelCancellationNo: ChannelCancellationNo
           Reason: Reason
           Lines:
@@ -754,14 +768,15 @@ components:
             OrderLineIdentifier: OrderLineIdentifier
           - Quantity: 0
             OrderLineIdentifier: OrderLineIdentifier
-        IdentifierType: null
-        LineIdentifierType: null
+        IdentifierType: ORDER_ID
+        LineIdentifierType: ORDER_LINE_ID
       properties:
         LineIdentifierType:
           $ref: '#/components/schemas/ChannelCreateCancellationsOrderLineIdentifierType'
         IdentifierType:
           $ref: '#/components/schemas/ChannelCreateCancellationsOrderIdentifierType'
         Models:
+          description: The value (of the selected type) to filter on
           items:
             $ref: '#/components/schemas/ChannelCancellation'
           nullable: true
@@ -787,7 +802,7 @@ components:
         FirstName: FirstName
         ZipCode: ZipCode
         Region: Region
-        Gender: null
+        Gender: MALE
         LastName: LastName
         City: City
         Original: Original
@@ -871,8 +886,9 @@ components:
     ChannelCancellation:
       additionalProperties: false
       example:
+        IsForcedCancellation: true
         Identifier: Identifier
-        ReasonCode: null
+        ReasonCode: NOT_IN_STOCK
         ChannelCancellationNo: ChannelCancellationNo
         Reason: Reason
         Lines:
@@ -892,6 +908,8 @@ components:
           type: string
         ReasonCode:
           $ref: '#/components/schemas/CancelReason'
+        IsForcedCancellation:
+          type: boolean
         Lines:
           items:
             $ref: '#/components/schemas/ChannelCancellationLine'
@@ -915,29 +933,33 @@ components:
       additionalProperties: false
       example:
         OrderLine:
-          Status: null
-          UnitPriceInclVat: 0.4145608029883936
-          Condition: null
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.7386281948385884
-          FeeRate: 0.12315135367772556
-          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
           Gtin: Gtin
+          OriginalFeeFixed: 9.301444243932576
+          ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          OriginalLineVat: 7.061401241503109
+          ChannelProductNo: ChannelProductNo
+          Status: IN_PROGRESS
+          UnitPriceInclVat: 0.4145608029883936
+          Condition: NEW
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitPriceInclVat: 5.962133916683182
           LineVat: 1.4658129805029452
-          OriginalFeeFixed: 9.301444243932576
-          OriginalLineVat: 7.061401241503109
+          LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
           CancellationRequestedQuantity: 0
+          LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
-          ChannelProductNo: ChannelProductNo
-        ShipmentStatus: null
+        ShipmentStatus: SHIPPED
         Quantity: 0
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
@@ -970,60 +992,68 @@ components:
         MerchantCancellationNo: MerchantCancellationNo
         CreatedAt: 2000-01-23T04:56:07.000+00:00
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
-        ReasonCode: null
+        ReasonCode: NOT_IN_STOCK
         Reason: Reason
         Lines:
         - OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           Quantity: 0
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
@@ -1112,11 +1142,15 @@ components:
       additionalProperties: false
       example:
         UnitPriceInclVat: 0.14658129805029452
-        Condition: null
+        Condition: NEW
         FeeFixed: 0.5962133916683182
         FeeRate: 0.5637376656633328
         Quantity: 0
+        LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+        ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
+        ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
         CancellationRequestedQuantity: 0
+        LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
         ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
         MerchantProductNo: MerchantProductNo
         ChannelProductNo: ChannelProductNo
@@ -1169,8 +1203,32 @@ components:
           type: number
         Condition:
           $ref: '#/components/schemas/Condition'
+        ExactDeliveryDate:
+          description: "Exact delivery date from channels, empty if channels not support\
+            \ this value"
+          format: date-time
+          nullable: true
+          type: string
         ExpectedDeliveryDate:
           description: "Expected delivery date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        LatestDeliveryDate:
+          description: "Latest delivery date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        ExpectedShipmentDate:
+          description: "Expected shipment date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        LatestShipmentDate:
+          description: "Latest shipment date from channels, empty if channels not\
             \ support this value"
           format: date-time
           nullable: true
@@ -1183,28 +1241,32 @@ components:
     ChannelOrderLineResponse:
       additionalProperties: false
       example:
-        Status: null
-        UnitPriceInclVat: 0.4145608029883936
-        Condition: null
         UnitVat: 0.8008281904610115
         BundleProductMerchantProductNo: BundleProductMerchantProductNo
         Description: Description
-        FeeFixed: 0.7386281948385884
-        FeeRate: 0.12315135367772556
-        Quantity: 0
         OriginalUnitVat: 5.637376656633329
         IsFulfillmentByMarketplace: true
         OriginalLineTotalInclVat: 2.3021358869347655
         Gtin: Gtin
+        OriginalFeeFixed: 9.301444243932576
+        ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+        OriginalLineVat: 7.061401241503109
+        ChannelProductNo: ChannelProductNo
+        Status: IN_PROGRESS
+        UnitPriceInclVat: 0.4145608029883936
+        Condition: NEW
+        FeeFixed: 0.7386281948385884
+        FeeRate: 0.12315135367772556
+        Quantity: 0
         OriginalUnitPriceInclVat: 5.962133916683182
         LineVat: 1.4658129805029452
-        OriginalFeeFixed: 9.301444243932576
-        OriginalLineVat: 7.061401241503109
+        LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+        ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
         CancellationRequestedQuantity: 0
+        LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
         ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
         MerchantProductNo: MerchantProductNo
         LineTotalInclVat: 6.027456183070403
-        ChannelProductNo: ChannelProductNo
       properties:
         Status:
           $ref: '#/components/schemas/OrderStatusView'
@@ -1328,8 +1390,32 @@ components:
           type: number
         Condition:
           $ref: '#/components/schemas/Condition'
+        ExactDeliveryDate:
+          description: "Exact delivery date from channels, empty if channels not support\
+            \ this value"
+          format: date-time
+          nullable: true
+          type: string
         ExpectedDeliveryDate:
           description: "Expected delivery date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        LatestDeliveryDate:
+          description: "Latest delivery date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        ExpectedShipmentDate:
+          description: "Expected shipment date from channels, empty if channels not\
+            \ support this value"
+          format: date-time
+          nullable: true
+          type: string
+        LatestShipmentDate:
+          description: "Latest shipment date from channels, empty if channels not\
             \ support this value"
           format: date-time
           nullable: true
@@ -1358,13 +1444,14 @@ components:
           FirstName: FirstName
           ZipCode: ZipCode
           Region: Region
-          Gender: null
+          Gender: MALE
           LastName: LastName
           City: City
           Original: Original
         CurrencyCode: CurrencyCode
         LanguageCode: LanguageCode
         CompanyRegistrationNo: CompanyRegistrationNo
+        OrderFee: 0.7061401241503109
         Phone: Phone
         PaymentReferenceNo: PaymentReferenceNo
         ShippingAddress:
@@ -1376,7 +1463,7 @@ components:
           FirstName: FirstName
           ZipCode: ZipCode
           Region: Region
-          Gender: null
+          Gender: MALE
           LastName: LastName
           City: City
           Original: Original
@@ -1387,20 +1474,28 @@ components:
         ChannelCustomerNo: ChannelCustomerNo
         Lines:
         - UnitPriceInclVat: 0.14658129805029452
-          Condition: null
+          Condition: NEW
           FeeFixed: 0.5962133916683182
           FeeRate: 0.5637376656633328
           Quantity: 0
+          LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
+          ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
           CancellationRequestedQuantity: 0
+          LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - UnitPriceInclVat: 0.14658129805029452
-          Condition: null
+          Condition: NEW
           FeeFixed: 0.5962133916683182
           FeeRate: 0.5637376656633328
           Quantity: 0
+          LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
+          ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
           CancellationRequestedQuantity: 0
+          LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
@@ -1440,6 +1535,18 @@ components:
           items:
             $ref: '#/components/schemas/ChannelOrderLineRequest'
           type: array
+        ShippingCostsInclVat:
+          description: "The shipping fee including VAT\r\n(in the shop's base currency\
+            \ calculated using the exchange rate at the time of ordering)."
+          format: decimal
+          minimum: 0
+          type: number
+        OrderFee:
+          description: "The fee on order itself (besides the fees on the order lines)\r\
+            \n(in the currency in which the order was paid for, see CurrencyCode)."
+          format: decimal
+          minimum: 0
+          type: number
         Phone:
           description: The customer's telephone number.
           maxLength: 50
@@ -1482,12 +1589,6 @@ components:
           minLength: 0
           nullable: true
           type: string
-        ShippingCostsInclVat:
-          description: "The shipping fee including VAT\r\n(in the shop's base currency\
-            \ calculated using the exchange rate at the time of ordering)."
-          format: decimal
-          minimum: 0
-          type: number
         CurrencyCode:
           description: The currency code for the amounts of the order.
           maxLength: 3
@@ -1570,8 +1671,9 @@ components:
           MinPrice: 0.5962133916683182
           Url: Url
           Name: Name
-          VatRateType: null
+          VatRateType: STANDARD
           ParentChannelProductNo: ParentChannelProductNo
+          IsFrozen: true
           ChannelProductNo: ChannelProductNo
           ExtraImageUrl9: ExtraImageUrl9
           ExtraImageUrl8: ExtraImageUrl8
@@ -1580,16 +1682,16 @@ components:
           ExtraImageUrl5: ExtraImageUrl5
           Color: Color
           ExtraImageUrl4: ExtraImageUrl4
-          ProductType: null
+          ProductType: SINGLE
           ImageUrl: ImageUrl
           ManufacturerProductNumber: ManufacturerProductNumber
           ExtraData:
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
             Key: Key
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
@@ -1617,8 +1719,9 @@ components:
           MinPrice: 0.5962133916683182
           Url: Url
           Name: Name
-          VatRateType: null
+          VatRateType: STANDARD
           ParentChannelProductNo: ParentChannelProductNo
+          IsFrozen: true
           ChannelProductNo: ChannelProductNo
           ExtraImageUrl9: ExtraImageUrl9
           ExtraImageUrl8: ExtraImageUrl8
@@ -1627,16 +1730,16 @@ components:
           ExtraImageUrl5: ExtraImageUrl5
           Color: Color
           ExtraImageUrl4: ExtraImageUrl4
-          ProductType: null
+          ProductType: SINGLE
           ImageUrl: ImageUrl
           ManufacturerProductNumber: ManufacturerProductNumber
           ExtraData:
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
             Key: Key
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
@@ -1668,8 +1771,9 @@ components:
           MinPrice: 0.5962133916683182
           Url: Url
           Name: Name
-          VatRateType: null
+          VatRateType: STANDARD
           ParentChannelProductNo: ParentChannelProductNo
+          IsFrozen: true
           ChannelProductNo: ChannelProductNo
           ExtraImageUrl9: ExtraImageUrl9
           ExtraImageUrl8: ExtraImageUrl8
@@ -1678,16 +1782,16 @@ components:
           ExtraImageUrl5: ExtraImageUrl5
           Color: Color
           ExtraImageUrl4: ExtraImageUrl4
-          ProductType: null
+          ProductType: SINGLE
           ImageUrl: ImageUrl
           ManufacturerProductNumber: ManufacturerProductNumber
           ExtraData:
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
             Key: Key
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
@@ -1715,8 +1819,9 @@ components:
           MinPrice: 0.5962133916683182
           Url: Url
           Name: Name
-          VatRateType: null
+          VatRateType: STANDARD
           ParentChannelProductNo: ParentChannelProductNo
+          IsFrozen: true
           ChannelProductNo: ChannelProductNo
           ExtraImageUrl9: ExtraImageUrl9
           ExtraImageUrl8: ExtraImageUrl8
@@ -1725,16 +1830,16 @@ components:
           ExtraImageUrl5: ExtraImageUrl5
           Color: Color
           ExtraImageUrl4: ExtraImageUrl4
-          ProductType: null
+          ProductType: SINGLE
           ImageUrl: ImageUrl
           ManufacturerProductNumber: ManufacturerProductNumber
           ExtraData:
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
             Key: Key
-          - Type: null
+          - Type: TEXT
             IsPublic: true
             LanguageIsoCode: LanguageIsoCode
             Value: Value
@@ -1775,7 +1880,7 @@ components:
     ChannelProductExtraDataItemResponse:
       additionalProperties: false
       example:
-        Type: null
+        Type: TEXT
         IsPublic: true
         LanguageIsoCode: LanguageIsoCode
         Value: Value
@@ -1829,8 +1934,9 @@ components:
         MinPrice: 0.5962133916683182
         Url: Url
         Name: Name
-        VatRateType: null
+        VatRateType: STANDARD
         ParentChannelProductNo: ParentChannelProductNo
+        IsFrozen: true
         ChannelProductNo: ChannelProductNo
         ExtraImageUrl9: ExtraImageUrl9
         ExtraImageUrl8: ExtraImageUrl8
@@ -1839,16 +1945,16 @@ components:
         ExtraImageUrl5: ExtraImageUrl5
         Color: Color
         ExtraImageUrl4: ExtraImageUrl4
-        ProductType: null
+        ProductType: SINGLE
         ImageUrl: ImageUrl
         ManufacturerProductNumber: ManufacturerProductNumber
         ExtraData:
-        - Type: null
+        - Type: TEXT
           IsPublic: true
           LanguageIsoCode: LanguageIsoCode
           Value: Value
           Key: Key
-        - Type: null
+        - Type: TEXT
           IsPublic: true
           LanguageIsoCode: LanguageIsoCode
           Value: Value
@@ -2073,6 +2179,9 @@ components:
           minLength: 0
           nullable: true
           type: string
+        IsFrozen:
+          description: Specifies whether Product is disabled on all channels.
+          type: boolean
         CategoryTrail:
           description: "The category to which this product belongs.\r\nPlease supply\
             \ this field in the following format:\r\n'maincategory > category > subcategory'\r\
@@ -2120,29 +2229,33 @@ components:
       example:
         RejectedQuantity: 6
         OrderLine:
-          Status: null
-          UnitPriceInclVat: 0.4145608029883936
-          Condition: null
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.7386281948385884
-          FeeRate: 0.12315135367772556
-          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
           Gtin: Gtin
+          OriginalFeeFixed: 9.301444243932576
+          ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          OriginalLineVat: 7.061401241503109
+          ChannelProductNo: ChannelProductNo
+          Status: IN_PROGRESS
+          UnitPriceInclVat: 0.4145608029883936
+          Condition: NEW
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitPriceInclVat: 5.962133916683182
           LineVat: 1.4658129805029452
-          OriginalFeeFixed: 9.301444243932576
-          OriginalLineVat: 7.061401241503109
+          LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
           CancellationRequestedQuantity: 0
+          LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
-          ChannelProductNo: ChannelProductNo
-        ShipmentStatus: null
+        ShipmentStatus: SHIPPED
         AcceptedQuantity: 0
         Quantity: 0
         ExtraData:
@@ -2194,7 +2307,7 @@ components:
     ChannelReturnRequest:
       additionalProperties: false
       example:
-        Status: null
+        Status: IN_PROGRESS
         ReturnDate: 2000-01-23T04:56:07.000+00:00
         ChannelOrderNo: ChannelOrderNo
         MerchantComment: MerchantComment
@@ -2202,7 +2315,7 @@ components:
         KeyIsMerchantProductNo: true
         ExtraData:
           key: ExtraData
-        Reason: null
+        Reason: PRODUCT_DEFECT
         KeyIsMerchantOrderNo: true
         CustomerComment: CustomerComment
         ChannelReference: ChannelReference
@@ -2304,7 +2417,7 @@ components:
         ExtraData:
           key: ExtraData
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
-        Reason: null
+        Reason: PRODUCT_DEFECT
         CustomerComment: CustomerComment
         ChannelReturnNo: ChannelReturnNo
         MerchantOrderNo: MerchantOrderNo
@@ -2312,29 +2425,33 @@ components:
         Lines:
         - RejectedQuantity: 6
           OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           AcceptedQuantity: 0
           Quantity: 0
           ExtraData:
@@ -2343,29 +2460,33 @@ components:
           ChannelProductNo: ChannelProductNo
         - RejectedQuantity: 6
           OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           AcceptedQuantity: 0
           Quantity: 0
           ExtraData:
@@ -2453,29 +2574,33 @@ components:
       additionalProperties: false
       example:
         OrderLine:
-          Status: null
-          UnitPriceInclVat: 0.4145608029883936
-          Condition: null
           UnitVat: 0.8008281904610115
           BundleProductMerchantProductNo: BundleProductMerchantProductNo
           Description: Description
-          FeeFixed: 0.7386281948385884
-          FeeRate: 0.12315135367772556
-          Quantity: 0
           OriginalUnitVat: 5.637376656633329
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 2.3021358869347655
           Gtin: Gtin
+          OriginalFeeFixed: 9.301444243932576
+          ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          OriginalLineVat: 7.061401241503109
+          ChannelProductNo: ChannelProductNo
+          Status: IN_PROGRESS
+          UnitPriceInclVat: 0.4145608029883936
+          Condition: NEW
+          FeeFixed: 0.7386281948385884
+          FeeRate: 0.12315135367772556
+          Quantity: 0
           OriginalUnitPriceInclVat: 5.962133916683182
           LineVat: 1.4658129805029452
-          OriginalFeeFixed: 9.301444243932576
-          OriginalLineVat: 7.061401241503109
+          LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+          ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
           CancellationRequestedQuantity: 0
+          LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
           ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
           MerchantProductNo: MerchantProductNo
           LineTotalInclVat: 6.027456183070403
-          ChannelProductNo: ChannelProductNo
-        ShipmentStatus: null
+        ShipmentStatus: SHIPPED
         Quantity: 0
         ExtraData:
           key: ExtraData
@@ -2528,58 +2653,66 @@ components:
         MerchantShipmentNo: MerchantShipmentNo
         Lines:
         - OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           Quantity: 0
           ExtraData:
             key: ExtraData
           MerchantProductNo: MerchantProductNo
           ChannelProductNo: ChannelProductNo
         - OrderLine:
-            Status: null
-            UnitPriceInclVat: 0.4145608029883936
-            Condition: null
             UnitVat: 0.8008281904610115
             BundleProductMerchantProductNo: BundleProductMerchantProductNo
             Description: Description
-            FeeFixed: 0.7386281948385884
-            FeeRate: 0.12315135367772556
-            Quantity: 0
             OriginalUnitVat: 5.637376656633329
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 2.3021358869347655
             Gtin: Gtin
+            OriginalFeeFixed: 9.301444243932576
+            ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            OriginalLineVat: 7.061401241503109
+            ChannelProductNo: ChannelProductNo
+            Status: IN_PROGRESS
+            UnitPriceInclVat: 0.4145608029883936
+            Condition: NEW
+            FeeFixed: 0.7386281948385884
+            FeeRate: 0.12315135367772556
+            Quantity: 0
             OriginalUnitPriceInclVat: 5.962133916683182
             LineVat: 1.4658129805029452
-            OriginalFeeFixed: 9.301444243932576
-            OriginalLineVat: 7.061401241503109
+            LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+            ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
             CancellationRequestedQuantity: 0
+            LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
             ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
             MerchantProductNo: MerchantProductNo
             LineTotalInclVat: 6.027456183070403
-            ChannelProductNo: ChannelProductNo
-          ShipmentStatus: null
+          ShipmentStatus: SHIPPED
           Quantity: 0
           ExtraData:
             key: ExtraData
@@ -2665,6 +2798,7 @@ components:
     CollectionChangesOfChannelProductChangesResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         RequestId: RequestId
         Message: Message
         ToBeCreatedTotalCount: 3
@@ -2681,8 +2815,9 @@ components:
             MinPrice: 0.5962133916683182
             Url: Url
             Name: Name
-            VatRateType: null
+            VatRateType: STANDARD
             ParentChannelProductNo: ParentChannelProductNo
+            IsFrozen: true
             ChannelProductNo: ChannelProductNo
             ExtraImageUrl9: ExtraImageUrl9
             ExtraImageUrl8: ExtraImageUrl8
@@ -2691,16 +2826,16 @@ components:
             ExtraImageUrl5: ExtraImageUrl5
             Color: Color
             ExtraImageUrl4: ExtraImageUrl4
-            ProductType: null
+            ProductType: SINGLE
             ImageUrl: ImageUrl
             ManufacturerProductNumber: ManufacturerProductNumber
             ExtraData:
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
               Key: Key
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
@@ -2728,8 +2863,9 @@ components:
             MinPrice: 0.5962133916683182
             Url: Url
             Name: Name
-            VatRateType: null
+            VatRateType: STANDARD
             ParentChannelProductNo: ParentChannelProductNo
+            IsFrozen: true
             ChannelProductNo: ChannelProductNo
             ExtraImageUrl9: ExtraImageUrl9
             ExtraImageUrl8: ExtraImageUrl8
@@ -2738,16 +2874,16 @@ components:
             ExtraImageUrl5: ExtraImageUrl5
             Color: Color
             ExtraImageUrl4: ExtraImageUrl4
-            ProductType: null
+            ProductType: SINGLE
             ImageUrl: ImageUrl
             ManufacturerProductNumber: ManufacturerProductNumber
             ExtraData:
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
               Key: Key
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
@@ -2779,8 +2915,9 @@ components:
             MinPrice: 0.5962133916683182
             Url: Url
             Name: Name
-            VatRateType: null
+            VatRateType: STANDARD
             ParentChannelProductNo: ParentChannelProductNo
+            IsFrozen: true
             ChannelProductNo: ChannelProductNo
             ExtraImageUrl9: ExtraImageUrl9
             ExtraImageUrl8: ExtraImageUrl8
@@ -2789,16 +2926,16 @@ components:
             ExtraImageUrl5: ExtraImageUrl5
             Color: Color
             ExtraImageUrl4: ExtraImageUrl4
-            ProductType: null
+            ProductType: SINGLE
             ImageUrl: ImageUrl
             ManufacturerProductNumber: ManufacturerProductNumber
             ExtraData:
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
               Key: Key
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
@@ -2826,8 +2963,9 @@ components:
             MinPrice: 0.5962133916683182
             Url: Url
             Name: Name
-            VatRateType: null
+            VatRateType: STANDARD
             ParentChannelProductNo: ParentChannelProductNo
+            IsFrozen: true
             ChannelProductNo: ChannelProductNo
             ExtraImageUrl9: ExtraImageUrl9
             ExtraImageUrl8: ExtraImageUrl8
@@ -2836,16 +2974,16 @@ components:
             ExtraImageUrl5: ExtraImageUrl5
             Color: Color
             ExtraImageUrl4: ExtraImageUrl4
-            ProductType: null
+            ProductType: SINGLE
             ImageUrl: ImageUrl
             ManufacturerProductNumber: ManufacturerProductNumber
             ExtraData:
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
               Key: Key
-            - Type: null
+            - Type: TEXT
               IsPublic: true
               LanguageIsoCode: LanguageIsoCode
               Value: Value
@@ -2875,12 +3013,15 @@ components:
         Content:
           $ref: '#/components/schemas/ChannelProductChangesResponse'
         ToBeCreatedTotalCount:
+          description: The total number of changes to create.
           format: int32
           type: integer
         ToBeUpdatedTotalCount:
+          description: The total number of changes to update.
           format: int32
           type: integer
         ToBeDeletedTotalCount:
+          description: The total number of changes to delete.
           format: int32
           type: integer
         StatusCode:
@@ -2897,6 +3038,9 @@ components:
         Message:
           nullable: true
           type: string
+        ExceptionType:
+          nullable: true
+          type: string
         ValidationErrors:
           additionalProperties:
             items:
@@ -2909,6 +3053,7 @@ components:
     CollectionOfChannelCancellationResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         TotalCount: 6
         RequestId: RequestId
         Message: Message
@@ -2921,60 +3066,68 @@ components:
           MerchantCancellationNo: MerchantCancellationNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          ReasonCode: null
+          ReasonCode: NOT_IN_STOCK
           Reason: Reason
           Lines:
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
@@ -2982,60 +3135,68 @@ components:
           MerchantCancellationNo: MerchantCancellationNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          ReasonCode: null
+          ReasonCode: NOT_IN_STOCK
           Reason: Reason
           Lines:
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
@@ -3051,12 +3212,15 @@ components:
           nullable: true
           type: array
         Count:
+          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
+          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
+          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3073,6 +3237,9 @@ components:
         Message:
           nullable: true
           type: string
+        ExceptionType:
+          nullable: true
+          type: string
         ValidationErrors:
           additionalProperties:
             items:
@@ -3085,6 +3252,7 @@ components:
     CollectionOfChannelOfferResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         TotalCount: 5
         RequestId: RequestId
         Message: Message
@@ -3117,12 +3285,15 @@ components:
           nullable: true
           type: array
         Count:
+          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
+          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
+          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3139,6 +3310,9 @@ components:
         Message:
           nullable: true
           type: string
+        ExceptionType:
+          nullable: true
+          type: string
         ValidationErrors:
           additionalProperties:
             items:
@@ -3151,6 +3325,7 @@ components:
     CollectionOfChannelReturnResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         TotalCount: 9
         RequestId: RequestId
         Message: Message
@@ -3167,7 +3342,7 @@ components:
           ExtraData:
             key: ExtraData
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          Reason: null
+          Reason: PRODUCT_DEFECT
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
@@ -3175,29 +3350,33 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             AcceptedQuantity: 0
             Quantity: 0
             ExtraData:
@@ -3206,29 +3385,33 @@ components:
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
             OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             AcceptedQuantity: 0
             Quantity: 0
             ExtraData:
@@ -3244,7 +3427,7 @@ components:
           ExtraData:
             key: ExtraData
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
-          Reason: null
+          Reason: PRODUCT_DEFECT
           CustomerComment: CustomerComment
           ChannelReturnNo: ChannelReturnNo
           MerchantOrderNo: MerchantOrderNo
@@ -3252,29 +3435,33 @@ components:
           Lines:
           - RejectedQuantity: 6
             OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             AcceptedQuantity: 0
             Quantity: 0
             ExtraData:
@@ -3283,29 +3470,33 @@ components:
             ChannelProductNo: ChannelProductNo
           - RejectedQuantity: 6
             OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             AcceptedQuantity: 0
             Quantity: 0
             ExtraData:
@@ -3325,12 +3516,15 @@ components:
           nullable: true
           type: array
         Count:
+          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
+          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
+          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3347,6 +3541,9 @@ components:
         Message:
           nullable: true
           type: string
+        ExceptionType:
+          nullable: true
+          type: string
         ValidationErrors:
           additionalProperties:
             items:
@@ -3359,6 +3556,7 @@ components:
     CollectionOfChannelShipmentResponse:
       additionalProperties: false
       example:
+        ExceptionType: ExceptionType
         TotalCount: 5
         RequestId: RequestId
         Message: Message
@@ -3382,58 +3580,66 @@ components:
           MerchantShipmentNo: MerchantShipmentNo
           Lines:
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             ExtraData:
               key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             ExtraData:
               key: ExtraData
@@ -3454,58 +3660,66 @@ components:
           MerchantShipmentNo: MerchantShipmentNo
           Lines:
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             ExtraData:
               key: ExtraData
             MerchantProductNo: MerchantProductNo
             ChannelProductNo: ChannelProductNo
           - OrderLine:
-              Status: null
-              UnitPriceInclVat: 0.4145608029883936
-              Condition: null
               UnitVat: 0.8008281904610115
               BundleProductMerchantProductNo: BundleProductMerchantProductNo
               Description: Description
-              FeeFixed: 0.7386281948385884
-              FeeRate: 0.12315135367772556
-              Quantity: 0
               OriginalUnitVat: 5.637376656633329
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 2.3021358869347655
               Gtin: Gtin
+              OriginalFeeFixed: 9.301444243932576
+              ExactDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              OriginalLineVat: 7.061401241503109
+              ChannelProductNo: ChannelProductNo
+              Status: IN_PROGRESS
+              UnitPriceInclVat: 0.4145608029883936
+              Condition: NEW
+              FeeFixed: 0.7386281948385884
+              FeeRate: 0.12315135367772556
+              Quantity: 0
               OriginalUnitPriceInclVat: 5.962133916683182
               LineVat: 1.4658129805029452
-              OriginalFeeFixed: 9.301444243932576
-              OriginalLineVat: 7.061401241503109
+              LatestDeliveryDate: 2000-01-23T04:56:07.000+00:00
+              ExpectedShipmentDate: 2000-01-23T04:56:07.000+00:00
               CancellationRequestedQuantity: 0
+              LatestShipmentDate: 2000-01-23T04:56:07.000+00:00
               ExpectedDeliveryDate: 2000-01-23T04:56:07.000+00:00
               MerchantProductNo: MerchantProductNo
               LineTotalInclVat: 6.027456183070403
-              ChannelProductNo: ChannelProductNo
-            ShipmentStatus: null
+            ShipmentStatus: SHIPPED
             Quantity: 0
             ExtraData:
               key: ExtraData
@@ -3523,12 +3737,15 @@ components:
           nullable: true
           type: array
         Count:
+          description: The number of items in the current response.
           format: int32
           type: integer
         TotalCount:
+          description: The total number of items.
           format: int32
           type: integer
         ItemsPerPage:
+          description: The number of items per page.
           format: int32
           type: integer
         StatusCode:
@@ -3543,6 +3760,9 @@ components:
         Success:
           type: boolean
         Message:
+          nullable: true
+          type: string
+        ExceptionType:
           nullable: true
           type: string
         ValidationErrors:
@@ -3660,8 +3880,9 @@ components:
       additionalProperties: false
       example:
         Model:
+          IsForcedCancellation: true
           Identifier: Identifier
-          ReasonCode: null
+          ReasonCode: NOT_IN_STOCK
           ChannelCancellationNo: ChannelCancellationNo
           Reason: Reason
           Lines:
@@ -3669,8 +3890,8 @@ components:
             OrderLineIdentifier: OrderLineIdentifier
           - Quantity: 0
             OrderLineIdentifier: OrderLineIdentifier
-        IdentifierType: null
-        LineIdentifierType: null
+        IdentifierType: ORDER_ID
+        LineIdentifierType: ORDER_LINE_ID
       properties:
         LineIdentifierType:
           $ref: '#/components/schemas/ChannelCreateCancellationsOrderLineIdentifierType'
@@ -3692,4 +3913,4 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.13.0
+x-version: 2.14.0

@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **LogId** | Pointer to **NullableString** |  | [optional] 
 **Success** | Pointer to **bool** |  | [optional] 
 **Message** | Pointer to **NullableString** |  | [optional] 
+**ExceptionType** | Pointer to **NullableString** |  | [optional] 
 **ValidationErrors** | Pointer to **map[string][]string** |  | [optional] 
 
 ## Methods
@@ -185,6 +186,41 @@ HasMessage returns a boolean if a field has been set.
 `func (o *ApiResponse) UnsetMessage()`
 
 UnsetMessage ensures that no value is present for Message, not even an explicit nil
+### GetExceptionType
+
+`func (o *ApiResponse) GetExceptionType() string`
+
+GetExceptionType returns the ExceptionType field if non-nil, zero value otherwise.
+
+### GetExceptionTypeOk
+
+`func (o *ApiResponse) GetExceptionTypeOk() (*string, bool)`
+
+GetExceptionTypeOk returns a tuple with the ExceptionType field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExceptionType
+
+`func (o *ApiResponse) SetExceptionType(v string)`
+
+SetExceptionType sets ExceptionType field to given value.
+
+### HasExceptionType
+
+`func (o *ApiResponse) HasExceptionType() bool`
+
+HasExceptionType returns a boolean if a field has been set.
+
+### SetExceptionTypeNil
+
+`func (o *ApiResponse) SetExceptionTypeNil(b bool)`
+
+ SetExceptionTypeNil sets the value for ExceptionType to be an explicit nil
+
+### UnsetExceptionType
+`func (o *ApiResponse) UnsetExceptionType()`
+
+UnsetExceptionType ensures that no value is present for ExceptionType, not even an explicit nil
 ### GetValidationErrors
 
 `func (o *ApiResponse) GetValidationErrors() map[string][]string`

@@ -18,11 +18,13 @@ Name | Type | Description | Notes
 **AcknowledgedDate** | Pointer to **NullableTime** | The date the order was acknowledged in ChannelEngine. | [optional] 
 **CreatedAt** | Pointer to **NullableTime** | The date the order was created in ChannelEngine. | [optional] 
 **UpdatedAt** | Pointer to **NullableTime** | The date the order was last updated in ChannelEngine. | [optional] 
+**ClosedAt** | Pointer to **NullableTime** | The date the order was last updated in ChannelEngine. | [optional] 
 **MerchantComment** | Pointer to **NullableString** | The optional comment a merchant can add to an order. | [optional] 
 **BillingAddress** | Pointer to [**MerchantAddressResponse**](MerchantAddressResponse.md) |  | [optional] 
 **ShippingAddress** | Pointer to [**MerchantAddressResponse**](MerchantAddressResponse.md) |  | [optional] 
 **SubTotalInclVat** | Pointer to **NullableFloat32** | The total value of the order lines including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
 **SubTotalVat** | Pointer to **NullableFloat32** | The total amount of VAT charged over the order lines  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
+**ShippingCostsInclVat** | Pointer to **float32** |  | [optional] 
 **ShippingCostsVat** | Pointer to **NullableFloat32** | The total amount of VAT charged over the shipping fee  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
 **TotalInclVat** | Pointer to **float32** | The total value of the order including VAT  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
 **TotalVat** | Pointer to **NullableFloat32** | The total amount of VAT charged over the total value of te order  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
@@ -38,8 +40,13 @@ Name | Type | Description | Notes
 **OriginalSubTotalExclVat** | Pointer to **NullableFloat32** |  | [optional] 
 **OriginalShippingCostsExclVat** | Pointer to **NullableFloat32** |  | [optional] 
 **OriginalTotalExclVat** | Pointer to **NullableFloat32** |  | [optional] 
+**OriginalSubTotalFee** | Pointer to **float32** | The sum of the fees on the order lines  (in the currency in which the order was paid for, see CurrencyCode). | [optional] 
+**SubTotalFee** | Pointer to **float32** | The sum of the fees on the order lines  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
+**OriginalOrderFee** | Pointer to **float32** | The fee on order itself (besides the fees on the order lines)  (in the currency in which the order was paid for, see CurrencyCode). | [optional] 
+**OrderFee** | Pointer to **float32** | The fee on order itself (besides the fees on the order lines)  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
+**OriginalTotalFee** | Pointer to **float32** | The total fee: the fees on the order lines + the fee on the order itself  (in the currency in which the order was paid for, see CurrencyCode). | [optional] 
+**TotalFee** | Pointer to **float32** | The total fee: the fees on the order lines + the fee on the order itself  (in the shop&#39;s base currency calculated using the exchange rate at the time of ordering). | [optional] 
 **Lines** | Pointer to [**[]MerchantOrderLineResponse**](MerchantOrderLineResponse.md) |  | [optional] 
-**ShippingCostsInclVat** | Pointer to **float32** |  | [optional] 
 **Phone** | Pointer to **NullableString** | The customer&#39;s telephone number. | [optional] 
 **Email** | **string** | The customer&#39;s email. | 
 **LanguageCode** | Pointer to **NullableString** | The language of the order. Has to be a 2-letter ISO language code. | [optional] 
@@ -521,6 +528,41 @@ HasUpdatedAt returns a boolean if a field has been set.
 `func (o *MerchantOrderResponse) UnsetUpdatedAt()`
 
 UnsetUpdatedAt ensures that no value is present for UpdatedAt, not even an explicit nil
+### GetClosedAt
+
+`func (o *MerchantOrderResponse) GetClosedAt() time.Time`
+
+GetClosedAt returns the ClosedAt field if non-nil, zero value otherwise.
+
+### GetClosedAtOk
+
+`func (o *MerchantOrderResponse) GetClosedAtOk() (*time.Time, bool)`
+
+GetClosedAtOk returns a tuple with the ClosedAt field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetClosedAt
+
+`func (o *MerchantOrderResponse) SetClosedAt(v time.Time)`
+
+SetClosedAt sets ClosedAt field to given value.
+
+### HasClosedAt
+
+`func (o *MerchantOrderResponse) HasClosedAt() bool`
+
+HasClosedAt returns a boolean if a field has been set.
+
+### SetClosedAtNil
+
+`func (o *MerchantOrderResponse) SetClosedAtNil(b bool)`
+
+ SetClosedAtNil sets the value for ClosedAt to be an explicit nil
+
+### UnsetClosedAt
+`func (o *MerchantOrderResponse) UnsetClosedAt()`
+
+UnsetClosedAt ensures that no value is present for ClosedAt, not even an explicit nil
 ### GetMerchantComment
 
 `func (o *MerchantOrderResponse) GetMerchantComment() string`
@@ -676,6 +718,31 @@ HasSubTotalVat returns a boolean if a field has been set.
 `func (o *MerchantOrderResponse) UnsetSubTotalVat()`
 
 UnsetSubTotalVat ensures that no value is present for SubTotalVat, not even an explicit nil
+### GetShippingCostsInclVat
+
+`func (o *MerchantOrderResponse) GetShippingCostsInclVat() float32`
+
+GetShippingCostsInclVat returns the ShippingCostsInclVat field if non-nil, zero value otherwise.
+
+### GetShippingCostsInclVatOk
+
+`func (o *MerchantOrderResponse) GetShippingCostsInclVatOk() (*float32, bool)`
+
+GetShippingCostsInclVatOk returns a tuple with the ShippingCostsInclVat field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetShippingCostsInclVat
+
+`func (o *MerchantOrderResponse) SetShippingCostsInclVat(v float32)`
+
+SetShippingCostsInclVat sets ShippingCostsInclVat field to given value.
+
+### HasShippingCostsInclVat
+
+`func (o *MerchantOrderResponse) HasShippingCostsInclVat() bool`
+
+HasShippingCostsInclVat returns a boolean if a field has been set.
+
 ### GetShippingCostsVat
 
 `func (o *MerchantOrderResponse) GetShippingCostsVat() float32`
@@ -1191,6 +1258,156 @@ HasOriginalTotalExclVat returns a boolean if a field has been set.
 `func (o *MerchantOrderResponse) UnsetOriginalTotalExclVat()`
 
 UnsetOriginalTotalExclVat ensures that no value is present for OriginalTotalExclVat, not even an explicit nil
+### GetOriginalSubTotalFee
+
+`func (o *MerchantOrderResponse) GetOriginalSubTotalFee() float32`
+
+GetOriginalSubTotalFee returns the OriginalSubTotalFee field if non-nil, zero value otherwise.
+
+### GetOriginalSubTotalFeeOk
+
+`func (o *MerchantOrderResponse) GetOriginalSubTotalFeeOk() (*float32, bool)`
+
+GetOriginalSubTotalFeeOk returns a tuple with the OriginalSubTotalFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalSubTotalFee
+
+`func (o *MerchantOrderResponse) SetOriginalSubTotalFee(v float32)`
+
+SetOriginalSubTotalFee sets OriginalSubTotalFee field to given value.
+
+### HasOriginalSubTotalFee
+
+`func (o *MerchantOrderResponse) HasOriginalSubTotalFee() bool`
+
+HasOriginalSubTotalFee returns a boolean if a field has been set.
+
+### GetSubTotalFee
+
+`func (o *MerchantOrderResponse) GetSubTotalFee() float32`
+
+GetSubTotalFee returns the SubTotalFee field if non-nil, zero value otherwise.
+
+### GetSubTotalFeeOk
+
+`func (o *MerchantOrderResponse) GetSubTotalFeeOk() (*float32, bool)`
+
+GetSubTotalFeeOk returns a tuple with the SubTotalFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetSubTotalFee
+
+`func (o *MerchantOrderResponse) SetSubTotalFee(v float32)`
+
+SetSubTotalFee sets SubTotalFee field to given value.
+
+### HasSubTotalFee
+
+`func (o *MerchantOrderResponse) HasSubTotalFee() bool`
+
+HasSubTotalFee returns a boolean if a field has been set.
+
+### GetOriginalOrderFee
+
+`func (o *MerchantOrderResponse) GetOriginalOrderFee() float32`
+
+GetOriginalOrderFee returns the OriginalOrderFee field if non-nil, zero value otherwise.
+
+### GetOriginalOrderFeeOk
+
+`func (o *MerchantOrderResponse) GetOriginalOrderFeeOk() (*float32, bool)`
+
+GetOriginalOrderFeeOk returns a tuple with the OriginalOrderFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalOrderFee
+
+`func (o *MerchantOrderResponse) SetOriginalOrderFee(v float32)`
+
+SetOriginalOrderFee sets OriginalOrderFee field to given value.
+
+### HasOriginalOrderFee
+
+`func (o *MerchantOrderResponse) HasOriginalOrderFee() bool`
+
+HasOriginalOrderFee returns a boolean if a field has been set.
+
+### GetOrderFee
+
+`func (o *MerchantOrderResponse) GetOrderFee() float32`
+
+GetOrderFee returns the OrderFee field if non-nil, zero value otherwise.
+
+### GetOrderFeeOk
+
+`func (o *MerchantOrderResponse) GetOrderFeeOk() (*float32, bool)`
+
+GetOrderFeeOk returns a tuple with the OrderFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOrderFee
+
+`func (o *MerchantOrderResponse) SetOrderFee(v float32)`
+
+SetOrderFee sets OrderFee field to given value.
+
+### HasOrderFee
+
+`func (o *MerchantOrderResponse) HasOrderFee() bool`
+
+HasOrderFee returns a boolean if a field has been set.
+
+### GetOriginalTotalFee
+
+`func (o *MerchantOrderResponse) GetOriginalTotalFee() float32`
+
+GetOriginalTotalFee returns the OriginalTotalFee field if non-nil, zero value otherwise.
+
+### GetOriginalTotalFeeOk
+
+`func (o *MerchantOrderResponse) GetOriginalTotalFeeOk() (*float32, bool)`
+
+GetOriginalTotalFeeOk returns a tuple with the OriginalTotalFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetOriginalTotalFee
+
+`func (o *MerchantOrderResponse) SetOriginalTotalFee(v float32)`
+
+SetOriginalTotalFee sets OriginalTotalFee field to given value.
+
+### HasOriginalTotalFee
+
+`func (o *MerchantOrderResponse) HasOriginalTotalFee() bool`
+
+HasOriginalTotalFee returns a boolean if a field has been set.
+
+### GetTotalFee
+
+`func (o *MerchantOrderResponse) GetTotalFee() float32`
+
+GetTotalFee returns the TotalFee field if non-nil, zero value otherwise.
+
+### GetTotalFeeOk
+
+`func (o *MerchantOrderResponse) GetTotalFeeOk() (*float32, bool)`
+
+GetTotalFeeOk returns a tuple with the TotalFee field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetTotalFee
+
+`func (o *MerchantOrderResponse) SetTotalFee(v float32)`
+
+SetTotalFee sets TotalFee field to given value.
+
+### HasTotalFee
+
+`func (o *MerchantOrderResponse) HasTotalFee() bool`
+
+HasTotalFee returns a boolean if a field has been set.
+
 ### GetLines
 
 `func (o *MerchantOrderResponse) GetLines() []MerchantOrderLineResponse`
@@ -1226,31 +1443,6 @@ HasLines returns a boolean if a field has been set.
 `func (o *MerchantOrderResponse) UnsetLines()`
 
 UnsetLines ensures that no value is present for Lines, not even an explicit nil
-### GetShippingCostsInclVat
-
-`func (o *MerchantOrderResponse) GetShippingCostsInclVat() float32`
-
-GetShippingCostsInclVat returns the ShippingCostsInclVat field if non-nil, zero value otherwise.
-
-### GetShippingCostsInclVatOk
-
-`func (o *MerchantOrderResponse) GetShippingCostsInclVatOk() (*float32, bool)`
-
-GetShippingCostsInclVatOk returns a tuple with the ShippingCostsInclVat field if it's non-nil, zero value otherwise
-and a boolean to check if the value has been set.
-
-### SetShippingCostsInclVat
-
-`func (o *MerchantOrderResponse) SetShippingCostsInclVat(v float32)`
-
-SetShippingCostsInclVat sets ShippingCostsInclVat field to given value.
-
-### HasShippingCostsInclVat
-
-`func (o *MerchantOrderResponse) HasShippingCostsInclVat() bool`
-
-HasShippingCostsInclVat returns a boolean if a field has been set.
-
 ### GetPhone
 
 `func (o *MerchantOrderResponse) GetPhone() string`

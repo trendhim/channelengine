@@ -22,27 +22,27 @@ Gets the price from the buy box winner
 package main
 
 import (
-    "context"
-    "fmt"
-    "os"
-    openapiclient "github.com/trendhim/channelengine/merchant"
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
 )
 
 func main() {
-    channelId := int32(56) // int32 | The id of the channel (optional)
-    gtinList := []string{"Inner_example"} // []string | Search products by submitting a list of GTIN's. (optional)<br />Max. 2000. (optional)
-    skuList := []string{"Inner_example"} // []string | Search products by submitting a list of Sku's. (optional)<br />Max. 2000. If GtinList is already set, this one is ignored. (optional)
-    page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
+	channelId := int32(56) // int32 | The id of the channel (optional)
+	gtinList := []string{"Inner_example"} // []string | Search products by submitting a list of GTIN's. (optional)<br />Max. 2000. (optional)
+	skuList := []string{"Inner_example"} // []string | Search products by submitting a list of Sku's. (optional)<br />Max. 2000. If GtinList is already set, this one is ignored. (optional)
+	page := int32(56) // int32 | The page to filter on. Starts at 1. (optional)
 
-    configuration := openapiclient.NewConfiguration()
-    apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices(context.Background()).ChannelId(channelId).GtinList(gtinList).SkuList(skuList).Page(page).Execute()
-    if err != nil {
-        fmt.Fprintf(os.Stderr, "Error when calling `CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices``: %v\n", err)
-        fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
-    }
-    // response from `CompetitionPricesGetBuyBoxPrices`: CollectionOfMerchantProductWithBuyBoxPrice
-    fmt.Fprintf(os.Stdout, "Response from `CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices`: %v\n", resp)
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices(context.Background()).ChannelId(channelId).GtinList(gtinList).SkuList(skuList).Page(page).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `CompetitionPricesGetBuyBoxPrices`: CollectionOfMerchantProductWithBuyBoxPrice
+	fmt.Fprintf(os.Stdout, "Response from `CompetitionPriceAPI.CompetitionPricesGetBuyBoxPrices`: %v\n", resp)
 }
 ```
 
