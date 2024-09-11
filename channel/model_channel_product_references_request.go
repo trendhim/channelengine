@@ -145,7 +145,7 @@ func (o *ChannelProductReferencesRequest) UnmarshalJSON(data []byte) (err error)
 	varChannelProductReferencesRequest := _ChannelProductReferencesRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChannelProductReferencesRequest)
 
 	if err != nil {

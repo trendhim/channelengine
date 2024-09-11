@@ -239,7 +239,7 @@ func (o *MerchantCancellationLineResponse) UnmarshalJSON(data []byte) (err error
 	varMerchantCancellationLineResponse := _MerchantCancellationLineResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantCancellationLineResponse)
 
 	if err != nil {

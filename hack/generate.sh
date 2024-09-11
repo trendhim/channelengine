@@ -28,6 +28,17 @@ openapi-generator generate \
 
 rm -rf ./{channel,merchant}/{.travis.yml,git_push.sh}
 
+removeDecoderDisallowUnknownFields() {
+  local folder="$1"
+
+  find "$folder" -type f -name "*.go" | while read -r file; do
+    sed -i '' 's/\(decoder\.DisallowUnknownFields()\)/\/\/ \1/' "$file"
+  done
+}
+
+removeDecoderDisallowUnknownFields "channel"
+removeDecoderDisallowUnknownFields "merchant"
+
 cd "$(git rev-parse --show-toplevel)/channel"
 go mod tidy
 

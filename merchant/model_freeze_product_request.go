@@ -163,7 +163,7 @@ func (o *FreezeProductRequest) UnmarshalJSON(data []byte) (err error) {
 	varFreezeProductRequest := _FreezeProductRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varFreezeProductRequest)
 
 	if err != nil {

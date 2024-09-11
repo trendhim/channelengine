@@ -305,7 +305,7 @@ func (o *ChangePurchaseOrderShipmentLine) UnmarshalJSON(data []byte) (err error)
 	varChangePurchaseOrderShipmentLine := _ChangePurchaseOrderShipmentLine{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChangePurchaseOrderShipmentLine)
 
 	if err != nil {

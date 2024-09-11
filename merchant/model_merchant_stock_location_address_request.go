@@ -383,7 +383,7 @@ func (o *MerchantStockLocationAddressRequest) UnmarshalJSON(data []byte) (err er
 	varMerchantStockLocationAddressRequest := _MerchantStockLocationAddressRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantStockLocationAddressRequest)
 
 	if err != nil {

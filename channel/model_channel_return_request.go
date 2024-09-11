@@ -667,7 +667,7 @@ func (o *ChannelReturnRequest) UnmarshalJSON(data []byte) (err error) {
 	varChannelReturnRequest := _ChannelReturnRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChannelReturnRequest)
 
 	if err != nil {

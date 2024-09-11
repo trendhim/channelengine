@@ -256,7 +256,7 @@ func (o *ChannelCancellationLineResponse) UnmarshalJSON(data []byte) (err error)
 	varChannelCancellationLineResponse := _ChannelCancellationLineResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChannelCancellationLineResponse)
 
 	if err != nil {

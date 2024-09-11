@@ -135,7 +135,7 @@ func (o *ProductAttributeGroupRequest) UnmarshalJSON(data []byte) (err error) {
 	varProductAttributeGroupRequest := _ProductAttributeGroupRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varProductAttributeGroupRequest)
 
 	if err != nil {

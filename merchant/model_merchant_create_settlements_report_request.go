@@ -135,7 +135,7 @@ func (o *MerchantCreateSettlementsReportRequest) UnmarshalJSON(data []byte) (err
 	varMerchantCreateSettlementsReportRequest := _MerchantCreateSettlementsReportRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantCreateSettlementsReportRequest)
 
 	if err != nil {

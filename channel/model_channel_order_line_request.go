@@ -643,7 +643,7 @@ func (o *ChannelOrderLineRequest) UnmarshalJSON(data []byte) (err error) {
 	varChannelOrderLineRequest := _ChannelOrderLineRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChannelOrderLineRequest)
 
 	if err != nil {

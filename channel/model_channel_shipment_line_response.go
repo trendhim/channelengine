@@ -294,7 +294,7 @@ func (o *ChannelShipmentLineResponse) UnmarshalJSON(data []byte) (err error) {
 	varChannelShipmentLineResponse := _ChannelShipmentLineResponse{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varChannelShipmentLineResponse)
 
 	if err != nil {

@@ -262,7 +262,7 @@ func (o *MerchantStockLocationCreateRequest) UnmarshalJSON(data []byte) (err err
 	varMerchantStockLocationCreateRequest := _MerchantStockLocationCreateRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantStockLocationCreateRequest)
 
 	if err != nil {

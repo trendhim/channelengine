@@ -203,7 +203,7 @@ func (o *MerchantWebhookRequest) UnmarshalJSON(data []byte) (err error) {
 	varMerchantWebhookRequest := _MerchantWebhookRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantWebhookRequest)
 
 	if err != nil {

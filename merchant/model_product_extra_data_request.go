@@ -181,7 +181,7 @@ func (o *ProductExtraDataRequest) UnmarshalJSON(data []byte) (err error) {
 	varProductExtraDataRequest := _ProductExtraDataRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varProductExtraDataRequest)
 
 	if err != nil {

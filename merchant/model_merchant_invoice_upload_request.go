@@ -137,7 +137,7 @@ func (o *MerchantInvoiceUploadRequest) UnmarshalJSON(data []byte) (err error) {
 	varMerchantInvoiceUploadRequest := _MerchantInvoiceUploadRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantInvoiceUploadRequest)
 
 	if err != nil {

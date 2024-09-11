@@ -249,7 +249,7 @@ func (o *MerchantStockPriceUpdateRequest) UnmarshalJSON(data []byte) (err error)
 	varMerchantStockPriceUpdateRequest := _MerchantStockPriceUpdateRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantStockPriceUpdateRequest)
 
 	if err != nil {

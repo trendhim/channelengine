@@ -136,7 +136,7 @@ func (o *MerchantReturnUpdateRequest) UnmarshalJSON(data []byte) (err error) {
 	varMerchantReturnUpdateRequest := _MerchantReturnUpdateRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantReturnUpdateRequest)
 
 	if err != nil {

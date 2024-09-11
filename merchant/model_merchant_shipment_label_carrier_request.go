@@ -163,7 +163,7 @@ func (o *MerchantShipmentLabelCarrierRequest) UnmarshalJSON(data []byte) (err er
 	varMerchantShipmentLabelCarrierRequest := _MerchantShipmentLabelCarrierRequest{}
 
 	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
+	// decoder.DisallowUnknownFields()
 	err = decoder.Decode(&varMerchantShipmentLabelCarrierRequest)
 
 	if err != nil {
