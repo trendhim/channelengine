@@ -3,8 +3,6 @@
 ## Enum
 
 
-* `SUMMARY` (value: `"SUMMARY"`)
-
 * `DETAILED` (value: `"DETAILED"`)
 
 * `CUSTOM_JSON` (value: `"CUSTOM_JSON"`)

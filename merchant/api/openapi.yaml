@@ -2,7 +2,7 @@ openapi: 3.0.1
 info:
   description: ChannelEngine API for merchants
   title: ChannelEngine Merchant API
-  version: 2.14.0
+  version: 2.17.0
 servers:
 - url: https://demo.channelengine.net/api
 security:
@@ -38,10 +38,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantCancellationResponse'
-          description: Success
+          description: OK
       summary: Gets cancelations
       tags:
-      - Cancellation
+      - Cancellations
   /v2/cancellations:
     post:
       description: Marks an order as fully or partially canceled based on order line
@@ -85,7 +85,7 @@ paths:
           description: Conflict
       summary: Creates a cancelation
       tags:
-      - Cancellation
+      - Cancellations
   /v2/channels:
     get:
       description: Gets the complete list of channels available on ChannelEngine including
@@ -97,7 +97,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfChannelGlobalChannelResponse'
-          description: Success
+          description: OK
       summary: Gets channels
       tags:
       - Channels
@@ -153,7 +153,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantProductWithBuyBoxPrice'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -162,7 +162,43 @@ paths:
           description: Bad Request
       summary: Gets the price from the buy box winner
       tags:
-      - CompetitionPrice
+      - Competition Prices
+  /v2/custom-fields:
+    get:
+      operationId: CustomFieldsGetCustomFields
+      parameters:
+      - description: A page index to get the items (starts from 0)
+        explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          format: int32
+          maximum: 2147483647
+          minimum: 0
+          type: integer
+        style: form
+      - description: Number of items to return (default 100)
+        explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          maximum: 500
+          minimum: 0
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfCustomFieldResponse'
+          description: OK
+      summary: Gets custom fields
+      tags:
+      - CustomFields
   /v2/fulfillmentstock:
     get:
       description: Gets the stocks. The warehouses must be set up as stock locations
@@ -207,16 +243,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantFulfillmentStockStockLocationsResponse'
-          description: Success
+          description: OK
       summary: Gets product stock across all warehouses with stock locations
       tags:
-      - FulfillmentStock
+      - Fulfillment Stock
   /v2/channels/{channelId}/products:
     get:
       description: Gets the products listed per channel based on the **Channel ID**.<br
         /> <br />**NB:** not all marketplaces provide adequate options to retrieve
         the status of a product as seen on the marketplace.
-      operationId: Listed ProductGetByFilter
+      operationId: ListedProductGetByFilter
       parameters:
       - description: The id of a channel
         explode: false
@@ -252,10 +288,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfChannelListedProductResponse'
-          description: Success
+          description: OK
       summary: Gets products listed by channel
       tags:
-      - ListedProducts
+      - Listed Products
   /v2/notifications:
     get:
       description: Gets ChannelEngine notifications based on the available filters.
@@ -356,10 +392,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantNotificationResponse'
-          description: Success
+          description: OK
       summary: Gets notifications
       tags:
-      - Notification
+      - Notifications
   /v2/offer:
     put:
       description: Updates product stock and price.
@@ -396,7 +432,7 @@ paths:
             \ warnings\"**"
       summary: Updates stock and price
       tags:
-      - Offer
+      - Offers
   /v2/offer/stock:
     get:
       description: Gets the stock available in the warehouses. The warehouses must
@@ -452,10 +488,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantOfferGetStockResponse'
-          description: Success
+          description: OK
       summary: Gets product stock across all warehouses
       tags:
-      - Offer
+      - Offers
     put:
       description: Updates product stock.
       operationId: OfferStockUpdate
@@ -489,7 +525,7 @@ paths:
             \ warnings\"**"
       summary: Updates stock
       tags:
-      - Offer
+      - Offers
   /v2/orders:
     get:
       description: Gets orders based on the available filters.
@@ -724,10 +760,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantOrderResponse'
-          description: Success
+          description: OK
       summary: Gets orders by filter
       tags:
-      - Order
+      - Orders
   /v2/orders/new:
     get:
       description: Gets orders with the status **New**.
@@ -748,10 +784,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantOrderResponse'
-          description: Success
+          description: OK
       summary: Gets new orders
       tags:
-      - Order
+      - Orders
   /v2/orders/acknowledge:
     post:
       description: Acknowledges an order to confirm order import.
@@ -790,7 +826,7 @@ paths:
           description: Conflict
       summary: Acknowledges orders
       tags:
-      - Order
+      - Orders
   /v2/orders/{merchantOrderNo}/invoice:
     get:
       description: Generates the ChannelEngine sales tax invoice for an order in PDF.
@@ -829,7 +865,7 @@ paths:
           description: Not Found
       summary: Generates an order invoice
       tags:
-      - Order
+      - Orders
     post:
       description: Uploads the invoice for an order in PDF.
       operationId: OrderUploadInvoice
@@ -858,7 +894,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -873,7 +909,7 @@ paths:
           description: Not Found
       summary: Uploads an order invoice
       tags:
-      - Order
+      - Orders
   /v2/orders/{merchantOrderNo}/packingslip:
     get:
       description: Generates the ChannelEngine packing slip for an order in PDF.
@@ -912,7 +948,7 @@ paths:
           description: Not Found
       summary: Generates a packing slip
       tags:
-      - Order
+      - Orders
   /v2/orders/comment:
     put:
       description: Updates the merchant comment for an order based on the ChannelEngine
@@ -935,7 +971,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -950,7 +986,7 @@ paths:
           description: Not Found
       summary: Updates an order comment
       tags:
-      - Order
+      - Orders
   /v2/orders/{merchantOrderNo}/invoice-base64:
     post:
       description: Uploads an order invoice PDF from Base64 string.<br />Invoice size
@@ -981,7 +1017,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -996,7 +1032,396 @@ paths:
           description: Not Found
       summary: Uploads an order invoice PDF from Base64 string.
       tags:
-      - Order
+      - Orders
+  /v2/product-attribute-group:
+    get:
+      description: Gets the custom attribute groups based on the **Group name** provided.
+      operationId: ProductAttributeGroupGetByFilter
+      parameters:
+      - explode: true
+        in: query
+        name: groupNames
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantProductAttributeGroupWithProductExtraDataResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Gets custom attribute groups
+      tags:
+      - Product Attributes
+    post:
+      description: Creates a custom attribute group based on the set of custom attributes
+        (a.k.a. extra data keys).
+      operationId: ProductAttributeGroupCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ProductAttributeGroupRequest'
+              type: array
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ProductAttributeGroupRequest'
+              type: array
+          application/*+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/ProductAttributeGroupRequest'
+              type: array
+        description: Collection of product attribute groups with linked product extra
+          data keys.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Creates a custom attribute group
+      tags:
+      - Product Attributes
+  /v2/product-attribute-group/{groupName}:
+    delete:
+      description: Deletes the custom attribute group based on the **Group name**
+        provided.<br />**NB:** you can only delete a custom attribute group that does
+        not have any markeplaces (a.k.a. channels) linked to it.
+      operationId: ProductAttributeGroupDelete
+      parameters:
+      - description: The group name of the product attribute group you wish to delete.
+        explode: false
+        in: path
+        name: groupName
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Deletes a custom attribute group
+      tags:
+      - Product Attributes
+  /v2/product-attribute-group/{groupName}/add:
+    put:
+      description: Adds the provided custom attributes (a.k.a. extra data keys) to
+        the custom attribute group.<br />**NB:** you can only add existing custom
+        attributes to a group.
+      operationId: ProductAttributeGroupAddProductExtraData
+      parameters:
+      - description: The group name of the product attribute group you wish to add
+          product extra data.
+        explode: false
+        in: path
+        name: groupName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/AddProductExtraDataRequests'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AddProductExtraDataRequests'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/AddProductExtraDataRequests'
+        description: Product extra data keys to be added.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Adds custom attributes to a group
+      tags:
+      - Product Attributes
+  /v2/product-attribute-group/{groupName}/remove:
+    put:
+      description: Removes the custom attributes (a.k.a. extra data keys) from the
+        custom attribute group.<br />**NB:** you can only remove existing custom attributes
+        from a group.
+      operationId: ProductAttributeGroupRemoveProductExtraData
+      parameters:
+      - description: The group name of the product attribute group you wish to remove
+          product extra data.
+        explode: false
+        in: path
+        name: groupName
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
+        description: Product extra data keys to be removed.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Deletes custom attributes from a group
+      tags:
+      - Product Attributes
+  /v2/product-attribute-group/linked-channels:
+    get:
+      description: Gets all custom attribute groups and marketplaces (a.k.a. channels)
+        linked to them.
+      operationId: ProductAttributeGroupGetWithChannelsByFilter
+      parameters:
+      - explode: true
+        in: query
+        name: groupNames
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantProductAttributeGroupWithLinkedChannelsResponse'
+          description: OK
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+      summary: Gets custom attribute groups and linked marketplaces
+      tags:
+      - Product Attributes
+  /v2/product-attribute-group/rename:
+    post:
+      description: Renames the custom attribute groups.
+      operationId: ProductAttributeGroupRenameProductAttributeGroup
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
+              type: array
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
+              type: array
+          application/*+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
+              type: array
+        description: List of old and new product attribute group names.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Not Found
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
+      summary: Renames custom attribute groups
+      tags:
+      - Product Attributes
+  /v2/productbundles:
+    get:
+      description: Gets the product bundle details.
+      operationId: ProductBundleGetByFilter
+      parameters:
+      - description: "Search product(s) by Name, MerchantProductNo, Ean or Brand<br\
+          \ />This search is applied to the result after applying the other filters."
+        explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: Search products by submitting a list of EAN's.
+        explode: true
+        in: query
+        name: eanList
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: Search products by submitting a list of MerchantProductNo's.
+        explode: true
+        in: query
+        name: merchantProductNoList
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The page to filter on. Starts at 1.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CollectionOfMerchantProductBundleResponse'
+          description: OK
+      summary: Gets product bundles
+      tags:
+      - Product Bundles
   /v2/products:
     get:
       description: Retrieve all products. Apply available filters to narrow down your
@@ -1047,10 +1472,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantProductResponse'
-          description: Success
+          description: OK
       summary: Gets products
       tags:
-      - Product
+      - Products
     patch:
       description: "Updates specific attributes of product data. You can update single\
         \ or multiple attributes for one or multiple products.<br />You can also add\
@@ -1092,10 +1517,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfProductCreationResult'
-          description: Success
+          description: OK
       summary: Updates products attributes
       tags:
-      - Product
+      - Products
     post:
       description: "Updates or creates products. The endpoint is purge and replace.<br\
         \ />If you do not include an attribute, it is overwritten with null.<br />Extra\
@@ -1150,7 +1575,7 @@ paths:
             in 'Content' are filled
       summary: Updates or creates products
       tags:
-      - Product
+      - Products
   /v2/products/{merchantProductNo}:
     delete:
       description: "Deletes a product based on the **Merchant product number**.<br\
@@ -1173,7 +1598,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "404":
           content:
             application/json:
@@ -1182,7 +1607,7 @@ paths:
           description: Not Found
       summary: Deletes a product
       tags:
-      - Product
+      - Products
     get:
       description: Retrieves a product based on the **Merchant product number**.
       operationId: ProductGetByMerchantProductNo
@@ -1201,7 +1626,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfMerchantProductResponse'
-          description: Success
+          description: OK
         "404":
           content:
             application/json:
@@ -1210,7 +1635,7 @@ paths:
           description: Not Found
       summary: Gets a product
       tags:
-      - Product
+      - Products
     patch:
       description: "Updates specific attributes of a single product based on the **Merchant\
         \ product number**. The endpoint uses the [JSON Patch](http://jsonpatch.com/).<br\
@@ -1257,10 +1682,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfProductCreationResult'
-          description: Success
+          description: OK
       summary: Updates product attributes
       tags:
-      - Product
+      - Products
   /v2/products/bulkdelete:
     post:
       description: "Deletes a products based on the **Merchant product number**.<br\
@@ -1303,7 +1728,7 @@ paths:
           description: Not Found
       summary: Deletes products
       tags:
-      - Product
+      - Products
   /v2/products/extra-data/bulk:
     patch:
       description: "Adds, updates, or deletes the custom attributes (a.k.a. extra\
@@ -1346,10 +1771,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfProductCreationResult'
-          description: Success
+          description: OK
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
       summary: "Adds, updates, or deletes custom attributes"
       tags:
-      - Product
+      - Products
   /v2/products/extra-data:
     patch:
       description: "Adds, updates, or deletes the specific custom attribute (a.k.a.\
@@ -1386,10 +1817,16 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfProductCreationResult'
-          description: Success
+          description: OK
+        "409":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Conflict
       summary: "Adds, updates, or deletes a custom attribute"
       tags:
-      - Product
+      - Products
   /v2/products/freeze:
     post:
       description: Changes state of products by updating it with FREEZE or UNFREEZE
@@ -1418,406 +1855,17 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfApiResponse'
-          description: Success
+          description: OK
       summary: Updates selected products and sets them either to frozen or not-frozen
         status.
       tags:
-      - Product
-  /v2/product-attribute-group:
-    get:
-      description: Gets the custom attribute groups based on the **Group name** provided.
-      operationId: ProductAttributeGroupGetByFilter
-      parameters:
-      - explode: true
-        in: query
-        name: groupNames
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The page to filter on. Starts at 1.
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionOfMerchantProductAttributeGroupWithProductExtraDataResponse'
-          description: Success
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-      summary: Gets custom attribute groups
-      tags:
-      - ProductAttributeGroup
-    post:
-      description: Creates a custom attribute group based on the set of custom attributes
-        (a.k.a. extra data keys).
-      operationId: ProductAttributeGroupCreate
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              items:
-                $ref: '#/components/schemas/ProductAttributeGroupRequest'
-              type: array
-          application/json:
-            schema:
-              items:
-                $ref: '#/components/schemas/ProductAttributeGroupRequest'
-              type: array
-          application/*+json:
-            schema:
-              items:
-                $ref: '#/components/schemas/ProductAttributeGroupRequest'
-              type: array
-        description: Collection of product attribute groups with linked product extra
-          data keys.
-        required: true
-      responses:
-        "201":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Created
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Creates a custom attribute group
-      tags:
-      - ProductAttributeGroup
-  /v2/product-attribute-group/{groupName}:
-    delete:
-      description: Deletes the custom attribute group based on the **Group name**
-        provided.<br />**NB:** you can only delete a custom attribute group that does
-        not have any markeplaces (a.k.a. channels) linked to it.
-      operationId: ProductAttributeGroupDelete
-      parameters:
-      - description: The group name of the product attribute group you wish to delete.
-        explode: false
-        in: path
-        name: groupName
-        required: true
-        schema:
-          type: string
-        style: simple
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Deletes a custom attribute group
-      tags:
-      - ProductAttributeGroup
-  /v2/product-attribute-group/{groupName}/add:
-    put:
-      description: Adds the provided custom attributes (a.k.a. extra data keys) to
-        the custom attribute group.<br />**NB:** you can only add existing custom
-        attributes to a group.
-      operationId: ProductAttributeGroupAddProductExtraData
-      parameters:
-      - description: The group name of the product attribute group you wish to add
-          product extra data.
-        explode: false
-        in: path
-        name: groupName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/AddProductExtraDataRequests'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddProductExtraDataRequests'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/AddProductExtraDataRequests'
-        description: Product extra data keys to be added.
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Adds custom attributes to a group
-      tags:
-      - ProductAttributeGroup
-  /v2/product-attribute-group/{groupName}/remove:
-    put:
-      description: Removes the custom attributes (a.k.a. extra data keys) from the
-        custom attribute group.<br />**NB:** you can only remove existing custom attributes
-        from a group.
-      operationId: ProductAttributeGroupRemoveProductExtraData
-      parameters:
-      - description: The group name of the product attribute group you wish to remove
-          product extra data.
-        explode: false
-        in: path
-        name: groupName
-        required: true
-        schema:
-          type: string
-        style: simple
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
-          application/json:
-            schema:
-              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
-          application/*+json:
-            schema:
-              $ref: '#/components/schemas/RemoveProductExtraDataRequests'
-        description: Product extra data keys to be removed.
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Deletes custom attributes from a group
-      tags:
-      - ProductAttributeGroup
-  /v2/product-attribute-group/linked-channels:
-    get:
-      description: Gets all custom attribute groups and marketplaces (a.k.a. channels)
-        linked to them.
-      operationId: ProductAttributeGroupGetWithChannelsByFilter
-      parameters:
-      - explode: true
-        in: query
-        name: groupNames
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The page to filter on. Starts at 1.
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionOfMerchantProductAttributeGroupWithLinkedChannelsResponse'
-          description: Success
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-      summary: Gets custom attribute groups and linked marketplaces
-      tags:
-      - ProductAttributeGroup
-  /v2/product-attribute-group/rename:
-    post:
-      description: Renames the custom attribute groups.
-      operationId: ProductAttributeGroupRenameProductAttributeGroup
-      requestBody:
-        content:
-          application/json-patch+json:
-            schema:
-              items:
-                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
-              type: array
-          application/json:
-            schema:
-              items:
-                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
-              type: array
-          application/*+json:
-            schema:
-              items:
-                $ref: '#/components/schemas/RenameProductAttributeGroupRequests'
-              type: array
-        description: List of old and new product attribute group names.
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Bad Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Not Found
-        "409":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ApiResponse'
-          description: Conflict
-      summary: Renames custom attribute groups
-      tags:
-      - ProductAttributeGroup
-  /v2/productbundles:
-    get:
-      description: Gets the product bundle details.
-      operationId: ProductBundleGetByFilter
-      parameters:
-      - description: "Search product(s) by Name, MerchantProductNo, Ean or Brand<br\
-          \ />This search is applied to the result after applying the other filters."
-        explode: true
-        in: query
-        name: search
-        required: false
-        schema:
-          type: string
-        style: form
-      - description: Search products by submitting a list of EAN's.
-        explode: true
-        in: query
-        name: eanList
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: Search products by submitting a list of MerchantProductNo's.
-        explode: true
-        in: query
-        name: merchantProductNoList
-        required: false
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
-      - description: The page to filter on. Starts at 1.
-        explode: true
-        in: query
-        name: page
-        required: false
-        schema:
-          format: int32
-          type: integer
-        style: form
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CollectionOfMerchantProductBundleResponse'
-          description: Success
-      summary: Gets product bundles
-      tags:
-      - ProductBundle
+      - Products
   /v2/purchase-orders/invoice:
     post:
       description: Creates invoice for a purchase order.<br />Request will be accepted
         and data persisted only if all validations passed.<br />Any validation messages
         and errors will be returned in a HTTP 4xx response.
-      operationId: CreateInvoice
+      operationId: Purchase OrdersCreateInvoice
       requestBody:
         content:
           application/json-patch+json:
@@ -1851,13 +1899,13 @@ paths:
           description: Conflict
       summary: Creates a purchase order invoice
       tags:
-      - PurchaseOrderInvoicesManagement
+      - Purchase Orders
   /v2/purchase-orders/invoice/bulk:
     post:
       description: Creates invoices for a purchase orders in a bulk.<br />Request
         will be accepted and data persisted only if all validations passed.<br />Any
         validation messages and errors will be returned in a HTTP 4xx response.
-      operationId: CreateInvoices
+      operationId: Purchase OrdersCreateInvoices
       requestBody:
         content:
           application/json-patch+json:
@@ -1891,7 +1939,7 @@ paths:
           description: Conflict
       summary: Creates a purchase order invoices in a bulk
       tags:
-      - PurchaseOrderInvoicesManagement
+      - Purchase Orders
   /v2/purchase-orders/shipments/merchant:
     get:
       description: Gets purchase order shipments based on the available filters.
@@ -2011,10 +2059,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfIPurchaseOrderShipmentByFilter'
-          description: Success
+          description: OK
       summary: Gets purchase order shipments by filter
       tags:
-      - PurchaseOrders
+      - Purchase Orders
   /v2/purchase-orders/shipments:
     post:
       description: One shipments can ship (parts of) multiple orders
@@ -2045,7 +2093,7 @@ paths:
           description: Bad Request
       summary: Create a purchase order shipment.
       tags:
-      - PurchaseOrders
+      - Purchase Orders
     put:
       operationId: Update
       requestBody:
@@ -2074,7 +2122,7 @@ paths:
           description: Bad Request
       summary: Update a purchase order shipment.
       tags:
-      - PurchaseOrders
+      - Purchase Orders
   /v2/purchase-orders:
     get:
       description: Gets purchase orders based on the available filters.
@@ -2194,10 +2242,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfIPurchaseOrderByFilter'
-          description: Success
+          description: OK
       summary: Gets purchase orders by filter
       tags:
-      - PurchaseOrders
+      - Purchase Orders
   /v2/purchase-orders/lines/acknowledge:
     post:
       description: "Creates line acknowledgements (i.e., accepted, backordered, rejected)\
@@ -2239,17 +2287,269 @@ paths:
           description: Conflict
       summary: Acknowledges lines of a purchase order
       tags:
-      - PurchaseOrders
+      - Purchase Orders
+  /v2.1/refunds/merchant/{identifier}:
+    get:
+      description: "Gets a single refund by the given identifier<br /> <br />Beware,\
+        \ this endpoint is part of a closed beta and is only available for closed\
+        \ beta participants."
+      operationId: RefundGet
+      parameters:
+      - description: The identifier to search for
+        explode: false
+        in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Specify whether to search by ID, Merchant Refund No or Channel\
+          \ Refund No"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          $ref: '#/components/schemas/RefundIdentifier'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfIRefund'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Get refund by identifier"
+      tags:
+      - Refunds
+  /v2.1/refunds/merchant:
+    get:
+      description: "Gets multiple refunds by the given filter<br /> <br />Beware,\
+        \ this endpoint is part of a closed beta and is only available for closed\
+        \ beta participants."
+      operationId: RefundGetByFilter
+      parameters:
+      - description: "The type of identifier: which identifier to filter on"
+        explode: true
+        in: query
+        name: identifiers.identifierType
+        required: false
+        schema:
+          $ref: '#/components/schemas/RefundByFilterIdentifier'
+        style: form
+      - description: The value (of the selected type) to filter on
+        explode: true
+        in: query
+        name: identifiers.models
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: channelExportStatus.statuses
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/ChannelExportStatus'
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: channelExportStatus.maxNumberOfExportAttempts
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: reasons
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/RefundReason'
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: createdDateRange.fromDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: createdDateRange.toDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: isAcknowledgedByMerchant
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: isAcknowledgedByChannel
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ModuleFulfillmentType'
+        style: form
+      - explode: true
+        in: query
+        name: creatorType
+        required: false
+        schema:
+          $ref: '#/components/schemas/CreatorType'
+        style: form
+      - explode: true
+        in: query
+        name: externalBatchNos
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfIRefund'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Get refunds by filter"
+      tags:
+      - Refunds
+    post:
+      description: "Creates a new refund<br /> <br />Beware, this endpoint is part\
+        \ of a closed beta and is only available for closed beta participants."
+      operationId: RefundCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateRefundRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateRefundRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateRefundRequest'
+        description: The refund
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Create a refund"
+      tags:
+      - Refunds
+  /v2.1/refunds/merchant/acknowledge:
+    post:
+      description: "Acknowledges a refund<br /> <br />Beware, this endpoint is part\
+        \ of a closed beta and is only available for closed beta participants."
+      operationId: RefundAcknowledge
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeRefundRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeRefundRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeRefundRequest'
+        description: The refund to acknowledge
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+      summary: "[CLOSED BETA] Acknowledge a refund"
+      tags:
+      - Refunds
   /v2/reports/settlements:
     post:
       description: "Creates a settlement report based on the **Settlement ID** provided.\
-        \ There are 3 types of reports:<br />**SUMMARY** - a high level financial\
-        \ overview.<br />**DETAILED** - a detailed report containing all transactions.<br\
-        \ />**CUSTOM_JSON** - a report grouped by orders, you can name the csv columns\
-        \ with a JSON file. This JSON file can be defined<br />in the settlement export\
-        \ plugin.<br /> <br />All the settlements are automatically acknowledged if\
-        \ that was not already the case.<br />**NB:** depending on the number of transactions\
-        \ within the settlement, it can take a few minutes for the report to be generated."
+        \ There are 2 types of reports:<br />**DETAILED** - a detailed report containing\
+        \ all transactions.<br />**CUSTOM_JSON** - a report grouped by orders, you\
+        \ can name the csv columns with a JSON file. This JSON file should be defined<br\
+        \ />in the settlement export plugin.<br /> <br />All the settlements are automatically\
+        \ acknowledged if that was not already the case.<br />**NB:** depending on\
+        \ the number of transactions within the settlement, it can take a few minutes\
+        \ for the report to be generated."
       operationId: ReportCreateSettlementsReport
       requestBody:
         content:
@@ -2262,7 +2562,7 @@ paths:
           application/*+json:
             schema:
               $ref: '#/components/schemas/MerchantCreateSettlementsReportRequest'
-        description: To provide settlementIds and type of report SUMMARY or DETAILED.
+        description: To provide settlementIds and type of report DETAILED or CUSTOM_JSON.
         required: true
       responses:
         "200":
@@ -2270,7 +2570,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MerchantCreateReportResponse'
-          description: Success
+          description: OK
         "404":
           content:
             application/json:
@@ -2279,7 +2579,7 @@ paths:
           description: Not Found
       summary: Creates a settlement report
       tags:
-      - Report
+      - Reports
   /v2/reports/{reportId}/status:
     get:
       description: "Returns a report status based on the **Report ID** provided. There\
@@ -2303,10 +2603,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/MerchantGetReportStatusResponse'
-          description: Success
+          description: OK
       summary: Gets the status of a settlement report
       tags:
-      - Report
+      - Reports
   /v2/reports/{reportId}:
     get:
       description: "Gets a settlement report based on the **Report ID** provided.\
@@ -2338,7 +2638,301 @@ paths:
           description: Not Found
       summary: Gets a settlement report
       tags:
-      - Report
+      - Reports
+  /v2.1/returns/merchant/{identifier}:
+    get:
+      description: "Gets a single return by the given identifier<br /> <br />Beware,\
+        \ this endpoint is part of a closed beta and is only available for closed\
+        \ beta participants."
+      operationId: ReturnGet
+      parameters:
+      - description: The identifier to search for
+        explode: false
+        in: path
+        name: identifier
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Specify whether to search by ID, Merchant Return No or Channel\
+          \ Return No"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          $ref: '#/components/schemas/ReturnIdentifier'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfIReturn'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Get return by identifier"
+      tags:
+      - Returns
+  /v2.1/returns/merchant:
+    get:
+      description: "Gets multiple returns by the given filter<br /> <br />Beware,\
+        \ this endpoint is part of a closed beta and is only available for closed\
+        \ beta participants."
+      operationId: ReturnGetByFilter
+      parameters:
+      - description: "The type of identifier: which identifier to filter on"
+        explode: true
+        in: query
+        name: identifiers.identifierType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ReturnByFilterIdentifier'
+        style: form
+      - description: The value (of the selected type) to filter on
+        explode: true
+        in: query
+        name: identifiers.models
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: channelExportStatus.statuses
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/ChannelExportStatus'
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: channelExportStatus.maxNumberOfExportAttempts
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: reasons
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/ModuleReturnReason'
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: createdDateRange.fromDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: createdDateRange.toDate
+        required: false
+        schema:
+          format: date-time
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: statuses
+        required: false
+        schema:
+          items:
+            $ref: '#/components/schemas/ModuleReturnStatus'
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: channelIds
+        required: false
+        schema:
+          items:
+            format: int32
+            type: integer
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: search
+        required: false
+        schema:
+          type: string
+        style: form
+      - explode: true
+        in: query
+        name: isAcknowledgedByMerchant
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: isAcknowledgedByChannel
+        required: false
+        schema:
+          type: boolean
+        style: form
+      - explode: true
+        in: query
+        name: fulfillmentType
+        required: false
+        schema:
+          $ref: '#/components/schemas/ModuleFulfillmentType'
+        style: form
+      - explode: true
+        in: query
+        name: creatorType
+        required: false
+        schema:
+          $ref: '#/components/schemas/CreatorType'
+        style: form
+      - explode: true
+        in: query
+        name: externalBatchNos
+        required: false
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: true
+        in: query
+        name: pageIndex
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      - explode: true
+        in: query
+        name: pageSize
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfIReturn'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Get returns by filter"
+      tags:
+      - Returns
+    post:
+      description: "Creates a new return<br /> <br />Beware, this endpoint is part\
+        \ of a closed beta and is only available for closed beta participants."
+      operationId: ReturnCreate
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateReturnRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateReturnRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantCreateReturnRequest'
+        description: The return
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Create a return"
+      tags:
+      - Returns
+  /v2.1/returns/merchant/handle:
+    post:
+      description: "Handles a return<br /> <br />Beware, this endpoint is part of\
+        \ a closed beta and is only available for closed beta participants."
+      operationId: ReturnHandle
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantHandleReturnRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantHandleReturnRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantHandleReturnRequest'
+        description: The return to handle
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Bad Request
+      summary: "[CLOSED BETA] Handle a return"
+      tags:
+      - Returns
+  /v2.1/returns/merchant/acknowledge:
+    post:
+      description: "Acknowledges a return<br /> <br />Beware, this endpoint is part\
+        \ of a closed beta and is only available for closed beta participants."
+      operationId: ReturnAcknowledge
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeReturnRequest'
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeReturnRequest'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/SingleMerchantAcknowledgeReturnRequest'
+        description: The return to acknowledge
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+          description: Created
+      summary: "[CLOSED BETA] Acknowledge a return"
+      tags:
+      - Returns
   /v2/returns/merchant:
     get:
       description: Gets all returns created by the marketplace.<br /><br />**NB:**
@@ -2446,10 +3040,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantReturnResponse'
-          description: Success
+          description: OK
       summary: Gets marketplace returns
       tags:
-      - Return
+      - Returns
     post:
       description: "Marks an order as either fully or partially returned.<br /><br\
         \ />**NB:** this endpoint is used for merchant returns (i.e.: returns dealt\
@@ -2493,7 +3087,7 @@ paths:
           description: Conflict
       summary: Creates merchant return
       tags:
-      - Return
+      - Returns
   /v2/returns:
     get:
       description: "Gets the returns based on the filter provided.<br /><br />**NB:**\
@@ -2610,10 +3204,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantReturnResponse'
-          description: Success
+          description: OK
       summary: Gets returns by filter
       tags:
-      - Return
+      - Returns
     put:
       description: "Marks a return as either fully or partially received.<br /> <br\
         \ />**NB:** this endpoint is used for marketplace returns, and you can only\
@@ -2636,7 +3230,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -2657,7 +3251,7 @@ paths:
           description: Conflict
       summary: Marks returns as received
       tags:
-      - Return
+      - Returns
   /v2/returns/merchant/new:
     get:
       description: Gets all marketplace returns with the status **In progress**.
@@ -2689,10 +3283,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantReturnResponse'
-          description: Success
+          description: OK
       summary: Gets unhandled returns
       tags:
-      - Return
+      - Returns
   /v2/returns/merchant/{merchantOrderNo}:
     get:
       description: Gets the returns based on the **Merchant order number** provided.<br
@@ -2713,10 +3307,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantSingleOrderReturnResponse'
-          description: Success
+          description: OK
       summary: Gets a return
       tags:
-      - Return
+      - Returns
   /v2/returns/merchant/acknowledge:
     post:
       description: "Acknowledges a return based on the **Return ID** provided.<br\
@@ -2741,7 +3335,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -2762,7 +3356,7 @@ paths:
           description: Conflict
       summary: Acknowledges a return
       tags:
-      - Return
+      - Returns
   /v2/settings:
     get:
       description: "Gets the tenant details, settings, and tax number."
@@ -2773,7 +3367,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/SingleOfMerchantSettingsResponse'
-          description: Success
+          description: OK
       summary: Gets settings
       tags:
       - Settings
@@ -2917,7 +3511,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantSettlementReportsResponse'
-          description: Success
+          description: OK
         "404":
           content:
             application/json:
@@ -2926,13 +3520,13 @@ paths:
           description: Not Found
       summary: Gets settlements
       tags:
-      - Settlement
+      - Settlements
   /v2/settlements/upload:
     post:
-      description: Imports a settlement file.
+      description: Uploads a settlement file to ChannelEngine.
       operationId: SettlementUploadSettlement
       parameters:
-      - description: The channel ID for which the settlement is for.
+      - description: The channel ID of the channel which the settlement is for.
         explode: true
         in: query
         name: channelId
@@ -2967,10 +3561,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Client Error
-      summary: Imports a settlement file.
+          description: Unprocessable Content
+      summary: Uploads a settlement file to ChannelEngine.
       tags:
-      - Settlement
+      - Settlements
   /v2/shipments/merchant:
     get:
       description: "Gets the shipments based on the available filters.<br />Shipments\
@@ -3119,10 +3713,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantShipmentResponse'
-          description: Success
+          description: OK
       summary: Gets shipments by filter
       tags:
-      - Shipment
+      - Shipments
   /v2/shipments:
     post:
       description: "Marks an order as fully or partially shipped, based on the order\
@@ -3167,7 +3761,7 @@ paths:
           description: Conflict
       summary: Creates shipments
       tags:
-      - Shipment
+      - Shipments
   /v2/shipments/{merchantShipmentNo}:
     put:
       description: Updates an existing shipment with tracking information and shipping
@@ -3200,7 +3794,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -3215,7 +3809,7 @@ paths:
           description: Not Found
       summary: Updates a shipment
       tags:
-      - Shipment
+      - Shipments
   /v2/carriers/{merchantOrderNo}:
     post:
       description: Posts a request to get the available marketplace carrier offers.<br
@@ -3249,7 +3843,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantShipmentLabelCarrierResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -3264,7 +3858,7 @@ paths:
           description: Not Found
       summary: Gets carriers providing shipping labels
       tags:
-      - Shipment
+      - Shipments
   /v2/shipments/channelmethod:
     post:
       description: "Marks an order as either fully or partially shipped, based on\
@@ -3307,7 +3901,7 @@ paths:
           description: Not Found
       summary: Creates a shipment and initiates shipping label generation
       tags:
-      - Shipment
+      - Shipments
   /v2/orders/{merchantShipmentNo}/shippinglabel:
     get:
       description: ' Downloads the shipping label for the shipment.<br /> <br /> **NB:**
@@ -3343,10 +3937,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Client Error
+          description: Gone
       summary: Gets a shipping label
       tags:
-      - Shipment
+      - Shipments
   /v2/stocklocations:
     get:
       description: "Gets the different stock locations in use. <br />**NB:** the response\
@@ -3360,10 +3954,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantStockLocationWithCountryIsoResponse'
-          description: Success
+          description: OK
       summary: Gets stock locations
       tags:
-      - StockLocation
+      - Stock Locations
     post:
       description: Creates a stock location on ChannelEngine.
       operationId: StockLocationCreate
@@ -3393,7 +3987,98 @@ paths:
           description: Conflict
       summary: Creates a stock location
       tags:
-      - StockLocation
+      - Stock Locations
+  /v2/targets:
+    delete:
+      description: Deletes multiple targets on ChannelEngine.
+      operationId: TargetsDeleteTargets
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/DeleteTargetRequest'
+              type: array
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/DeleteTargetRequest'
+              type: array
+          application/*+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/DeleteTargetRequest'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfDeleteTargetsResponse'
+          description: OK
+      summary: Deletes multiple targets
+      tags:
+      - Targets
+    post:
+      description: Creates multiple targets on ChannelEngine.
+      operationId: TargetsCreateTargets
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+          application/*+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfListOfTargetResponseVm'
+          description: Created
+      summary: Creates multiple targets
+      tags:
+      - Targets
+    put:
+      description: Edits multiple targets on ChannelEngine.
+      operationId: TargetsEditTargets
+      requestBody:
+        content:
+          application/json-patch+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+          application/json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+          application/*+json:
+            schema:
+              items:
+                $ref: '#/components/schemas/CreateEditTargetRequest'
+              type: array
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SingleOfListOfTargetResponseVm'
+          description: OK
+      summary: Edits multiple targets
+      tags:
+      - Targets
   /v2/webhooks:
     get:
       description: Gets all webhooks created on ChannelEngine.
@@ -3404,10 +4089,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/CollectionOfMerchantWebhookResponse'
-          description: Success
+          description: OK
       summary: Gets webhooks
       tags:
-      - Webhook
+      - Webhooks
     post:
       description: Creates a webhook on ChannelEngine.
       operationId: WebhooksCreate
@@ -3443,7 +4128,7 @@ paths:
           description: Conflict
       summary: Creates a webhook
       tags:
-      - Webhook
+      - Webhooks
     put:
       description: Updates a webhook on ChannelEngine.
       operationId: WebhooksUpdate
@@ -3464,7 +4149,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "400":
           content:
             application/json:
@@ -3479,7 +4164,7 @@ paths:
           description: Not Found
       summary: Updates a webhook
       tags:
-      - Webhook
+      - Webhooks
   /v2/webhooks/{webhookName}:
     delete:
       description: Deletes a webhook from ChannelEngine.
@@ -3499,7 +4184,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/ApiResponse'
-          description: Success
+          description: OK
         "404":
           content:
             application/json:
@@ -3508,7 +4193,7 @@ paths:
           description: Not Found
       summary: Deletes a webhook
       tags:
-      - Webhook
+      - Webhooks
 components:
   schemas:
     AddProductExtraDataRequests:
@@ -4055,6 +4740,14 @@ components:
           nullable: true
           type: string
       type: object
+    ChannelExportStatus:
+      enum:
+      - AWAITING_EXPORT
+      - AWAITING_CHANNEL_RESPONSE
+      - SUCCEEDED
+      - FAILED_RETRY
+      - FAILED_NO_RETRY
+      type: string
     ChannelGlobalChannelResponse:
       additionalProperties: false
       example:
@@ -4256,6 +4949,75 @@ components:
         Content:
           items:
             $ref: '#/components/schemas/ChannelListedProductResponse'
+          nullable: true
+          type: array
+        Count:
+          description: The number of items in the current response.
+          format: int32
+          type: integer
+        TotalCount:
+          description: The total number of items.
+          format: int32
+          type: integer
+        ItemsPerPage:
+          description: The number of items per page.
+          format: int32
+          type: integer
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ExceptionType:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            nullable: true
+            type: array
+          nullable: true
+          type: object
+      type: object
+    CollectionOfCustomFieldResponse:
+      additionalProperties: false
+      example:
+        ExceptionType: ExceptionType
+        TotalCount: 1
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - IsPublic: true
+          IsUsed: true
+          Id: 0
+          Key: Key
+        - IsPublic: true
+          IsUsed: true
+          Id: 0
+          Key: Key
+        ItemsPerPage: 5
+        Count: 6
+        StatusCode: 5
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/CustomFieldResponse'
           nullable: true
           type: array
         Count:
@@ -5134,6 +5896,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -5177,6 +5940,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -5305,6 +6069,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -5348,6 +6113,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -6001,6 +6767,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6053,6 +6820,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6126,6 +6894,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6178,6 +6947,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6275,7 +7045,7 @@ components:
       additionalProperties: false
       example:
         ExceptionType: ExceptionType
-        TotalCount: 5
+        TotalCount: 7
         RequestId: RequestId
         Message: Message
         ValidationErrors:
@@ -6285,23 +7055,27 @@ components:
         Content:
         - SettlementId: 0
           StartDate: 2000-01-23T04:56:07.000+00:00
-          TransactionsCount: 1
           ChannelSettlementNo: ChannelSettlementNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
+          PreviousReserveAmount: 5.962133916683182
           ChannelId: 6
+          PaymentAmount: 5.637376656633329
           EndDate: 2000-01-23T04:56:07.000+00:00
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          CurrentReserveAmount: 1.4658129805029452
         - SettlementId: 0
           StartDate: 2000-01-23T04:56:07.000+00:00
-          TransactionsCount: 1
           ChannelSettlementNo: ChannelSettlementNo
           CreatedAt: 2000-01-23T04:56:07.000+00:00
+          PreviousReserveAmount: 5.962133916683182
           ChannelId: 6
+          PaymentAmount: 5.637376656633329
           EndDate: 2000-01-23T04:56:07.000+00:00
           UpdatedAt: 2000-01-23T04:56:07.000+00:00
-        ItemsPerPage: 2
-        Count: 5
-        StatusCode: 7
+          CurrentReserveAmount: 1.4658129805029452
+        ItemsPerPage: 9
+        Count: 2
+        StatusCode: 3
         LogId: LogId
         Success: true
       properties:
@@ -6462,6 +7236,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6513,6 +7288,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6582,6 +7358,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6633,6 +7410,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6764,6 +7542,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6815,6 +7594,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6885,6 +7665,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -6936,6 +7717,7 @@ components:
                 Name: Name
               OriginalLineTotalExclVat: 4.652396432933246
               JurisCode: JurisCode
+              ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
               OriginalUnitVat: 6.704019297950036
               IsFulfillmentByMarketplace: true
               OriginalLineTotalInclVat: 3.353193347011243
@@ -7178,6 +7960,53 @@ components:
       - UNKNOWN
       - USED_VERY_GOOD
       type: string
+    CreateEditTargetRequest:
+      additionalProperties: false
+      example:
+        Targets:
+        - TargetInclVat: 6.027456183070403
+          Month: 5
+          Year: 5
+          TargetExclVat: 1.4658129805029452
+        - TargetInclVat: 6.027456183070403
+          Month: 5
+          Year: 5
+          TargetExclVat: 1.4658129805029452
+        ChannelId: 0
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        Targets:
+          items:
+            $ref: '#/components/schemas/CreateEditTargetView'
+          nullable: true
+          type: array
+      type: object
+    CreateEditTargetView:
+      additionalProperties: false
+      example:
+        TargetInclVat: 6.027456183070403
+        Month: 5
+        Year: 5
+        TargetExclVat: 1.4658129805029452
+      properties:
+        TargetInclVat:
+          format: decimal
+          nullable: true
+          type: number
+        TargetExclVat:
+          format: decimal
+          nullable: true
+          type: number
+        Month:
+          format: int32
+          type: integer
+        Year:
+          format: int32
+          type: integer
+      type: object
     CreatePurchaseOrderShipment:
       additionalProperties: false
       example:
@@ -7282,12 +8111,122 @@ components:
           nullable: true
           type: array
       type: object
+    CreatedByType:
+      enum:
+      - MERCHANT
+      - CHANNEL
+      type: string
     CreatorFilter:
       enum:
       - ONLY_FROM_MERCHANT
       - ONLY_FROM_CHANNEL
       - MIXED
       type: string
+    CreatorType:
+      enum:
+      - MERCHANT
+      - CHANNEL
+      - BOTH
+      type: string
+    CustomFieldResponse:
+      additionalProperties: false
+      example:
+        IsPublic: true
+        IsUsed: true
+        Id: 0
+        Key: Key
+      properties:
+        Id:
+          format: int32
+          type: integer
+        Key:
+          nullable: true
+          type: string
+        IsPublic:
+          type: boolean
+        IsUsed:
+          type: boolean
+      type: object
+    DeleteTargetRequest:
+      additionalProperties: false
+      example:
+        Targets:
+        - Month: 6
+          Year: 1
+        - Month: 6
+          Year: 1
+        ChannelId: 0
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        Targets:
+          items:
+            $ref: '#/components/schemas/DeleteTargetView'
+          nullable: true
+          type: array
+      type: object
+    DeleteTargetResponseVm:
+      additionalProperties: false
+      example:
+        Month: 6
+        Year: 1
+        ChannelId: 0
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        Month:
+          format: int32
+          type: integer
+        Year:
+          format: int32
+          type: integer
+      type: object
+    DeleteTargetView:
+      additionalProperties: false
+      example:
+        Month: 6
+        Year: 1
+      properties:
+        Month:
+          format: int32
+          type: integer
+        Year:
+          format: int32
+          type: integer
+      type: object
+    DeleteTargetsResponse:
+      additionalProperties: false
+      example:
+        DeletedTargets:
+        - Month: 6
+          Year: 1
+          ChannelId: 0
+        - Month: 6
+          Year: 1
+          ChannelId: 0
+        NotExistingTargets:
+        - Month: 6
+          Year: 1
+          ChannelId: 0
+        - Month: 6
+          Year: 1
+          ChannelId: 0
+      properties:
+        DeletedTargets:
+          items:
+            $ref: '#/components/schemas/DeleteTargetResponseVm'
+          nullable: true
+          type: array
+        NotExistingTargets:
+          items:
+            $ref: '#/components/schemas/DeleteTargetResponseVm'
+          nullable: true
+          type: array
+      type: object
     ExtraDataType:
       enum:
       - TEXT
@@ -7780,6 +8719,522 @@ components:
           nullable: true
           type: string
       type: object
+    IRefund:
+      additionalProperties: false
+      example:
+        MerchantComment: MerchantComment
+        ReturnId: 7
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        SubTotalInclTax: 6.027456183070403
+        OriginalShippingCostInclTax: 7.061401241503109
+        ChannelId: 4
+        MerchantRefundNo: MerchantRefundNo
+        Reason: PRODUCT_DEFECT
+        TotalInclTax: 9.301444243932576
+        Currency:
+          ExchangeRate: 1.2315135367772556
+          TenantCurrencyCode: TenantCurrencyCode
+          OriginalCurrencyCode: OriginalCurrencyCode
+        ChannelRefundNo: ChannelRefundNo
+        ChannelAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+        DeletedAt: 2000-01-23T04:56:07.000+00:00
+        OriginalAdditionalAmountInclTax: 5.637376656633329
+        ChannelOrderNo: ChannelOrderNo
+        AdditionalAmountInclTax: 5.962133916683182
+        MerchantAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+        ExternalBatchNo: ExternalBatchNo
+        ChannelExportStatus: AWAITING_EXPORT
+        RefundDate: 2000-01-23T04:56:07.000+00:00
+        OrderId: 2
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        CreatedByType: MERCHANT
+        OriginalSubTotalInclTax: 1.4658129805029452
+        ShippingCostInclTax: 2.3021358869347655
+        Id: 0
+        OriginalTotalInclTax: 3.616076749251911
+        Lines:
+        - ProductName: ProductName
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          OriginalUnitTax: 4.965218492984954
+          ProductId: 6
+          LineAmountInclTax: 1.4894159098541704
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          OriginalLineTotalInclTax: 1.1730742509559433
+          MerchantRefundLineNo: MerchantRefundLineNo
+          ReturnLineId: 9
+          OrderLineId: 9
+          ChannelOrderLineNo: ChannelOrderLineNo
+          LineTotalInclTax: 7.457744773683766
+          Id: 1
+          RefundId: 5
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          OriginalLineAmountInclTax: 6.84685269835264
+          ChannelProductNo: ChannelProductNo
+        - ProductName: ProductName
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          OriginalUnitTax: 4.965218492984954
+          ProductId: 6
+          LineAmountInclTax: 1.4894159098541704
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          OriginalLineTotalInclTax: 1.1730742509559433
+          MerchantRefundLineNo: MerchantRefundLineNo
+          ReturnLineId: 9
+          OrderLineId: 9
+          ChannelOrderLineNo: ChannelOrderLineNo
+          LineTotalInclTax: 7.457744773683766
+          Id: 1
+          RefundId: 5
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+          OriginalLineAmountInclTax: 6.84685269835264
+          ChannelProductNo: ChannelProductNo
+      properties:
+        Id:
+          format: int32
+          type: integer
+        Reason:
+          $ref: '#/components/schemas/RefundReason'
+        ChannelExportStatus:
+          $ref: '#/components/schemas/ChannelExportStatus'
+        SubTotalInclTax:
+          format: decimal
+          type: number
+        OriginalSubTotalInclTax:
+          format: decimal
+          type: number
+        AdditionalAmountInclTax:
+          format: decimal
+          type: number
+        OriginalAdditionalAmountInclTax:
+          format: decimal
+          type: number
+        ShippingCostInclTax:
+          format: decimal
+          type: number
+        OriginalShippingCostInclTax:
+          format: decimal
+          type: number
+        TotalInclTax:
+          format: decimal
+          type: number
+        OriginalTotalInclTax:
+          format: decimal
+          type: number
+        MerchantComment:
+          nullable: true
+          type: string
+        MerchantRefundNo:
+          nullable: true
+          type: string
+        ChannelRefundNo:
+          nullable: true
+          type: string
+        ChannelOrderNo:
+          nullable: true
+          type: string
+        CreatedByType:
+          $ref: '#/components/schemas/CreatedByType'
+        RefundDate:
+          format: date-time
+          type: string
+        ExternalBatchNo:
+          nullable: true
+          type: string
+        ChannelAcknowledgedDate:
+          format: date-time
+          nullable: true
+          type: string
+        MerchantAcknowledgedDate:
+          format: date-time
+          nullable: true
+          type: string
+        OrderId:
+          format: int32
+          type: integer
+        ChannelId:
+          format: int32
+          type: integer
+        ReturnId:
+          format: int32
+          nullable: true
+          type: integer
+        Currency:
+          $ref: '#/components/schemas/IRefundCurrency'
+        Lines:
+          items:
+            $ref: '#/components/schemas/IRefundLine'
+          nullable: true
+          type: array
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        DeletedAt:
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+    IRefundCurrency:
+      additionalProperties: false
+      example:
+        ExchangeRate: 1.2315135367772556
+        TenantCurrencyCode: TenantCurrencyCode
+        OriginalCurrencyCode: OriginalCurrencyCode
+      properties:
+        TenantCurrencyCode:
+          nullable: true
+          type: string
+        OriginalCurrencyCode:
+          nullable: true
+          type: string
+        ExchangeRate:
+          format: decimal
+          type: number
+      type: object
+    IRefundLine:
+      additionalProperties: false
+      example:
+        ProductName: ProductName
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        OriginalUnitTax: 4.965218492984954
+        ProductId: 6
+        LineAmountInclTax: 1.4894159098541704
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        OriginalLineTotalInclTax: 1.1730742509559433
+        MerchantRefundLineNo: MerchantRefundLineNo
+        ReturnLineId: 9
+        OrderLineId: 9
+        ChannelOrderLineNo: ChannelOrderLineNo
+        LineTotalInclTax: 7.457744773683766
+        Id: 1
+        RefundId: 5
+        DeletedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantProductNo: MerchantProductNo
+        OriginalLineAmountInclTax: 6.84685269835264
+        ChannelProductNo: ChannelProductNo
+      properties:
+        Id:
+          format: int32
+          type: integer
+        LineAmountInclTax:
+          format: decimal
+          type: number
+        OriginalLineAmountInclTax:
+          format: decimal
+          type: number
+        LineTotalInclTax:
+          format: decimal
+          type: number
+        OriginalLineTotalInclTax:
+          format: decimal
+          type: number
+        OriginalUnitTax:
+          format: decimal
+          type: number
+        RefundId:
+          format: int32
+          type: integer
+        OrderLineId:
+          format: int32
+          type: integer
+        ReturnLineId:
+          format: int32
+          nullable: true
+          type: integer
+        ChannelOrderLineNo:
+          nullable: true
+          type: string
+        MerchantRefundLineNo:
+          nullable: true
+          type: string
+        ChannelProductNo:
+          nullable: true
+          type: string
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        DeletedAt:
+          format: date-time
+          nullable: true
+          type: string
+        MerchantProductNo:
+          nullable: true
+          type: string
+        ProductName:
+          nullable: true
+          type: string
+        ProductId:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    IReturn:
+      additionalProperties: false
+      example:
+        Status: NEW
+        ReturnDate: 2000-01-23T04:56:07.000+00:00
+        MerchantComment: MerchantComment
+        ChannelOrderNo: ChannelOrderNo
+        MerchantAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+        ExternalBatchNo: ExternalBatchNo
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantReturnNo: MerchantReturnNo
+        ChannelExportStatus: AWAITING_EXPORT
+        OrderId: 2
+        ChannelId: 4
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        Reason: PRODUCT_DEFECT
+        OrderDate: 2000-01-23T04:56:07.000+00:00
+        CreatedByType: MERCHANT
+        ChannelReturnNo: ChannelReturnNo
+        ChannelAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+        Id: 3
+        DeletedAt: 2000-01-23T04:56:07.000+00:00
+        Lines:
+        - MerchantReturnLineNo: MerchantReturnLineNo
+          HandlingResults:
+          - ReturnLineId: 2
+            Action: REFUND
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 7
+            Id: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          - ReturnLineId: 2
+            Action: REFUND
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 7
+            Id: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantOrderLineNo: MerchantOrderLineNo
+          ProductName: ProductName
+          ReturnId: 6
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          Quantity: 5
+          ProductId: 9
+          ChannelReturnLineNo: ChannelReturnLineNo
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          OrderLineId: 1
+          ChannelOrderLineNo: ChannelOrderLineNo
+          Id: 0
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+        - MerchantReturnLineNo: MerchantReturnLineNo
+          HandlingResults:
+          - ReturnLineId: 2
+            Action: REFUND
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 7
+            Id: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          - ReturnLineId: 2
+            Action: REFUND
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 7
+            Id: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantOrderLineNo: MerchantOrderLineNo
+          ProductName: ProductName
+          ReturnId: 6
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          Quantity: 5
+          ProductId: 9
+          ChannelReturnLineNo: ChannelReturnLineNo
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          OrderLineId: 1
+          ChannelOrderLineNo: ChannelOrderLineNo
+          Id: 0
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantProductNo: MerchantProductNo
+      properties:
+        Lines:
+          items:
+            $ref: '#/components/schemas/IReturnLine'
+          nullable: true
+          type: array
+        Id:
+          format: int32
+          type: integer
+        Status:
+          $ref: '#/components/schemas/ModuleReturnStatus'
+        ChannelExportStatus:
+          $ref: '#/components/schemas/ChannelExportStatus'
+        Reason:
+          $ref: '#/components/schemas/ModuleReturnReason'
+        MerchantComment:
+          nullable: true
+          type: string
+        MerchantReturnNo:
+          nullable: true
+          type: string
+        ChannelReturnNo:
+          nullable: true
+          type: string
+        ChannelOrderNo:
+          nullable: true
+          type: string
+        CreatedByType:
+          $ref: '#/components/schemas/CreatedByType'
+        ReturnDate:
+          format: date-time
+          type: string
+        OrderDate:
+          format: date-time
+          nullable: true
+          type: string
+        ExternalBatchNo:
+          nullable: true
+          type: string
+        ChannelAcknowledgedDate:
+          format: date-time
+          nullable: true
+          type: string
+        MerchantAcknowledgedDate:
+          format: date-time
+          nullable: true
+          type: string
+        OrderId:
+          format: int32
+          type: integer
+        ChannelId:
+          format: int32
+          type: integer
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        DeletedAt:
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+    IReturnLine:
+      additionalProperties: false
+      example:
+        MerchantReturnLineNo: MerchantReturnLineNo
+        HandlingResults:
+        - ReturnLineId: 2
+          Action: REFUND
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          Quantity: 7
+          Id: 5
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        - ReturnLineId: 2
+          Action: REFUND
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          Quantity: 7
+          Id: 5
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantOrderLineNo: MerchantOrderLineNo
+        ProductName: ProductName
+        ReturnId: 6
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        Quantity: 5
+        ProductId: 9
+        ChannelReturnLineNo: ChannelReturnLineNo
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        OrderLineId: 1
+        ChannelOrderLineNo: ChannelOrderLineNo
+        Id: 0
+        DeletedAt: 2000-01-23T04:56:07.000+00:00
+        MerchantProductNo: MerchantProductNo
+      properties:
+        Id:
+          format: int32
+          type: integer
+        ReturnId:
+          format: int32
+          type: integer
+        OrderLineId:
+          format: int32
+          type: integer
+        MerchantReturnLineNo:
+          nullable: true
+          type: string
+        ChannelReturnLineNo:
+          nullable: true
+          type: string
+        MerchantOrderLineNo:
+          nullable: true
+          type: string
+        ChannelOrderLineNo:
+          nullable: true
+          type: string
+        Quantity:
+          format: int32
+          type: integer
+        HandlingResults:
+          items:
+            $ref: '#/components/schemas/IReturnLineHandlingResult'
+          nullable: true
+          type: array
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        DeletedAt:
+          format: date-time
+          nullable: true
+          type: string
+        MerchantProductNo:
+          nullable: true
+          type: string
+        ProductName:
+          nullable: true
+          type: string
+        ProductId:
+          format: int32
+          nullable: true
+          type: integer
+      type: object
+    IReturnLineHandlingResult:
+      additionalProperties: false
+      example:
+        ReturnLineId: 2
+        Action: REFUND
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        Quantity: 7
+        Id: 5
+        DeletedAt: 2000-01-23T04:56:07.000+00:00
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+      properties:
+        Id:
+          format: int32
+          type: integer
+        ReturnLineId:
+          format: int32
+          type: integer
+        Quantity:
+          format: int32
+          type: integer
+        Action:
+          $ref: '#/components/schemas/ReturnHandlingAction'
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        DeletedAt:
+          format: date-time
+          nullable: true
+          type: string
+      type: object
     IVendorParty:
       additionalProperties: false
       example:
@@ -7927,6 +9382,32 @@ components:
           type: string
         ScheduledDeliveryDate:
           format: date-time
+          nullable: true
+          type: string
+      type: object
+    MerchantAcknowledgeRefund:
+      additionalProperties: false
+      example:
+        Identifier: Identifier
+        MerchantRefundNo: MerchantRefundNo
+      properties:
+        Identifier:
+          nullable: true
+          type: string
+        MerchantRefundNo:
+          nullable: true
+          type: string
+      type: object
+    MerchantAcknowledgeReturn:
+      additionalProperties: false
+      example:
+        Identifier: Identifier
+        MerchantReturnNo: MerchantReturnNo
+      properties:
+        Identifier:
+          nullable: true
+          type: string
+        MerchantReturnNo:
           nullable: true
           type: string
       type: object
@@ -8249,6 +9730,85 @@ components:
       - MerchantShipmentNo
       - Weight
       type: object
+    MerchantCreateRefund:
+      additionalProperties: false
+      example:
+        MerchantComment: MerchantComment
+        AdditionalAmountInclTax: 6.027456183070403
+        OrderIdentifier: OrderIdentifier
+        RefundDate: 2000-01-23T04:56:07.000+00:00
+        ExtraData:
+          key: ExtraData
+        MerchantRefundNo: MerchantRefundNo
+        Reason: PRODUCT_DEFECT
+        ShippingAmountInclTax: 1.4658129805029452
+        Lines:
+        - MerchantRefundLineNo: MerchantRefundLineNo
+          ExtraData:
+            key: ExtraData
+          OrderLineIdentifier: OrderLineIdentifier
+          LineAmountInclTax: 5.962133916683182
+        - MerchantRefundLineNo: MerchantRefundLineNo
+          ExtraData:
+            key: ExtraData
+          OrderLineIdentifier: OrderLineIdentifier
+          LineAmountInclTax: 5.962133916683182
+      properties:
+        OrderIdentifier:
+          nullable: true
+          type: string
+        MerchantRefundNo:
+          nullable: true
+          type: string
+        Reason:
+          $ref: '#/components/schemas/RefundReason'
+        MerchantComment:
+          nullable: true
+          type: string
+        AdditionalAmountInclTax:
+          format: decimal
+          type: number
+        ShippingAmountInclTax:
+          format: decimal
+          type: number
+        RefundDate:
+          format: date-time
+          type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantCreateRefundLine'
+          nullable: true
+          type: array
+      type: object
+    MerchantCreateRefundLine:
+      additionalProperties: false
+      example:
+        MerchantRefundLineNo: MerchantRefundLineNo
+        ExtraData:
+          key: ExtraData
+        OrderLineIdentifier: OrderLineIdentifier
+        LineAmountInclTax: 5.962133916683182
+      properties:
+        OrderLineIdentifier:
+          nullable: true
+          type: string
+        LineAmountInclTax:
+          format: decimal
+          type: number
+        MerchantRefundLineNo:
+          nullable: true
+          type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+      type: object
     MerchantCreateReportResponse:
       additionalProperties: false
       example:
@@ -8261,10 +9821,81 @@ components:
         Status:
           $ref: '#/components/schemas/ReportStatus'
       type: object
+    MerchantCreateReturn:
+      additionalProperties: false
+      example:
+        ReturnDate: 2000-01-23T04:56:07.000+00:00
+        MerchantComment: MerchantComment
+        OrderIdentifier: OrderIdentifier
+        MerchantReturnNo: MerchantReturnNo
+        ExtraData:
+          key: ExtraData
+        Reason: PRODUCT_DEFECT
+        Lines:
+        - MerchantReturnLineNo: MerchantReturnLineNo
+          Quantity: 6
+          ExtraData:
+            key: ExtraData
+          OrderLineIdentifier: OrderLineIdentifier
+        - MerchantReturnLineNo: MerchantReturnLineNo
+          Quantity: 6
+          ExtraData:
+            key: ExtraData
+          OrderLineIdentifier: OrderLineIdentifier
+      properties:
+        OrderIdentifier:
+          nullable: true
+          type: string
+        MerchantReturnNo:
+          nullable: true
+          type: string
+        Reason:
+          $ref: '#/components/schemas/ModuleReturnReason'
+        MerchantComment:
+          nullable: true
+          type: string
+        ReturnDate:
+          format: date-time
+          type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        Lines:
+          items:
+            $ref: '#/components/schemas/MerchantCreateReturnLine'
+          nullable: true
+          type: array
+      type: object
+    MerchantCreateReturnLine:
+      additionalProperties: false
+      example:
+        MerchantReturnLineNo: MerchantReturnLineNo
+        Quantity: 6
+        ExtraData:
+          key: ExtraData
+        OrderLineIdentifier: OrderLineIdentifier
+      properties:
+        OrderLineIdentifier:
+          nullable: true
+          type: string
+        Quantity:
+          format: int32
+          type: integer
+        MerchantReturnLineNo:
+          nullable: true
+          type: string
+        ExtraData:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+      type: object
     MerchantCreateSettlementsReportRequest:
       additionalProperties: false
       example:
-        Type: SUMMARY
+        Type: DETAILED
         SettlementIds:
         - 0
         - 0
@@ -8434,6 +10065,26 @@ components:
         ResourceUrl:
           nullable: true
           type: string
+      type: object
+    MerchantHandleReturn:
+      additionalProperties: false
+      example:
+        Action: REFUND
+        ReturnLineIdentifier: ReturnLineIdentifier
+        Quantity: 6
+        ReturnIdentifier: ReturnIdentifier
+      properties:
+        ReturnIdentifier:
+          nullable: true
+          type: string
+        ReturnLineIdentifier:
+          nullable: true
+          type: string
+        Quantity:
+          format: int32
+          type: integer
+        Action:
+          $ref: '#/components/schemas/ReturnHandlingAction'
       type: object
     MerchantInvoiceUploadRequest:
       additionalProperties: false
@@ -8608,6 +10259,7 @@ components:
           Name: Name
         OriginalLineTotalExclVat: 4.652396432933246
         JurisCode: JurisCode
+        ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
         OriginalUnitVat: 6.704019297950036
         IsFulfillmentByMarketplace: true
         OriginalLineTotalInclVat: 3.353193347011243
@@ -8810,32 +10462,45 @@ components:
         Condition:
           $ref: '#/components/schemas/Condition'
         ExactDeliveryDate:
-          description: "Exact delivery date from channels, empty if channels not support\
-            \ this value"
+          description: "The exact date when the order (line) must be delivered. Delivery\
+            \ cannot occur before or after this date.\r\nThis can be empty if the\
+            \ channel does not provide this info."
           format: date-time
           nullable: true
           type: string
         ExpectedDeliveryDate:
-          description: "Expected delivery date from channels, empty if channels not\
-            \ support this value"
+          description: "The date when the order should be delivered. This field must\
+            \ always contain a value, either the exact date or the latest possible\
+            \ date.\r\nIf this value is not set, the system defaults to using the\
+            \ order date plus two days as the expected delivery date.\r\nThis field\
+            \ is used for backwards compatibility."
           format: date-time
           nullable: true
           type: string
         LatestDeliveryDate:
-          description: "Latest delivery date from channels, empty if channels not\
-            \ support this value"
+          description: "The latest possible date when the order (line) must be delivered.\
+            \ Delivery can occur on or before this date, but not after.\r\nThis can\
+            \ be empty if the channel does not provide this info."
+          format: date-time
+          nullable: true
+          type: string
+        ExactShipmentDate:
+          description: "The exact date when the order (line) must be shipped. Shipment\
+            \ cannot occur before or after this date.\r\nThis can be empty if the\
+            \ channel does not provide this info."
           format: date-time
           nullable: true
           type: string
         ExpectedShipmentDate:
-          description: "Expected shipment date from channels, empty if channels not\
-            \ support this value"
+          description: "The date when when the order (line) should be shipped.\r\n\
+            This can be empty if the channel does not provide this info."
           format: date-time
           nullable: true
           type: string
         LatestShipmentDate:
-          description: "Latest shipment date from channels, empty if channels not\
-            \ support this value"
+          description: "The latest possible date when the order (line) must be shipped.\
+            \ Shipment can occur on or before this date, but not after.\r\nThis can\
+            \ be empty if the channel does not provide this info."
           format: date-time
           nullable: true
           type: string
@@ -8885,6 +10550,7 @@ components:
             Name: Name
           OriginalLineTotalExclVat: 4.652396432933246
           JurisCode: JurisCode
+          ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
           OriginalUnitVat: 6.704019297950036
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 3.353193347011243
@@ -8928,6 +10594,7 @@ components:
             Name: Name
           OriginalLineTotalExclVat: 4.652396432933246
           JurisCode: JurisCode
+          ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
           OriginalUnitVat: 6.704019297950036
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 3.353193347011243
@@ -10478,6 +12145,7 @@ components:
             Name: Name
           OriginalLineTotalExclVat: 4.652396432933246
           JurisCode: JurisCode
+          ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
           OriginalUnitVat: 6.704019297950036
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 3.353193347011243
@@ -10692,6 +12360,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -10744,6 +12413,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -10971,12 +12641,14 @@ components:
       example:
         SettlementId: 0
         StartDate: 2000-01-23T04:56:07.000+00:00
-        TransactionsCount: 1
         ChannelSettlementNo: ChannelSettlementNo
         CreatedAt: 2000-01-23T04:56:07.000+00:00
+        PreviousReserveAmount: 5.962133916683182
         ChannelId: 6
+        PaymentAmount: 5.637376656633329
         EndDate: 2000-01-23T04:56:07.000+00:00
         UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        CurrentReserveAmount: 1.4658129805029452
       properties:
         SettlementId:
           format: int32
@@ -11000,9 +12672,18 @@ components:
         UpdatedAt:
           format: date-time
           type: string
-        TransactionsCount:
-          format: int32
-          type: integer
+        CurrentReserveAmount:
+          format: decimal
+          nullable: true
+          type: number
+        PreviousReserveAmount:
+          format: decimal
+          nullable: true
+          type: number
+        PaymentAmount:
+          format: decimal
+          nullable: true
+          type: number
       type: object
     MerchantShipmentLabelCarrierRequest:
       additionalProperties: false
@@ -11122,6 +12803,7 @@ components:
             Name: Name
           OriginalLineTotalExclVat: 4.652396432933246
           JurisCode: JurisCode
+          ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
           OriginalUnitVat: 6.704019297950036
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 3.353193347011243
@@ -11356,6 +13038,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -11407,6 +13090,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -11601,6 +13285,7 @@ components:
             Name: Name
           OriginalLineTotalExclVat: 4.652396432933246
           JurisCode: JurisCode
+          ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
           OriginalUnitVat: 6.704019297950036
           IsFulfillmentByMarketplace: true
           OriginalLineTotalInclVat: 3.353193347011243
@@ -11708,6 +13393,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -11759,6 +13445,7 @@ components:
               Name: Name
             OriginalLineTotalExclVat: 4.652396432933246
             JurisCode: JurisCode
+            ExactShipmentDate: 2000-01-23T04:56:07.000+00:00
             OriginalUnitVat: 6.704019297950036
             IsFulfillmentByMarketplace: true
             OriginalLineTotalInclVat: 3.353193347011243
@@ -12166,6 +13853,35 @@ components:
           nullable: true
           type: array
       type: object
+    ModuleFulfillmentType:
+      enum:
+      - ALL
+      - ONLY_MERCHANT
+      - ONLY_CHANNEL
+      - MIXED
+      - INCLUDES_MERCHANT
+      - INCLUDES_CHANNEL
+      type: string
+    ModuleReturnReason:
+      enum:
+      - PRODUCT_DEFECT
+      - PRODUCT_UNSATISFACTORY
+      - WRONG_PRODUCT
+      - TOO_MANY_PRODUCTS
+      - REFUSED
+      - REFUSED_DAMAGED
+      - WRONG_ADDRESS
+      - NOT_COLLECTED
+      - WRONG_SIZE
+      - OTHER
+      type: string
+    ModuleReturnStatus:
+      enum:
+      - NEW
+      - HANDLED
+      - CANCELLED
+      - IN_PROGRESS
+      type: string
     ModulesAdditionalDetailsType:
       enum:
       - SUR
@@ -12325,6 +14041,22 @@ components:
         path:
           type: string
       type: object
+    OrderIdentifier:
+      enum:
+      - ORDER_ID
+      - CHANNEL_ORDER_NO
+      - MERCHANT_ORDER_NO
+      type: string
+    OrderLineIdentifier:
+      enum:
+      - ORDER_LINE_ID
+      - CHANNEL_ORDER_LINE_NO
+      - MERCHANT_ORDER_LINE_NO
+      - PRODUCT_ID
+      - PRODUCT_GTIN
+      - CHANNEL_PRODUCT_NO
+      - MERCHANT_PRODUCT_NO
+      type: string
     OrderStatusView:
       enum:
       - IN_PROGRESS
@@ -12724,6 +14456,37 @@ components:
       - CHANNEL_PURCHASE_ORDER_NO
       - MERCHANT_PURCHASE_ORDER_NO
       type: string
+    RefundByFilterIdentifier:
+      enum:
+      - REFUND_ID
+      - CHANNEL_REFUND_NO
+      - MERCHANT_REFUND_NO
+      - ORDER_ID
+      - CHANNEL_ORDER_NO
+      - MERCHANT_ORDER_NO
+      - RETURN_ID
+      - CHANNEL_RETURN_NO
+      - MERCHANT_RETURN_NO
+      type: string
+    RefundIdentifier:
+      enum:
+      - REFUND_ID
+      - CHANNEL_REFUND_NO
+      - MERCHANT_REFUND_NO
+      type: string
+    RefundReason:
+      enum:
+      - PRODUCT_DEFECT
+      - PRODUCT_UNSATISFACTORY
+      - WRONG_PRODUCT
+      - TOO_MANY_PRODUCTS
+      - REFUSED
+      - REFUSED_DAMAGED
+      - WRONG_ADDRESS
+      - NOT_COLLECTED
+      - WRONG_SIZE
+      - OTHER
+      type: string
     RemoveProductExtraDataRequests:
       additionalProperties: false
       example:
@@ -12759,9 +14522,35 @@ components:
       type: string
     ReportType:
       enum:
-      - SUMMARY
       - DETAILED
       - CUSTOM_JSON
+      type: string
+    ReturnByFilterIdentifier:
+      enum:
+      - RETURN_ID
+      - CHANNEL_RETURN_NO
+      - MERCHANT_RETURN_NO
+      - ORDER_ID
+      - CHANNEL_ORDER_NO
+      - MERCHANT_ORDER_NO
+      type: string
+    ReturnHandlingAction:
+      enum:
+      - REFUND
+      - EXCHANGE
+      - REPAIR
+      - KEEP
+      - REJECT
+      type: string
+    ReturnIdentifier:
+      enum:
+      - RETURN_ID
+      - CHANNEL_RETURN_NO
+      - MERCHANT_RETURN_NO
+      type: string
+    ReturnLineIdentifier:
+      enum:
+      - RETURN_LINE_ID
       type: string
     ReturnReason:
       enum:
@@ -12880,6 +14669,42 @@ components:
           $ref: '#/components/schemas/PurchaseOrderIdentifierType'
         Model:
           $ref: '#/components/schemas/MerchantAcknowledgePurchaseOrder'
+      type: object
+    SingleMerchantAcknowledgeRefundRequest:
+      additionalProperties: false
+      example:
+        Model:
+          Identifier: Identifier
+          MerchantRefundNo: MerchantRefundNo
+        ChannelId: 0
+        IdentifierType: REFUND_ID
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        IdentifierType:
+          $ref: '#/components/schemas/RefundIdentifier'
+        Model:
+          $ref: '#/components/schemas/MerchantAcknowledgeRefund'
+      type: object
+    SingleMerchantAcknowledgeReturnRequest:
+      additionalProperties: false
+      example:
+        Model:
+          Identifier: Identifier
+          MerchantReturnNo: MerchantReturnNo
+        ChannelId: 0
+        IdentifierType: RETURN_ID
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        IdentifierType:
+          $ref: '#/components/schemas/ReturnIdentifier'
+        Model:
+          $ref: '#/components/schemas/MerchantAcknowledgeReturn'
       type: object
     SingleMerchantCreatePurchaseOrderInvoiceRequest:
       additionalProperties: false
@@ -13467,6 +15292,105 @@ components:
         Model:
           $ref: '#/components/schemas/CreatePurchaseOrderShipment'
       type: object
+    SingleMerchantCreateRefundRequest:
+      additionalProperties: false
+      example:
+        Model:
+          MerchantComment: MerchantComment
+          AdditionalAmountInclTax: 6.027456183070403
+          OrderIdentifier: OrderIdentifier
+          RefundDate: 2000-01-23T04:56:07.000+00:00
+          ExtraData:
+            key: ExtraData
+          MerchantRefundNo: MerchantRefundNo
+          Reason: PRODUCT_DEFECT
+          ShippingAmountInclTax: 1.4658129805029452
+          Lines:
+          - MerchantRefundLineNo: MerchantRefundLineNo
+            ExtraData:
+              key: ExtraData
+            OrderLineIdentifier: OrderLineIdentifier
+            LineAmountInclTax: 5.962133916683182
+          - MerchantRefundLineNo: MerchantRefundLineNo
+            ExtraData:
+              key: ExtraData
+            OrderLineIdentifier: OrderLineIdentifier
+            LineAmountInclTax: 5.962133916683182
+        ChannelId: 0
+        IdentifierType: ORDER_ID
+        LineIdentifierType: ORDER_LINE_ID
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        LineIdentifierType:
+          $ref: '#/components/schemas/OrderLineIdentifier'
+        IdentifierType:
+          $ref: '#/components/schemas/OrderIdentifier'
+        Model:
+          $ref: '#/components/schemas/MerchantCreateRefund'
+      type: object
+    SingleMerchantCreateReturnRequest:
+      additionalProperties: false
+      example:
+        Model:
+          ReturnDate: 2000-01-23T04:56:07.000+00:00
+          MerchantComment: MerchantComment
+          OrderIdentifier: OrderIdentifier
+          MerchantReturnNo: MerchantReturnNo
+          ExtraData:
+            key: ExtraData
+          Reason: PRODUCT_DEFECT
+          Lines:
+          - MerchantReturnLineNo: MerchantReturnLineNo
+            Quantity: 6
+            ExtraData:
+              key: ExtraData
+            OrderLineIdentifier: OrderLineIdentifier
+          - MerchantReturnLineNo: MerchantReturnLineNo
+            Quantity: 6
+            ExtraData:
+              key: ExtraData
+            OrderLineIdentifier: OrderLineIdentifier
+        ChannelId: 0
+        IdentifierType: ORDER_ID
+        LineIdentifierType: ORDER_LINE_ID
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        LineIdentifierType:
+          $ref: '#/components/schemas/OrderLineIdentifier'
+        IdentifierType:
+          $ref: '#/components/schemas/OrderIdentifier'
+        Model:
+          $ref: '#/components/schemas/MerchantCreateReturn'
+      type: object
+    SingleMerchantHandleReturnRequest:
+      additionalProperties: false
+      example:
+        Model:
+          Action: REFUND
+          ReturnLineIdentifier: ReturnLineIdentifier
+          Quantity: 6
+          ReturnIdentifier: ReturnIdentifier
+        ChannelId: 0
+        IdentifierType: RETURN_ID
+        LineIdentifierType: RETURN_LINE_ID
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        LineIdentifierType:
+          $ref: '#/components/schemas/ReturnLineIdentifier'
+        IdentifierType:
+          $ref: '#/components/schemas/ReturnIdentifier'
+        Model:
+          $ref: '#/components/schemas/MerchantHandleReturn'
+      type: object
     SingleMerchantUpdatePurchaseOrderShipmentRequest:
       additionalProperties: false
       example:
@@ -13557,6 +15481,63 @@ components:
           nullable: true
           type: object
       type: object
+    SingleOfDeleteTargetsResponse:
+      additionalProperties: false
+      example:
+        ExceptionType: ExceptionType
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+          DeletedTargets:
+          - Month: 6
+            Year: 1
+            ChannelId: 0
+          - Month: 6
+            Year: 1
+            ChannelId: 0
+          NotExistingTargets:
+          - Month: 6
+            Year: 1
+            ChannelId: 0
+          - Month: 6
+            Year: 1
+            ChannelId: 0
+        StatusCode: 5
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          $ref: '#/components/schemas/DeleteTargetsResponse'
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ExceptionType:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            nullable: true
+            type: array
+          nullable: true
+          type: object
+      type: object
     SingleOfDictionaryOfStringAndListOfString:
       additionalProperties: false
       example:
@@ -13583,6 +15564,297 @@ components:
             type: array
           nullable: true
           type: object
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ExceptionType:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            nullable: true
+            type: array
+          nullable: true
+          type: object
+      type: object
+    SingleOfIRefund:
+      additionalProperties: false
+      example:
+        ExceptionType: ExceptionType
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+          MerchantComment: MerchantComment
+          ReturnId: 7
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          SubTotalInclTax: 6.027456183070403
+          OriginalShippingCostInclTax: 7.061401241503109
+          ChannelId: 4
+          MerchantRefundNo: MerchantRefundNo
+          Reason: PRODUCT_DEFECT
+          TotalInclTax: 9.301444243932576
+          Currency:
+            ExchangeRate: 1.2315135367772556
+            TenantCurrencyCode: TenantCurrencyCode
+            OriginalCurrencyCode: OriginalCurrencyCode
+          ChannelRefundNo: ChannelRefundNo
+          ChannelAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          OriginalAdditionalAmountInclTax: 5.637376656633329
+          ChannelOrderNo: ChannelOrderNo
+          AdditionalAmountInclTax: 5.962133916683182
+          MerchantAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+          ExternalBatchNo: ExternalBatchNo
+          ChannelExportStatus: AWAITING_EXPORT
+          RefundDate: 2000-01-23T04:56:07.000+00:00
+          OrderId: 2
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          CreatedByType: MERCHANT
+          OriginalSubTotalInclTax: 1.4658129805029452
+          ShippingCostInclTax: 2.3021358869347655
+          Id: 0
+          OriginalTotalInclTax: 3.616076749251911
+          Lines:
+          - ProductName: ProductName
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            OriginalUnitTax: 4.965218492984954
+            ProductId: 6
+            LineAmountInclTax: 1.4894159098541704
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            OriginalLineTotalInclTax: 1.1730742509559433
+            MerchantRefundLineNo: MerchantRefundLineNo
+            ReturnLineId: 9
+            OrderLineId: 9
+            ChannelOrderLineNo: ChannelOrderLineNo
+            LineTotalInclTax: 7.457744773683766
+            Id: 1
+            RefundId: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            OriginalLineAmountInclTax: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+          - ProductName: ProductName
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            OriginalUnitTax: 4.965218492984954
+            ProductId: 6
+            LineAmountInclTax: 1.4894159098541704
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            OriginalLineTotalInclTax: 1.1730742509559433
+            MerchantRefundLineNo: MerchantRefundLineNo
+            ReturnLineId: 9
+            OrderLineId: 9
+            ChannelOrderLineNo: ChannelOrderLineNo
+            LineTotalInclTax: 7.457744773683766
+            Id: 1
+            RefundId: 5
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+            OriginalLineAmountInclTax: 6.84685269835264
+            ChannelProductNo: ChannelProductNo
+        StatusCode: 8
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          $ref: '#/components/schemas/IRefund'
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ExceptionType:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            nullable: true
+            type: array
+          nullable: true
+          type: object
+      type: object
+    SingleOfIReturn:
+      additionalProperties: false
+      example:
+        ExceptionType: ExceptionType
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+          Status: NEW
+          ReturnDate: 2000-01-23T04:56:07.000+00:00
+          MerchantComment: MerchantComment
+          ChannelOrderNo: ChannelOrderNo
+          MerchantAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+          ExternalBatchNo: ExternalBatchNo
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          MerchantReturnNo: MerchantReturnNo
+          ChannelExportStatus: AWAITING_EXPORT
+          OrderId: 2
+          ChannelId: 4
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          Reason: PRODUCT_DEFECT
+          OrderDate: 2000-01-23T04:56:07.000+00:00
+          CreatedByType: MERCHANT
+          ChannelReturnNo: ChannelReturnNo
+          ChannelAcknowledgedDate: 2000-01-23T04:56:07.000+00:00
+          Id: 3
+          DeletedAt: 2000-01-23T04:56:07.000+00:00
+          Lines:
+          - MerchantReturnLineNo: MerchantReturnLineNo
+            HandlingResults:
+            - ReturnLineId: 2
+              Action: REFUND
+              CreatedAt: 2000-01-23T04:56:07.000+00:00
+              Quantity: 7
+              Id: 5
+              DeletedAt: 2000-01-23T04:56:07.000+00:00
+              UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            - ReturnLineId: 2
+              Action: REFUND
+              CreatedAt: 2000-01-23T04:56:07.000+00:00
+              Quantity: 7
+              Id: 5
+              DeletedAt: 2000-01-23T04:56:07.000+00:00
+              UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantOrderLineNo: MerchantOrderLineNo
+            ProductName: ProductName
+            ReturnId: 6
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 5
+            ProductId: 9
+            ChannelReturnLineNo: ChannelReturnLineNo
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            OrderLineId: 1
+            ChannelOrderLineNo: ChannelOrderLineNo
+            Id: 0
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+          - MerchantReturnLineNo: MerchantReturnLineNo
+            HandlingResults:
+            - ReturnLineId: 2
+              Action: REFUND
+              CreatedAt: 2000-01-23T04:56:07.000+00:00
+              Quantity: 7
+              Id: 5
+              DeletedAt: 2000-01-23T04:56:07.000+00:00
+              UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            - ReturnLineId: 2
+              Action: REFUND
+              CreatedAt: 2000-01-23T04:56:07.000+00:00
+              Quantity: 7
+              Id: 5
+              DeletedAt: 2000-01-23T04:56:07.000+00:00
+              UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantOrderLineNo: MerchantOrderLineNo
+            ProductName: ProductName
+            ReturnId: 6
+            CreatedAt: 2000-01-23T04:56:07.000+00:00
+            Quantity: 5
+            ProductId: 9
+            ChannelReturnLineNo: ChannelReturnLineNo
+            UpdatedAt: 2000-01-23T04:56:07.000+00:00
+            OrderLineId: 1
+            ChannelOrderLineNo: ChannelOrderLineNo
+            Id: 0
+            DeletedAt: 2000-01-23T04:56:07.000+00:00
+            MerchantProductNo: MerchantProductNo
+        StatusCode: 7
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          $ref: '#/components/schemas/IReturn'
+        StatusCode:
+          format: int32
+          type: integer
+        RequestId:
+          nullable: true
+          type: string
+        LogId:
+          nullable: true
+          type: string
+        Success:
+          type: boolean
+        Message:
+          nullable: true
+          type: string
+        ExceptionType:
+          nullable: true
+          type: string
+        ValidationErrors:
+          additionalProperties:
+            items:
+              type: string
+            nullable: true
+            type: array
+          nullable: true
+          type: object
+      type: object
+    SingleOfListOfTargetResponseVm:
+      additionalProperties: false
+      example:
+        ExceptionType: ExceptionType
+        RequestId: RequestId
+        Message: Message
+        ValidationErrors:
+          key:
+          - ValidationErrors
+          - ValidationErrors
+        Content:
+        - TargetInclVat: 6.027456183070403
+          Month: 5
+          Year: 5
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ChannelId: 0
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          TargetExclVat: 1.4658129805029452
+        - TargetInclVat: 6.027456183070403
+          Month: 5
+          Year: 5
+          CreatedAt: 2000-01-23T04:56:07.000+00:00
+          ChannelId: 0
+          UpdatedAt: 2000-01-23T04:56:07.000+00:00
+          TargetExclVat: 1.4658129805029452
+        StatusCode: 2
+        LogId: LogId
+        Success: true
+      properties:
+        Content:
+          items:
+            $ref: '#/components/schemas/TargetResponseVm'
+          nullable: true
+          type: array
         StatusCode:
           format: int32
           type: integer
@@ -13836,6 +16108,42 @@ components:
           nullable: true
           type: object
       type: object
+    TargetResponseVm:
+      additionalProperties: false
+      example:
+        TargetInclVat: 6.027456183070403
+        Month: 5
+        Year: 5
+        CreatedAt: 2000-01-23T04:56:07.000+00:00
+        ChannelId: 0
+        UpdatedAt: 2000-01-23T04:56:07.000+00:00
+        TargetExclVat: 1.4658129805029452
+      properties:
+        ChannelId:
+          format: int32
+          nullable: true
+          type: integer
+        TargetInclVat:
+          format: decimal
+          nullable: true
+          type: number
+        TargetExclVat:
+          format: decimal
+          nullable: true
+          type: number
+        CreatedAt:
+          format: date-time
+          type: string
+        UpdatedAt:
+          format: date-time
+          type: string
+        Month:
+          format: int32
+          type: integer
+        Year:
+          format: int32
+          type: integer
+      type: object
     UpdatePurchaseOrderShipment:
       additionalProperties: false
       example:
@@ -13998,8 +16306,8 @@ components:
     SettlementUploadSettlement_request:
       properties:
         settlement:
-          description: "Settlement file up to 1 MB with additional data.\r\nFormat\
-            \ should be the one that the channel expects."
+          description: "The settlement file must not exceed 1MB in size.\r\nUse the\
+            \ file format originally provided by the marketplace (usually CSV)."
           format: binary
           type: string
       required:
@@ -14011,4 +16319,4 @@ components:
       in: query
       name: apikey
       type: apiKey
-x-version: 2.14.0
+x-version: 2.17.0

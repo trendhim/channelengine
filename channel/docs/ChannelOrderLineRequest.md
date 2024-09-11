@@ -12,11 +12,12 @@ Name | Type | Description | Notes
 **FeeFixed** | Pointer to **float32** | A fixed fee that is charged by the Channel for this orderline.  This fee rate is based on the currency of the Channel  This field is optional, send 0 if not applicable. | [optional] 
 **FeeRate** | Pointer to **float32** | A percentage fee that is charged by the Channel for this orderline.  This field is optional, send 0 if not applicable. | [optional] 
 **Condition** | Pointer to [**Condition**](Condition.md) |  | [optional] 
-**ExactDeliveryDate** | Pointer to **NullableTime** | Exact delivery date from channels, empty if channels not support this value | [optional] 
-**ExpectedDeliveryDate** | Pointer to **NullableTime** | Expected delivery date from channels, empty if channels not support this value | [optional] 
-**LatestDeliveryDate** | Pointer to **NullableTime** | Latest delivery date from channels, empty if channels not support this value | [optional] 
-**ExpectedShipmentDate** | Pointer to **NullableTime** | Expected shipment date from channels, empty if channels not support this value | [optional] 
-**LatestShipmentDate** | Pointer to **NullableTime** | Latest shipment date from channels, empty if channels not support this value | [optional] 
+**ExactDeliveryDate** | Pointer to **NullableTime** | The exact date when the order (line) must be delivered. Delivery cannot occur before or after this date.  This can be empty if the channel does not provide this info. | [optional] 
+**ExpectedDeliveryDate** | Pointer to **NullableTime** | The date when the order should be delivered. This field must always contain a value, either the exact date or the latest possible date.  If this value is not set, the system defaults to using the order date plus two days as the expected delivery date.  This field is used for backwards compatibility. | [optional] 
+**LatestDeliveryDate** | Pointer to **NullableTime** | The latest possible date when the order (line) must be delivered. Delivery can occur on or before this date, but not after.  This can be empty if the channel does not provide this info. | [optional] 
+**ExactShipmentDate** | Pointer to **NullableTime** | The exact date when the order (line) must be shipped. Shipment cannot occur before or after this date.  This can be empty if the channel does not provide this info. | [optional] 
+**ExpectedShipmentDate** | Pointer to **NullableTime** | The date when when the order (line) should be shipped.  This can be empty if the channel does not provide this info. | [optional] 
+**LatestShipmentDate** | Pointer to **NullableTime** | The latest possible date when the order (line) must be shipped. Shipment can occur on or before this date, but not after.  This can be empty if the channel does not provide this info. | [optional] 
 
 ## Methods
 
@@ -337,6 +338,41 @@ HasLatestDeliveryDate returns a boolean if a field has been set.
 `func (o *ChannelOrderLineRequest) UnsetLatestDeliveryDate()`
 
 UnsetLatestDeliveryDate ensures that no value is present for LatestDeliveryDate, not even an explicit nil
+### GetExactShipmentDate
+
+`func (o *ChannelOrderLineRequest) GetExactShipmentDate() time.Time`
+
+GetExactShipmentDate returns the ExactShipmentDate field if non-nil, zero value otherwise.
+
+### GetExactShipmentDateOk
+
+`func (o *ChannelOrderLineRequest) GetExactShipmentDateOk() (*time.Time, bool)`
+
+GetExactShipmentDateOk returns a tuple with the ExactShipmentDate field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetExactShipmentDate
+
+`func (o *ChannelOrderLineRequest) SetExactShipmentDate(v time.Time)`
+
+SetExactShipmentDate sets ExactShipmentDate field to given value.
+
+### HasExactShipmentDate
+
+`func (o *ChannelOrderLineRequest) HasExactShipmentDate() bool`
+
+HasExactShipmentDate returns a boolean if a field has been set.
+
+### SetExactShipmentDateNil
+
+`func (o *ChannelOrderLineRequest) SetExactShipmentDateNil(b bool)`
+
+ SetExactShipmentDateNil sets the value for ExactShipmentDate to be an explicit nil
+
+### UnsetExactShipmentDate
+`func (o *ChannelOrderLineRequest) UnsetExactShipmentDate()`
+
+UnsetExactShipmentDate ensures that no value is present for ExactShipmentDate, not even an explicit nil
 ### GetExpectedShipmentDate
 
 `func (o *ChannelOrderLineRequest) GetExpectedShipmentDate() time.Time`

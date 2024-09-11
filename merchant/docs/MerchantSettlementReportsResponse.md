@@ -11,7 +11,9 @@ Name | Type | Description | Notes
 **EndDate** | Pointer to **time.Time** |  | [optional] 
 **CreatedAt** | Pointer to **time.Time** |  | [optional] 
 **UpdatedAt** | Pointer to **time.Time** |  | [optional] 
-**TransactionsCount** | Pointer to **int32** |  | [optional] 
+**CurrentReserveAmount** | Pointer to **NullableFloat32** |  | [optional] 
+**PreviousReserveAmount** | Pointer to **NullableFloat32** |  | [optional] 
+**PaymentAmount** | Pointer to **NullableFloat32** |  | [optional] 
 
 ## Methods
 
@@ -227,31 +229,111 @@ SetUpdatedAt sets UpdatedAt field to given value.
 
 HasUpdatedAt returns a boolean if a field has been set.
 
-### GetTransactionsCount
+### GetCurrentReserveAmount
 
-`func (o *MerchantSettlementReportsResponse) GetTransactionsCount() int32`
+`func (o *MerchantSettlementReportsResponse) GetCurrentReserveAmount() float32`
 
-GetTransactionsCount returns the TransactionsCount field if non-nil, zero value otherwise.
+GetCurrentReserveAmount returns the CurrentReserveAmount field if non-nil, zero value otherwise.
 
-### GetTransactionsCountOk
+### GetCurrentReserveAmountOk
 
-`func (o *MerchantSettlementReportsResponse) GetTransactionsCountOk() (*int32, bool)`
+`func (o *MerchantSettlementReportsResponse) GetCurrentReserveAmountOk() (*float32, bool)`
 
-GetTransactionsCountOk returns a tuple with the TransactionsCount field if it's non-nil, zero value otherwise
+GetCurrentReserveAmountOk returns a tuple with the CurrentReserveAmount field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
-### SetTransactionsCount
+### SetCurrentReserveAmount
 
-`func (o *MerchantSettlementReportsResponse) SetTransactionsCount(v int32)`
+`func (o *MerchantSettlementReportsResponse) SetCurrentReserveAmount(v float32)`
 
-SetTransactionsCount sets TransactionsCount field to given value.
+SetCurrentReserveAmount sets CurrentReserveAmount field to given value.
 
-### HasTransactionsCount
+### HasCurrentReserveAmount
 
-`func (o *MerchantSettlementReportsResponse) HasTransactionsCount() bool`
+`func (o *MerchantSettlementReportsResponse) HasCurrentReserveAmount() bool`
 
-HasTransactionsCount returns a boolean if a field has been set.
+HasCurrentReserveAmount returns a boolean if a field has been set.
 
+### SetCurrentReserveAmountNil
+
+`func (o *MerchantSettlementReportsResponse) SetCurrentReserveAmountNil(b bool)`
+
+ SetCurrentReserveAmountNil sets the value for CurrentReserveAmount to be an explicit nil
+
+### UnsetCurrentReserveAmount
+`func (o *MerchantSettlementReportsResponse) UnsetCurrentReserveAmount()`
+
+UnsetCurrentReserveAmount ensures that no value is present for CurrentReserveAmount, not even an explicit nil
+### GetPreviousReserveAmount
+
+`func (o *MerchantSettlementReportsResponse) GetPreviousReserveAmount() float32`
+
+GetPreviousReserveAmount returns the PreviousReserveAmount field if non-nil, zero value otherwise.
+
+### GetPreviousReserveAmountOk
+
+`func (o *MerchantSettlementReportsResponse) GetPreviousReserveAmountOk() (*float32, bool)`
+
+GetPreviousReserveAmountOk returns a tuple with the PreviousReserveAmount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPreviousReserveAmount
+
+`func (o *MerchantSettlementReportsResponse) SetPreviousReserveAmount(v float32)`
+
+SetPreviousReserveAmount sets PreviousReserveAmount field to given value.
+
+### HasPreviousReserveAmount
+
+`func (o *MerchantSettlementReportsResponse) HasPreviousReserveAmount() bool`
+
+HasPreviousReserveAmount returns a boolean if a field has been set.
+
+### SetPreviousReserveAmountNil
+
+`func (o *MerchantSettlementReportsResponse) SetPreviousReserveAmountNil(b bool)`
+
+ SetPreviousReserveAmountNil sets the value for PreviousReserveAmount to be an explicit nil
+
+### UnsetPreviousReserveAmount
+`func (o *MerchantSettlementReportsResponse) UnsetPreviousReserveAmount()`
+
+UnsetPreviousReserveAmount ensures that no value is present for PreviousReserveAmount, not even an explicit nil
+### GetPaymentAmount
+
+`func (o *MerchantSettlementReportsResponse) GetPaymentAmount() float32`
+
+GetPaymentAmount returns the PaymentAmount field if non-nil, zero value otherwise.
+
+### GetPaymentAmountOk
+
+`func (o *MerchantSettlementReportsResponse) GetPaymentAmountOk() (*float32, bool)`
+
+GetPaymentAmountOk returns a tuple with the PaymentAmount field if it's non-nil, zero value otherwise
+and a boolean to check if the value has been set.
+
+### SetPaymentAmount
+
+`func (o *MerchantSettlementReportsResponse) SetPaymentAmount(v float32)`
+
+SetPaymentAmount sets PaymentAmount field to given value.
+
+### HasPaymentAmount
+
+`func (o *MerchantSettlementReportsResponse) HasPaymentAmount() bool`
+
+HasPaymentAmount returns a boolean if a field has been set.
+
+### SetPaymentAmountNil
+
+`func (o *MerchantSettlementReportsResponse) SetPaymentAmountNil(b bool)`
+
+ SetPaymentAmountNil sets the value for PaymentAmount to be an explicit nil
+
+### UnsetPaymentAmount
+`func (o *MerchantSettlementReportsResponse) UnsetPaymentAmount()`
+
+UnsetPaymentAmount ensures that no value is present for PaymentAmount, not even an explicit nil
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

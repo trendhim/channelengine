@@ -8,6 +8,8 @@ Method | HTTP request | Description
 [**Create**](PurchaseOrdersAPI.md#Create) | **Post** /v2/purchase-orders/shipments | Create a purchase order shipment.
 [**GetByFilter**](PurchaseOrdersAPI.md#GetByFilter) | **Get** /v2/purchase-orders/shipments/merchant | Gets purchase order shipments by filter
 [**GetByFilter_0**](PurchaseOrdersAPI.md#GetByFilter_0) | **Get** /v2/purchase-orders | Gets purchase orders by filter
+[**PurchaseOrdersCreateInvoice**](PurchaseOrdersAPI.md#PurchaseOrdersCreateInvoice) | **Post** /v2/purchase-orders/invoice | Creates a purchase order invoice
+[**PurchaseOrdersCreateInvoices**](PurchaseOrdersAPI.md#PurchaseOrdersCreateInvoices) | **Post** /v2/purchase-orders/invoice/bulk | Creates a purchase order invoices in a bulk
 [**Update**](PurchaseOrdersAPI.md#Update) | **Put** /v2/purchase-orders/shipments | Update a purchase order shipment.
 
 
@@ -319,6 +321,138 @@ Name | Type | Description  | Notes
 ### HTTP request headers
 
 - **Content-Type**: Not defined
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PurchaseOrdersCreateInvoice
+
+> ApiResponse PurchaseOrdersCreateInvoice(ctx).SingleMerchantCreatePurchaseOrderInvoiceRequest(singleMerchantCreatePurchaseOrderInvoiceRequest).Execute()
+
+Creates a purchase order invoice
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
+)
+
+func main() {
+	singleMerchantCreatePurchaseOrderInvoiceRequest := *openapiclient.NewSingleMerchantCreatePurchaseOrderInvoiceRequest() // SingleMerchantCreatePurchaseOrderInvoiceRequest | Model for purchase order invoice. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PurchaseOrdersAPI.PurchaseOrdersCreateInvoice(context.Background()).SingleMerchantCreatePurchaseOrderInvoiceRequest(singleMerchantCreatePurchaseOrderInvoiceRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PurchaseOrdersAPI.PurchaseOrdersCreateInvoice``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PurchaseOrdersCreateInvoice`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `PurchaseOrdersAPI.PurchaseOrdersCreateInvoice`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPurchaseOrdersCreateInvoiceRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **singleMerchantCreatePurchaseOrderInvoiceRequest** | [**SingleMerchantCreatePurchaseOrderInvoiceRequest**](SingleMerchantCreatePurchaseOrderInvoiceRequest.md) | Model for purchase order invoice. | 
+
+### Return type
+
+[**ApiResponse**](ApiResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json-patch+json, application/json, application/*+json
+- **Accept**: application/json
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
+[[Back to Model list]](../README.md#documentation-for-models)
+[[Back to README]](../README.md)
+
+
+## PurchaseOrdersCreateInvoices
+
+> ApiResponse PurchaseOrdersCreateInvoices(ctx).BulkMerchantCreatePurchaseOrderInvoicesRequest(bulkMerchantCreatePurchaseOrderInvoicesRequest).Execute()
+
+Creates a purchase order invoices in a bulk
+
+
+
+### Example
+
+```go
+package main
+
+import (
+	"context"
+	"fmt"
+	"os"
+	openapiclient "github.com/trendhim/channelengine/merchant"
+)
+
+func main() {
+	bulkMerchantCreatePurchaseOrderInvoicesRequest := *openapiclient.NewBulkMerchantCreatePurchaseOrderInvoicesRequest() // BulkMerchantCreatePurchaseOrderInvoicesRequest | Model for purchase order invoices. (optional)
+
+	configuration := openapiclient.NewConfiguration()
+	apiClient := openapiclient.NewAPIClient(configuration)
+	resp, r, err := apiClient.PurchaseOrdersAPI.PurchaseOrdersCreateInvoices(context.Background()).BulkMerchantCreatePurchaseOrderInvoicesRequest(bulkMerchantCreatePurchaseOrderInvoicesRequest).Execute()
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Error when calling `PurchaseOrdersAPI.PurchaseOrdersCreateInvoices``: %v\n", err)
+		fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
+	}
+	// response from `PurchaseOrdersCreateInvoices`: ApiResponse
+	fmt.Fprintf(os.Stdout, "Response from `PurchaseOrdersAPI.PurchaseOrdersCreateInvoices`: %v\n", resp)
+}
+```
+
+### Path Parameters
+
+
+
+### Other Parameters
+
+Other parameters are passed through a pointer to a apiPurchaseOrdersCreateInvoicesRequest struct via the builder pattern
+
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **bulkMerchantCreatePurchaseOrderInvoicesRequest** | [**BulkMerchantCreatePurchaseOrderInvoicesRequest**](BulkMerchantCreatePurchaseOrderInvoicesRequest.md) | Model for purchase order invoices. | 
+
+### Return type
+
+[**ApiResponse**](ApiResponse.md)
+
+### Authorization
+
+[apiKey](../README.md#apiKey)
+
+### HTTP request headers
+
+- **Content-Type**: application/json-patch+json, application/json, application/*+json
 - **Accept**: application/json
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints)
